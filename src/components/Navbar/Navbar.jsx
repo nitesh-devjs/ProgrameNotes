@@ -52,6 +52,31 @@ export default function Navbar() {
 
         {/* Actions */}
         <div className={styles.actions}>
+          {/* Store CTA & Dropdown */}
+          <div className={styles.storeDropdownContainer}>
+            <Link to="/store" className={styles.storeCta}>
+              <ShoppingBag size={15} />
+              Programe Notes
+            </Link>
+            <div className={styles.storeDropdown}>
+              <Link to="/language/python" style={{color: '#3b82f6'}}>🐍 Python</Link>
+              <Link to="/language/java" style={{color: '#ef4444'}}>☕ Java</Link>
+              <Link to="/language/javascript" style={{color: '#eab308'}}>⚡ JavaScript</Link>
+              <Link to="/language/c" style={{color: '#2563eb'}}>💻 C</Link>
+              <Link to="/language/cpp" style={{color: '#a855f7'}}>⚙️ C++</Link>
+              <Link to="/language/r" style={{color: '#10b981'}}>📊 R</Link>
+              <Link to="/language/typescript" style={{color: '#3178c6'}}>📘 TypeScript</Link>
+              <Link to="/language/csharp" style={{color: '#9333ea'}}>🟣 C#</Link>
+              <Link to="/language/swift" style={{color: '#f97316'}}>🐦 Swift</Link>
+              <Link to="/language/php" style={{color: '#6366f1'}}>🐘 PHP</Link>
+              <Link to="/language/rust" style={{color: '#ea580c'}}>🦀 Rust</Link>
+              <Link to="/language/ruby" style={{color: '#dc2626'}}>♦️ Ruby</Link>
+              <Link to="/language/dart" style={{color: '#0284c7'}}>🎯 Dart</Link>
+              <Link to="/language/html-css" style={{color: '#f97316'}}>🌐 HTML & CSS</Link>
+              <Link to="/language/reactjs" style={{color: '#06b6d4'}}>⚛️ React JS</Link>
+            </div>
+          </div>
+
           {/* Currency Toggle */}
           <button
             className={styles.currBtn}
@@ -67,12 +92,6 @@ export default function Navbar() {
           <button className={styles.iconBtn} onClick={toggleTheme} title="Toggle theme" aria-label="Toggle theme">
             {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
           </button>
-
-          {/* Store CTA */}
-          <Link to="/store" className={styles.storeCta}>
-            <ShoppingBag size={15} />
-            Browse Store
-          </Link>
 
           {/* Mobile Hamburger */}
           <button

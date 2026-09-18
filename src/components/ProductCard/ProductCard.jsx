@@ -20,7 +20,7 @@ export default function ProductCard({ product, onBuyNow, onPreview }) {
     : null;
 
   return (
-    <div className={styles.card}>
+    <Link to={`/store/${product.id}`} className={styles.card} style={{ textDecoration: 'none' }}>
       {/* Thumbnail */}
       <div className={styles.thumb}>
         <img src={product.thumbnail} alt={product.title} loading="lazy" className={styles.img} />
@@ -66,16 +66,23 @@ export default function ProductCard({ product, onBuyNow, onPreview }) {
           </div>
           <div className={styles.cardBtns}>
             {onPreview && (
-              <button className={styles.previewBtn} onClick={() => onPreview(product)} title="Preview">
+              <button 
+                className={styles.previewBtn} 
+                onClick={(e) => { e.preventDefault(); e.stopPropagation(); onPreview(product); }} 
+                title="Preview"
+              >
                 <Eye size={15} />
               </button>
             )}
-            <button className={styles.buyBtn} onClick={() => onBuyNow(product)}>
+            <button 
+              className={styles.buyBtn} 
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); onBuyNow(product); }}
+            >
               Buy Now
             </button>
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

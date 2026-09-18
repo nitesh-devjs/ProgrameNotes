@@ -1,4 +1,5 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Search, SlidersHorizontal, X } from 'lucide-react';
 import { PRODUCTS } from '../data/products';
 import ProductGrid from '../components/ProductGrid/ProductGrid';
@@ -7,20 +8,26 @@ import ScrollReveal from '../components/ScrollReveal/ScrollReveal';
 import styles from './Store.module.css';
 
 const CATS = [
-  { id: 'all',         label: 'All Notes' },
-  { id: 'programming', label: 'Programming' },
-  { id: 'science',     label: 'Science' },
-  { id: 'math',        label: 'Mathematics' },
-  { id: 'commerce',    label: 'Commerce' },
+  { id: 'all',          label: 'All Notes' },
+  { id: 'frontend',     label: 'Frontend' },
+  { id: 'backend',      label: 'Backend' },
+  { id: 'data_science', label: 'Data Science' },
+  { id: 'dsa',          label: 'DSA' },
 ];
 
 export default function Store() {
-  const [cat, setCat]     = useState('all');
+  const location = useLocation();
+  const searchParam = new URLSearchParams(location.search).get('cat');
+  
+  const [activeCat, setActiveCat] = useState(searchParam || 'all');
   const [query, setQuery] = useState('');
   const [selected, setSelected] = useState(null);
 
-  const searchParam = new URLSearchParams(window.location.search).get('cat');
-  const [activeCat, setActiveCat] = useState(searchParam || 'all');
+  useEffect(() => {
+    if (searchParam) {
+      setActiveCat(searchParam);
+    }
+  }, [searchParam]);
 
   const filtered = useMemo(() => {
     return PRODUCTS.filter(p => {
@@ -31,6 +38,12 @@ export default function Store() {
     });
   }, [activeCat, query]);
 
+  const isDedicatedCategory = !!searchParam;
+  const currentCatData = CATS.find(c => c.id === activeCat);
+  const pageTitle = isDedicatedCategory && currentCatData && currentCatData.id !== 'all'
+    ? `${currentCatData.label} Notes`
+    : 'All Premium Notes';
+
   return (
     <div className={styles.page}>
       {/* Page Header */}
@@ -38,7 +51,7 @@ export default function Store() {
         <div className="container">
           <ScrollReveal>
             <p className={styles.headerLabel}>Digital Store</p>
-            <h1 className={styles.headerTitle}>All Premium Notes</h1>
+            <h1 className={styles.headerTitle}>{pageTitle}</h1>
             <p className={styles.headerSub}>
               Handcrafted study material for every subject — ready to download in seconds.
             </p>
@@ -50,22 +63,24 @@ export default function Store() {
         {/* Filters */}
         <div className={styles.filters}>
           {/* Category Tabs */}
-          <div className={styles.catTabs}>
-            {CATS.map(({ id, label }) => (
-              <button
-                key={id}
-                className={`${styles.catTab} ${activeCat === id ? styles.active : ''}`}
-                onClick={() => setActiveCat(id)}
-              >
-                {label}
-                {id !== 'all' && (
-                  <span className={styles.catCount}>
-                    {PRODUCTS.filter(p => p.category === id).length}
-                  </span>
-                )}
-              </button>
-            ))}
-          </div>
+          {!isDedicatedCategory && (
+            <div className={styles.catTabs}>
+              {CATS.map(({ id, label }) => (
+                <button
+                  key={id}
+                  className={`${styles.catTab} ${activeCat === id ? styles.active : ''}`}
+                  onClick={() => setActiveCat(id)}
+                >
+                  {label}
+                  {id !== 'all' && (
+                    <span className={styles.catCount}>
+                      {PRODUCTS.filter(p => p.category === id).length}
+                    </span>
+                  )}
+                </button>
+              ))}
+            </div>
+          )}
 
           {/* Search */}
           <div className={styles.searchWrap}>

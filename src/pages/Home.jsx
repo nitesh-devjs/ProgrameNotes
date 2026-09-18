@@ -2,12 +2,13 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
 import {
-  ArrowRight, Zap, Download, BookOpen, Code2, FlaskConical,
-  Calculator, ShoppingBag, Star, Users, TrendingUp, Award, ChevronRight
+  ArrowRight, Zap, Download, BookOpen, Code2, Layout, Server,
+  LineChart, Network, ShoppingBag, Star, Users, TrendingUp, Award, ChevronRight, Mail, MessageSquare, Send
 } from 'lucide-react';
 import { PRODUCTS } from '../data/products';
 import ProductGrid from '../components/ProductGrid/ProductGrid';
 import CheckoutModal from '../components/CheckoutModal/CheckoutModal';
+import ContactModal from '../components/ContactModal/ContactModal';
 import ScrollReveal from '../components/ScrollReveal/ScrollReveal';
 import heroGraphic from '../assets/hero-graphic.jpg';
 import styles from './Home.module.css';
@@ -34,8 +35,8 @@ const FEATURES = [
   },
   {
     icon: BookOpen,
-    title: 'Handwritten & Structured',
-    desc: 'Clear, concise handwritten notes designed to maximize retention and exam performance.',
+    title: 'Professional & Structured',
+    desc: 'Clear, concise premium notes designed to maximize retention and exam performance.',
     color: 'var(--cyan)',
     bg: 'rgba(6,182,212,0.08)',
     border: 'rgba(6,182,212,0.15)',
@@ -74,10 +75,10 @@ const TESTIMONIALS = [
 ];
 
 const CATEGORIES = [
-  { icon: Code2,        label: 'Programming',  to: '/store?cat=programming', color: 'var(--accent-light)', desc: 'Java, React, Python, DSA...' },
-  { icon: FlaskConical, label: 'Science',       to: '/store?cat=science',     color: 'var(--cyan)',         desc: 'Physics, Chemistry, Bio...' },
-  { icon: Calculator,   label: 'Mathematics',   to: '/store?cat=math',        color: 'var(--amber)',        desc: 'Calculus, Algebra, Stats...' },
-  { icon: BookOpen,     label: 'Commerce',      to: '/store?cat=commerce',    color: 'var(--green)',        desc: 'Accounts, Economics, BST...' },
+  { icon: Layout,        label: 'HTML',         to: '/language/html-css',     color: 'var(--accent-light)', desc: 'Structure of the web.', image: '/images/cat_programming.jpg' },
+  { icon: Zap,           label: 'CSS',          to: '/language/html-css',     color: 'var(--cyan)',         desc: 'Style and responsive design.',     image: '/images/cat_science.jpg' },
+  { icon: Code2,         label: 'JavaScript',   to: '/language/javascript',   color: 'var(--amber)',        desc: 'Dynamic and interactive logic.',   image: '/images/cat_math.jpg' },
+  { icon: Network,       label: 'React JS',     to: '/language/reactjs',      color: 'var(--green)',        desc: 'Modern component-based UI.',   image: '/images/cat_commerce.jpg' },
 ];
 
 // ─── Animated Counter ────────────────────────────────────────────────────────
@@ -102,6 +103,9 @@ function Counter({ value, suffix = '', prefix = '', decimals = 0 }) {
 
 export default function Home() {
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+
+  // Derive products
   const featured = PRODUCTS.filter(p => p.featured).slice(0, 6);
 
   return (
@@ -145,7 +149,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              Premium handwritten notes for 10th–12th boards, JEE/NEET prep,
+              Premium structured notes for modern programming languages and frameworks,
               and professional programming courses. Instant download. No fluff.
             </motion.p>
 
@@ -173,7 +177,20 @@ export default function Home() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
           >
-            <img src={heroGraphic} alt="Coding and Study Notes" className={styles.heroImage} />
+            <motion.img 
+              src={heroGraphic} 
+              alt="Coding and Study Notes" 
+              className={styles.heroImage} 
+              animate={{ 
+                y: [0, -20, 0, 15, 0], 
+                x: [0, 15, 0, -15, 0] 
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
           </motion.div>
         </div>
       </section>
@@ -196,7 +213,10 @@ export default function Home() {
           <div className={styles.statsGrid}>
             {STATS.map(({ value, suffix, prefix, label, icon: Icon, color, decimals }) => (
               <ScrollReveal key={label} direction="up" delay={0.05}>
-                <div className={styles.statCard}>
+                <div 
+                  className={styles.statCard}
+                  style={{ '--hover-color': color }}
+                >
                   <div className={styles.statIcon} style={{ background: `${color}18`, color }}>
                     <Icon size={22} />
                   </div>
@@ -221,14 +241,23 @@ export default function Home() {
             </div>
           </ScrollReveal>
           <div className={styles.catsGrid}>
-            {CATEGORIES.map(({ icon: Icon, label, to, color, desc }, i) => (
+            {CATEGORIES.map(({ icon: Icon, label, to, color, desc, image }, i) => (
               <ScrollReveal key={label} direction="up" delay={i * 0.08}>
-                <Link to={to} className={styles.catCard}>
+                <Link 
+                  to={to} 
+                  className={styles.catCard}
+                  style={{ 
+                    backgroundImage: `linear-gradient(to top, rgba(7, 11, 24, 0.95), rgba(7, 11, 24, 0.4)), url(${image})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    border: '1px solid rgba(255, 255, 255, 0.05)'
+                  }}
+                >
                   <div className={styles.catIcon} style={{ background: `${color}18`, color }}>
                     <Icon size={28} />
                   </div>
-                  <h3 className={styles.catLabel}>{label}</h3>
-                  <p className={styles.catDesc}>{desc}</p>
+                  <h3 className={styles.catLabel} style={{ color: '#fff', textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>{label}</h3>
+                  <p className={styles.catDesc} style={{ color: 'rgba(255,255,255,0.7)' }}>{desc}</p>
                   <div className={styles.catArrow} style={{ color }}>
                     <ArrowRight size={16} />
                   </div>
@@ -239,24 +268,35 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══════════ FEATURED PRODUCTS ══════════ */}
-      <section className={styles.featuredSection}>
+      {/* ══════════ HIRE ME CTA ══════════ */}
+      <section className={styles.hireMeSection}>
         <div className="container">
           <ScrollReveal>
-            <div className={styles.sectionRow}>
-              <div>
-                <span className={styles.sectionLabel}>Top Picks</span>
-                <h2 className={styles.sectionTitle}>Featured Notes</h2>
+            <div className={styles.hireMeCard}>
+              <div className={styles.hireMeGlow}></div>
+              <div className={styles.hireMeContent}>
+                <span className={styles.hireMeBadge}>✨ Open for Freelance</span>
+                <h2 className={styles.hireMeTitle}>Need a Custom Website?</h2>
+                <p className={styles.hireMeDesc}>
+                  Whether it's a 10th/12th project, a complex college assignment, a professional business website, or your personal portfolio — I build premium, high-performance web applications tailored to your exact needs.
+                </p>
+                <div className={styles.hireMeTags}>
+                  <span className={styles.hireMeTag}>🏫 School Projects</span>
+                  <span className={styles.hireMeTag}>🎓 College Assignments</span>
+                  <span className={styles.hireMeTag}>💼 Business Websites</span>
+                  <span className={styles.hireMeTag}>🚀 Personal Portfolios</span>
+                </div>
+                <div className={styles.hireMeActions}>
+                  <Link to="/services" className={styles.hireMeBtn}>
+                    Hire Me for Web Dev <ArrowRight size={18} />
+                  </Link>
+                  <button onClick={() => setIsContactModalOpen(true)} className={styles.hireMeBtnSecondary}>
+                    Contact Me
+                  </button>
+                </div>
               </div>
-              <Link to="/store" className={styles.viewAll}>
-                View all <ArrowRight size={15} />
-              </Link>
             </div>
           </ScrollReveal>
-          <ProductGrid
-            products={featured}
-            onBuyNow={setSelectedProduct}
-          />
         </div>
       </section>
 
@@ -307,13 +347,13 @@ export default function Home() {
                 <div className={styles.testimonialCard}>
                   <div className={styles.stars}>{'★'.repeat(5)}</div>
                   <p className={styles.quote}>"{quote}"</p>
-                  <div className={styles.author}>
-                    <div className={styles.avatar} style={{ background: `${color}20`, color }}>
+                  <div className={styles.testimonyAuthor}>
+                    <div className={styles.avatar} style={{ background: color }}>
                       {initial}
                     </div>
                     <div>
-                      <p className={styles.authorName}>{name}</p>
-                      <p className={styles.authorRole}>{role}</p>
+                      <h4 className={styles.authorName}>{name}</h4>
+                      <span className={styles.authorRole}>{role}</span>
                     </div>
                   </div>
                 </div>
@@ -323,17 +363,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══════════ CTA STRIP ══════════ */}
-      <section className={styles.ctaSection}>
+      {/* ══════════ BOTTOM CTA ══════════ */}
+      <section className={styles.bottomCtaSection}>
         <div className="container">
           <ScrollReveal>
             <div className={styles.ctaBox}>
-              <div className={styles.ctaGlow} />
+              <div className={styles.ctaGlow}></div>
               <div className={styles.ctaContent}>
-                <span className={styles.sectionLabel}>Ready to level up?</span>
-                <h2 className={styles.ctaTitle}>
-                  Stop Struggling. Start Scoring.
-                </h2>
+                <h2 className={styles.ctaTitle}>Ready to Top Your Class?</h2>
                 <p className={styles.ctaDesc}>
                   Join 5000+ students who trust programenote to simplify complex topics and ace their exams.
                 </p>
@@ -351,10 +388,55 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 🔹 CONTACT SECTION 🔹 */}
+      <section id="contact" className={styles.contactSection}>
+        <div className="container">
+          <ScrollReveal>
+            <div className={styles.contactWrapper}>
+              <div className={styles.contactInfo}>
+                <span className={styles.sectionLabel}>Get in Touch</span>
+                <h2 className={styles.sectionTitle}>Let's Talk.</h2>
+                <p className={styles.contactDesc}>
+                  Have a question about our notes? Need custom notes for your syllabus? Or just want to say hi? Drop us a message.
+                </p>
+                <div className={styles.contactDetails}>
+                  <div className={styles.contactItem}>
+                    <div className={styles.contactIconWrap}><Mail size={20} /></div>
+                    <span>hello@programenote.dev</span>
+                  </div>
+                  <div className={styles.contactItem}>
+                    <div className={styles.contactIconWrap}><MessageSquare size={20} /></div>
+                    <span>@programenote</span>
+                  </div>
+                </div>
+              </div>
+              
+              <form className={styles.contactForm} onSubmit={(e) => e.preventDefault()}>
+                <div className={styles.formGroup}>
+                  <input type="text" placeholder="Your Name" required className={styles.inputField} />
+                </div>
+                <div className={styles.formGroup}>
+                  <input type="email" placeholder="Your Email" required className={styles.inputField} />
+                </div>
+                <div className={styles.formGroup}>
+                  <textarea placeholder="How can we help you?" rows="4" required className={styles.inputField}></textarea>
+                </div>
+                <button type="submit" className={styles.submitBtn}>
+                  Send Message <Send size={16} />
+                </button>
+              </form>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
       {/* Checkout Modal */}
       {selectedProduct && (
         <CheckoutModal product={selectedProduct} onClose={() => setSelectedProduct(null)} />
       )}
+
+      {/* Contact Modal */}
+      <ContactModal isOpen={isContactModalOpen} onClose={() => setIsContactModalOpen(false)} />
     </div>
   );
 }

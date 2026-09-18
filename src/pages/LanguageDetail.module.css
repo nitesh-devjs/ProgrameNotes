@@ -1,0 +1,242 @@
+.page {
+  padding-top: 80px;
+  min-height: 100vh;
+}
+
+.hero {
+  padding: 100px 5%;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+
+.heroBackground {
+  position: absolute;
+  top: -50%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, var(--language-color, var(--accent)) 0%, transparent 70%);
+  opacity: 0.1;
+  filter: blur(80px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.icon {
+  font-size: 5rem;
+  margin-bottom: 20px;
+  display: inline-block;
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
+}
+
+.title {
+  font-size: 4rem;
+  font-weight: 900;
+  color: var(--text);
+  margin-bottom: 10px;
+  letter-spacing: -0.02em;
+}
+
+.tagline {
+  font-size: 1.5rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.mainContent {
+  padding: 80px 5%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 60px;
+}
+
+.leftColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sectionTitle {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--text);
+  position: relative;
+  padding-bottom: 12px;
+}
+
+.sectionTitle::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 4px;
+  background: var(--language-color, var(--accent));
+  border-radius: 2px;
+}
+
+.text {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+  color: var(--text);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+}
+
+.card::before {
+  content: '✓';
+  color: var(--language-color, var(--accent));
+  font-weight: bold;
+}
+
+.rightColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.statsBox {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.statItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 15px;
+  border-bottom: 1px dashed var(--border);
+}
+
+.statItem:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.statLabel {
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.statValue {
+  color: var(--text);
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.codeBlock {
+  background: #1e1e1e;
+  border-radius: var(--r-lg);
+  padding: 24px;
+  overflow-x: auto;
+  border: 1px solid #333;
+}
+
+.codeBlock pre {
+  margin: 0;
+  color: #d4d4d4;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.noteSection {
+  padding: 80px 5%;
+  background: var(--bg-elevated);
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 40px;
+}
+
+.noteHeader h2 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.noteHeader p {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+}
+
+.noteWrapper {
+  max-width: 900px;
+  width: 100%;
+}
+
+.comingSoon {
+  background: var(--bg-card);
+  border: 1px dashed var(--border-hover);
+  padding: 60px 20px;
+  border-radius: var(--r-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.comingSoon h3 {
+  font-size: 1.5rem;
+  color: var(--text);
+}
+
+.comingSoon p {
+  color: var(--text-muted);
+}
+
+@media (max-width: 1024px) {
+  .mainContent {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .title { font-size: 3rem; }
+  .noteHeader h2 { font-size: 2rem; }
+}

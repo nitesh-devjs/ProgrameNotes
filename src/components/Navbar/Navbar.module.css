@@ -16,8 +16,11 @@
 }
 
 [data-theme="light"] .nav.scrolled {
-  background: rgba(255, 255, 255, 0.95);
-  border-bottom-color: rgba(124, 58, 237, 0.15);
+  background: rgba(237, 233, 254, 0.95); /* A distinct, visible light purple */
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  border-bottom: 2px solid var(--accent);
+  box-shadow: 0 10px 30px rgba(124, 58, 237, 0.15);
 }
 
 .inner {
@@ -104,7 +107,7 @@
 }
 
 .currBtn:hover { border-color: var(--border-hover); color: var(--text); background: var(--bg-glass-hover); }
-.currActive  { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+.currActive  { color: var(--text); text-shadow: 0 0 10px var(--accent-glow); }
 .currInactive { color: var(--text-muted); opacity: 0.5; }
 .currDivider  { color: var(--border); margin: 0 4px; font-weight: 400; }
 
@@ -140,6 +143,66 @@
 .storeCta:hover {
   transform: translateY(-1px);
   box-shadow: 0 4px 20px var(--accent-glow);
+}
+
+.storeDropdownContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.storeDropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  transform: translateY(10px);
+  margin-top: 15px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 16px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  width: max-content;
+  min-width: 450px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease-in-out;
+  z-index: 100;
+  backdrop-filter: blur(12px);
+}
+
+.storeDropdown::before {
+  content: '';
+  position: absolute;
+  top: -15px;
+  left: 0;
+  width: 100%;
+  height: 15px;
+  background: transparent;
+}
+
+.storeDropdownContainer:hover .storeDropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.storeDropdown a {
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: var(--transition);
+  text-decoration: none;
+  font-family: var(--font-mono);
+}
+
+.storeDropdown a:hover {
+  background: var(--bg-glass-hover);
+  transform: translateX(3px);
 }
 
 /* Hamburger */
