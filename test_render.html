@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Fira+Code:wght@500;700&family=Outfit:wght@600;700&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      width: 768px;
+      height: 1376px;
+      position: relative;
+      background: url('public/images/previews/blank_template.jpg') no-repeat center top;
+      background-size: 768px 1376px;
+      font-family: 'Caveat', cursive, sans-serif;
+      overflow: hidden;
+    }
+
+    /* TABLET TERMINAL SCREEN */
+    .tablet-screen {
+      position: absolute;
+      top: 164px;
+      left: 224px;
+      width: 320px;
+      height: 464px;
+      background: #0F172A;
+      border-radius: 14px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid #1E293B;
+    }
+
+    .terminal-header {
+      height: 38px;
+      background: #1E293B;
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      position: relative;
+    }
+
+    .dots {
+      display: flex;
+      gap: 6px;
+    }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot-red { background: #EF4444; }
+    .dot-yellow { background: #F59E0B; }
+    .dot-green { background: #10B981; }
+
+    .terminal-title {
+      position: absolute;
+      width: 100%;
+      text-align: center;
+      left: 0;
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: #94A3B8;
+    }
+
+    .terminal-body {
+      padding: 20px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .cmd-text {
+      font-family: 'Fira Code', monospace;
+      font-size: 13.5px;
+      color: #38BDF8;
+      font-weight: 700;
+    }
+
+    .status-badge {
+      background: #1E293B;
+      border: 1px solid #334155;
+      color: #94A3B8;
+      font-family: 'Fira Code', monospace;
+      font-size: 11.5px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      width: fit-content;
+    }
+
+    .output-label {
+      font-family: 'Fira Code', monospace;
+      font-size: 12.5px;
+      color: #E2E8F0;
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+    .output-box {
+      background: #022C22;
+      border: 1.5px solid #059669;
+      border-radius: 10px;
+      padding: 16px;
+      box-shadow: 0 0 15px rgba(5, 150, 105, 0.25);
+    }
+
+    .output-text {
+      font-family: 'Fira Code', monospace;
+      font-size: 17px;
+      font-weight: 700;
+      color: #4ADE80;
+      margin-bottom: 6px;
+    }
+
+    .output-sub {
+      font-family: 'Fira Code', monospace;
+      font-size: 11.5px;
+      color: #A7F3D0;
+    }
+
+    /* NOTEBOOK HANDWRITTEN SECTION */
+    .notebook-container {
+      position: absolute;
+      top: 722px;
+      left: 248px;
+      width: 300px;
+      color: #0B2447;
+    }
+
+    .note-title {
+      font-size: 25px;
+      font-weight: 700;
+      line-height: 25.5px;
+      color: #0B2447;
+      margin-bottom: 0px;
+    }
+
+    .note-theory {
+      font-size: 19.5px;
+      font-weight: 600;
+      line-height: 25.5px;
+      color: #1E3E62;
+    }
+
+    .code-header {
+      font-size: 20px;
+      font-weight: 700;
+      color: #990000;
+      line-height: 25.5px;
+      margin-top: 25.5px;
+    }
+
+    .code-block {
+      font-family: 'Fira Code', monospace;
+      font-size: 12.5px;
+      line-height: 25.5px;
+      color: #990000;
+      font-weight: 500;
+    }
+
+    .kw { color: #0033CC; font-weight: 700; }
+    .str { color: #059669; font-weight: 600; }
+    .cm { color: #6B7280; font-style: italic; }
+
+    .takeaways-header {
+      font-size: 21.5px;
+      font-weight: 700;
+      line-height: 25.5px;
+      margin-top: 25.5px;
+      color: #0B2447;
+    }
+  </style>
+</head>
+<body>
+  <!-- Tablet Terminal -->
+  <div class="tablet-screen">
+    <div class="terminal-header">
+      <div class="dots">
+        <div class="dot dot-red"></div>
+        <div class="dot dot-yellow"></div>
+        <div class="dot dot-green"></div>
+      </div>
+      <div class="terminal-title">⚡ Java Output Console</div>
+    </div>
+    <div class="terminal-body">
+      <div class="cmd-text">$ javac Main.java && java Main</div>
+      <div class="status-badge">Status: Exit Code 0 (Success)</div>
+      <div class="output-label">&gt; Program Output:</div>
+      <div class="output-box">
+        <div class="output-text">Welcome to Programnotes</div>
+        <div class="output-sub">✔ Program executed successfully</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notebook Content -->
+  <div class="notebook-container">
+    <div class="note-title"># JAVA CORE &amp; OOP BASICS</div>
+    <div class="note-theory">• Java is a class-based, object-oriented language.</div>
+    <div class="note-theory">• Code compiles to bytecode for JVM execution.</div>
+    <div class="code-header">// 1. Welcome Program Snippet:</div>
+    <div class="code-block">
+      <div><span class="kw">public class</span> Main {</div>
+      <div>&nbsp;&nbsp;<span class="kw">public static void</span> main(String[] args) {</div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="cm">// Print output</span></div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(<span class="str">"Welcome to Programnotes"</span>);</div>
+      <div>&nbsp;&nbsp;}</div>
+      <div>}</div>
+    </div>
+    <div class="takeaways-header">★ Key Exam Points:</div>
+    <div class="note-theory">1. Main class name must match file name (.java)</div>
+    <div class="note-theory">2. System.out.println() prints with newline.</div>
+    <div class="note-theory">3. Always declare main method as static.</div>
+  </div>
+</body>
+</html>

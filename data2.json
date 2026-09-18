@@ -1,0 +1,152 @@
+[
+    {
+        "title": "26. Array Methods (Mutating)",
+        "output": "> [1, 2, 3, 4]\n> [1, 2, 3]",
+        "theory": "Some methods modify the original array directly.\npush(): adds to end.\npop(): removes from end.\nunshift(): adds to start.\nshift(): removes from start.\nsplice(): adds/removes from specific index.",
+        "code": "const arr = [1, 2];\narr.push(3); // [1,2,3]\narr.push(4); // [1,2,3,4]\n\narr.pop(); // removes 4\n\narr.unshift(0); // [0,1,2,3]\narr.shift(); // removes 0\n\n// Splice (start, deleteCount, ...items)\narr.splice(1, 1, 99); // [1, 99, 3]"
+    },
+    {
+        "title": "27. Array Methods (Non-Mutating)",
+        "output": "> [1, 2, 3, 4, 5]\n> true",
+        "theory": "Methods that return a NEW array or value without changing the original.\nslice(): extracts a portion.\nconcat(): merges arrays.\nincludes(): checks if value exists.\njoin(): converts to string.",
+        "code": "const a = [1, 2];\nconst b = [3, 4, 5];\n\nconst merged = a.concat(b);\nconsole.log(merged); // [1,2,3,4,5]\n\nconst piece = merged.slice(1, 3);\n// piece is [2, 3], 'merged' is unchanged!\n\nconsole.log(merged.includes(4)); // true"
+    },
+    {
+        "title": "28. Higher-Order Array Methods: map()",
+        "output": "> [2, 4, 6]",
+        "theory": "Higher Order Functions take functions as arguments or return functions.\nmap() creates a NEW array by applying a callback function to every element in the original array. Great for data transformations.",
+        "code": "const nums = [1, 2, 3];\n\n// Multiply each by 2\nconst doubled = nums.map(num => num * 2);\n\nconsole.log(doubled); // [2, 4, 6]\n// nums is still [1, 2, 3]\n\nconst users = [{id:1}, {id:2}];\nconst ids = users.map(u => u.id); // [1, 2]"
+    },
+    {
+        "title": "29. Higher-Order Array Methods: filter()",
+        "output": "> [4, 5]",
+        "theory": "filter() creates a NEW array containing only the elements that pass the test implemented by the provided callback function.",
+        "code": "const nums = [1, 2, 3, 4, 5];\n\n// Keep only numbers greater than 3\nconst big = nums.filter(num => num > 3);\n\nconsole.log(big); // [4, 5]\n\n// Filter out inactive users\nconst activeUsers = users.filter(u => u.isActive);"
+    },
+    {
+        "title": "30. Higher-Order Array Methods: reduce()",
+        "output": "> Total: 15",
+        "theory": "reduce() executes a reducer callback function on each element, resulting in a single output value (e.g., summing all numbers). It passes the 'accumulator' to the next iteration.",
+        "code": "const nums = [1, 2, 3, 4, 5];\n\n// Accumulator (acc) holds the running total.\n// Current Value (curr) is the current element.\n// 0 is the initial value of 'acc'.\nconst sum = nums.reduce((acc, curr) => {\n  return acc + curr;\n}, 0);\n\nconsole.log('Total: ' + sum); // 15"
+    },
+    {
+        "title": "31. Objects Basics",
+        "output": "> Nitesh\n> Delhi",
+        "theory": "Objects hold Key-Value pairs. Keys are strings (or symbols). Values can be anything (primitives, arrays, functions, other objects).\nDot notation and Bracket notation are used for access.",
+        "code": "const user = {\n  name: 'Nitesh',\n  age: 25,\n  address: {\n    city: 'Delhi'\n  }\n};\n\nconsole.log(user.name); // Dot notation\nconsole.log(user['age']); // Bracket notation\nconsole.log(user.address.city);\n\n// Add property\nuser.isActive = true;"
+    },
+    {
+        "title": "32. Object Methods & 'this'",
+        "output": "> Hi, I am Alice",
+        "theory": "Functions inside objects are called Methods. The 'this' keyword inside a method refers to the object executing the method. \nWarning: Arrow functions DO NOT bind 'this'!",
+        "code": "const person = {\n  name: 'Alice',\n  greet: function() {\n    // 'this' refers to 'person'\n    console.log('Hi, I am ' + this.name);\n  },\n  // ES6 Shorthand\n  walk() {\n    console.log(this.name + ' is walking.');\n  }\n};\nperson.greet();"
+    },
+    {
+        "title": "33. Destructuring (ES6)",
+        "output": "> Bob 28\n> 10 20",
+        "theory": "Destructuring assignment unpacks values from arrays, or properties from objects, into distinct variables.\nIt makes code cleaner and prevents repetitive dot notation.",
+        "code": "const user = { name: 'Bob', age: 28, city: 'NY' };\n\n// Object destructuring\nconst { name, age } = user;\nconsole.log(name, age); // Bob 28\n\n// Array destructuring\nconst rgb = [10, 20, 30];\nconst [r, g] = rgb;\nconsole.log(r, g); // 10 20"
+    },
+    {
+        "title": "34. Spread & Rest Operators (...)",
+        "output": "> [1, 2, 3, 4]\n> {a:1, b:2, c:3}",
+        "theory": "Spread (...) expands iterables into single elements (used for copying/merging). \nRest (...) collects multiple elements and 'condenses' them into a single array (used in function parameters).",
+        "code": "// Spread - Copying arrays\nconst arr1 = [1, 2];\nconst arr2 = [...arr1, 3, 4]; // [1,2,3,4]\n\n// Spread - Merging objects\nconst obj = {a: 1, b: 2};\nconst merged = {...obj, c: 3};\n\n// Rest - Function params\nfunction sum(...args) {\n  // args is an array!\n  return args.reduce((a, b) => a + b, 0);\n}"
+    },
+    {
+        "title": "35. DOM Introduction",
+        "output": "[Browser Output]\nThe DOM translates HTML tags into JS Objects.",
+        "theory": "DOM (Document Object Model) is a programming interface for web documents. It represents the page so that programs can change the document structure, style, and content. The global object is `document`.",
+        "code": "// The document object has everything\nconsole.log(document.title);\nconsole.log(document.URL);\n\n// Every HTML element is a Node in the DOM tree\n// <html> -> <head> & <body> -> <h1> etc.\n\n// You can traverse, modify, or create nodes."
+    },
+    {
+        "title": "36. Selecting DOM Elements",
+        "output": "> Element selected!",
+        "theory": "You need to select elements before modifying them.\ngetElementById(): Fast, returns single element.\nquerySelector(): Uses CSS selectors (.class, #id). returns first match.\nquerySelectorAll(): Returns a NodeList of all matches.",
+        "code": "// Select by ID\nconst title = document.getElementById('main-title');\n\n// Select by Class\nconst boxes = document.getElementsByClassName('box');\n\n// Select by CSS Query\nconst btn = document.querySelector('.btn-primary');\nconst allParas = document.querySelectorAll('p');\n// allParas can be looped with forEach!"
+    },
+    {
+        "title": "37. Modifying DOM Content",
+        "output": "> Title changed on screen!",
+        "theory": "innerText: Reads/writes rendered text only.\ntextContent: Reads/writes all text (even hidden).\ninnerHTML: Reads/writes HTML markup inside the element.",
+        "code": "const heading = document.querySelector('h1');\n\n// Change text safely\nheading.innerText = 'New Heading!';\n\nconst container = document.querySelector('#app');\n// Insert HTML elements\ncontainer.innerHTML = '<p>Rendered via JS</p>';\n\n// Update attributes\nconst link = document.querySelector('a');\nlink.setAttribute('href', 'https://google.com');"
+    },
+    {
+        "title": "38. DOM Styling & Classes",
+        "output": "> UI color updated!",
+        "theory": "You can change inline styles via element.style, but the best practice is to add/remove CSS classes using classList.",
+        "code": "const box = document.querySelector('.box');\n\n// Inline styling (camelCase required)\nbox.style.backgroundColor = 'blue';\nbox.style.fontSize = '20px';\n\n// ClassList API (Preferred)\nbox.classList.add('active');\nbox.classList.remove('hidden');\nbox.classList.toggle('highlight');"
+    },
+    {
+        "title": "39. DOM Events",
+        "output": "> Clicked!\n> Mouse hovered",
+        "theory": "Events are actions that happen in the browser (click, submit, hover, keypress). Event Listeners wait for these actions and execute a callback function.",
+        "code": "const btn = document.querySelector('button');\n\n// addEventListener(event, callback)\nbtn.addEventListener('click', function(e) {\n  console.log('Button clicked!');\n  \n  // e is the Event Object containing details\n  console.log('Clicked at X:', e.clientX);\n});\n\n// Other common events: \n// 'mouseover', 'mouseout', 'keydown', 'submit'"
+    },
+    {
+        "title": "40. Event Bubbling & Capturing",
+        "output": "[Click inner div]\n> Inner Clicked\n> Outer Clicked",
+        "theory": "When an event happens on an element, it first runs the handlers on it, then on its parent, then all the way up (Bubbling).\nCapturing is the opposite (top to down).\nStop bubbling using e.stopPropagation().",
+        "code": "const parent = document.getElementById('parent');\nconst child = document.getElementById('child');\n\nparent.addEventListener('click', () => console.log('Parent'));\n\nchild.addEventListener('click', (e) => {\n  console.log('Child');\n  // Stops the event from reaching the parent\n  e.stopPropagation(); \n});"
+    },
+    {
+        "title": "41. Event Delegation",
+        "output": "> List item clicked!",
+        "theory": "Instead of adding event listeners to 100 individual list items, you add ONE listener to their parent (<ul>). It uses Event Bubbling to catch clicks from children. Highly memory efficient!",
+        "code": "const ul = document.querySelector('ul');\n\n// Attach to parent\nul.addEventListener('click', function(e) {\n  // Check if what we clicked was an LI\n  if (e.target.tagName === 'LI') {\n    console.log('Clicked on:', e.target.innerText);\n    e.target.style.color = 'red';\n  }\n});"
+    },
+    {
+        "title": "42. Creating Elements dynamically",
+        "output": "> New Element added to screen!",
+        "theory": "You can construct DOM elements entirely in JS memory and append them to the page using appendChild() or append().",
+        "code": "// 1. Create the element\nconst newLi = document.createElement('li');\n\n// 2. Add content/classes\nnewLi.innerText = 'I am dynamically created';\nnewLi.classList.add('list-item');\n\n// 3. Select parent & Append\nconst ul = document.querySelector('ul');\nul.appendChild(newLi);\n\n// Removing\n// newLi.remove();"
+    },
+    {
+        "title": "43. setTimeout & setInterval",
+        "output": "> Hello! (after 2s)\n> Tick... Tick...",
+        "theory": "Web APIs provided by the browser (not JS engine!).\nsetTimeout: Runs callback ONCE after delay.\nsetInterval: Runs callback REPEATEDLY every delay.",
+        "code": "console.log('Start');\n\nconst timerId = setTimeout(() => {\n  console.log('Executed after 2 seconds!');\n}, 2000);\n\nconst intervalId = setInterval(() => {\n  console.log('Ticking every 1 second...');\n}, 1000);\n\n// To stop them:\n// clearTimeout(timerId);\n// clearInterval(intervalId);"
+    },
+    {
+        "title": "44. The Event Loop",
+        "output": "[Call Stack] -> Empty\n[Callback Queue] -> setTimeout cb",
+        "theory": "JS is single-threaded. How does it handle async tasks?\n1. Async tasks (setTimeout, Fetch) are offloaded to Web APIs.\n2. When finished, callbacks go to Callback Queue (or Microtask Queue for Promises).\n3. Event Loop checks: If Call Stack is empty, it pushes the callback from Queue to Stack.",
+        "code": "console.log('1');\n\nsetTimeout(() => {\n  console.log('2');\n}, 0);\n\nconsole.log('3');\n\n// Output will be: 1, 3, 2!\n// setTimeout goes to Web API, then Queue, waiting for Stack."
+    },
+    {
+        "title": "45. Callback Hell (Pyramid of Doom)",
+        "output": "> Code gets unreadable",
+        "theory": "When you have multiple dependent async operations, you end up nesting callbacks inside callbacks. This makes the code horizontal, unreadable, and hard to debug. (Solution: Promises).",
+        "code": "getData(function(a) {\n  getMoreData(a, function(b) {\n    getEvenMoreData(b, function(c) {\n      getFinalData(c, function(d) {\n        console.log('Finally!', d);\n      });\n    });\n  });\n});"
+    },
+    {
+        "title": "46. Promises",
+        "output": "> Pending... Resolved/Rejected",
+        "theory": "A Promise is an object representing the eventual completion (or failure) of an async operation.\nStates: Pending, Fulfilled (Resolved), or Rejected.\nPromises solve callback hell.",
+        "code": "const myPromise = new Promise((resolve, reject) => {\n  let success = true;\n  setTimeout(() => {\n    if (success) resolve('Data Fetched!');\n    else reject('Network Error');\n  }, 1000);\n});\n\n// Consuming the promise\nmyPromise\n  .then(data => console.log(data)) // On Success\n  .catch(err => console.error(err)); // On Error"
+    },
+    {
+        "title": "47. Microtask Queue",
+        "output": "> Promise wins over setTimeout",
+        "theory": "Event loop handles two queues: Callback Queue (setTimeout) and Microtask Queue (Promises, MutationObserver).\nMicrotask Queue has HIGHER priority. Event loop empties it completely before moving to Callback Queue.",
+        "code": "console.log('Start');\n\nsetTimeout(() => console.log('Timeout'), 0);\n\nPromise.resolve().then(() => console.log('Promise'));\n\nconsole.log('End');\n\n// Order: Start, End, Promise, Timeout"
+    },
+    {
+        "title": "48. Async / Await",
+        "output": "> Data Fetched!",
+        "theory": "Introduced in ES8. Syntactic sugar over Promises. Makes async code look like synchronous code! 'await' pauses the execution of the async function until the promise settles.",
+        "code": "function fetchAuth() {\n  return new Promise(res => setTimeout(() => res('Token'), 1000));\n}\n\nasync function login() {\n  console.log('Logging in...');\n  \n  // Code waits here!\n  const token = await fetchAuth(); \n  \n  console.log('Success! Token: ' + token);\n}\nlogin();"
+    },
+    {
+        "title": "49. Error Handling (try...catch)",
+        "output": "> Caught an error gracefully",
+        "theory": "When using async/await, we use standard try/catch blocks to handle errors (rejected promises). Without this, an error will crash the script.",
+        "code": "async function getUser() {\n  try {\n    // Intentional failure\n    let response = await fetch('https://invalid.url');\n    let data = await response.json();\n    console.log(data);\n  } catch (error) {\n    // Execution jumps here on error\n    console.log('Failed to fetch:', error.message);\n  } finally {\n    console.log('Runs no matter what');\n  }\n}"
+    },
+    {
+        "title": "50. Fetch API",
+        "output": "> JSON Response",
+        "theory": "The modern way to make HTTP requests (replacing old XMLHttpRequest). It returns a Promise. The response needs to be converted to JSON using response.json() (which is also a promise).",
+        "code": "fetch('https://jsonplaceholder.typicode.com/users/1')\n  .then(response => {\n    if(!response.ok) throw new Error('Network Issue');\n    return response.json();\n  })\n  .then(data => {\n    console.log('User name:', data.name);\n  })\n  .catch(error => console.error(error));"
+    }
+]

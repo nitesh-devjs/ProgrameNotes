@@ -1,0 +1,72 @@
+[
+    {
+        "id": 1,
+        "title": "1. What is JavaScript?",
+        "theory": "<p>JavaScript is a high-level, interpreted, and dynamically typed programming language. Originally created in 1995 by Brendan Eich to add basic interactivity to web pages, it has evolved into a powerful language used on both the client side (browsers) and the server side (Node.js).</p><p>Unlike languages like C++ or Java which require you to compile your code before running it, JavaScript is interpreted. This means the browser's JavaScript Engine reads and executes the code line-by-line.</p><h3>Why Learn JavaScript?</h3><ul><li><strong>Ubiquity:</strong> It is the only programming language native to the web browser.</li><li><strong>Versatility:</strong> You can build web apps, mobile apps, desktop apps, and servers with it.</li><li><strong>Community:</strong> It has the largest ecosystem of libraries and frameworks (like React, Angular, Vue).</li></ul>",
+        "output": "> JS Engine is ready.\n> Waiting for instructions...",
+        "code": "console.log('JavaScript is running!');"
+    },
+    {
+        "id": 2,
+        "title": "2. Hello World: Your First Code",
+        "theory": "<p>In programming, it is a tradition to write a \"Hello World\" program as your very first piece of code. In JavaScript, we communicate with the developer console using a built-in object called <strong>console</strong>.</p><p>The <code>console.log()</code> method is used to print messages to the web console. This is the most essential tool for a developer, as it allows you to see the output of your code, inspect values, and debug errors.</p><h3>How it works:</h3><p>When the JavaScript engine encounters <code>console.log('Hello World');</code>, it takes the data inside the parentheses and outputs it directly to the digital screen (the console).</p>",
+        "output": "> Hello World\n> Welcome to JavaScript!",
+        "code": "console.log('Hello World');\nconsole.log(\"Welcome to JavaScript!\");"
+    },
+    {
+        "id": 3,
+        "title": "3. Comments in JavaScript",
+        "theory": "<p>When writing code, you often want to leave notes for yourself or other developers explaining what a piece of code does. These notes are called <strong>Comments</strong>.</p><p>Comments are completely ignored by the JavaScript engine when the code runs. They exist purely for human readability.</p><h3>Two Types of Comments</h3><ul><li><strong>Single-line Comments (<code>//</code>)</strong>: Anything written after two forward slashes on that specific line is ignored.</li><li><strong>Multi-line Comments (<code>/* ... */</code>)</strong>: Anything enclosed between these symbols is ignored, allowing you to write paragraph-long explanations.</li></ul>",
+        "output": "> This code runs!",
+        "code": "// This is a single-line comment. The engine ignores it.\n\nconsole.log('This code runs!'); // You can also put comments at the end of a line.\n\n/* \n   This is a multi-line comment.\n   It is very useful for explaining complex logic\n   or temporarily disabling large blocks of code.\n*/"
+    },
+    {
+        "id": 4,
+        "title": "4. Values and Data Types",
+        "theory": "<p>Every piece of information in JavaScript is a <strong>Value</strong>. To make sense of different types of information, JavaScript categorizes values into <strong>Data Types</strong>.</p><p>There are two main categories of data types in JavaScript: Primitives and Objects. For now, we will focus on the fundamental Primitives:</p><ul><li><strong>String:</strong> Used for text. Always enclosed in quotes.</li><li><strong>Number:</strong> Used for decimals and integers. No quotes.</li><li><strong>Boolean:</strong> A logical type that can only be <code>true</code> or <code>false</code>.</li></ul><p>By using the <code>typeof</code> operator, we can ask JavaScript to tell us the data type of any given value.</p>",
+        "output": "> string\n> number\n> boolean",
+        "code": "// Let's print the type of different values.\n\nconsole.log(typeof 'Hello');    // This is a String\nconsole.log(typeof 42);         // This is a Number\nconsole.log(typeof true);       // This is a Boolean"
+    },
+    {
+        "id": 5,
+        "title": "5. Introduction to Variables",
+        "theory": "<p>Imagine a variable as a labeled box where you can store a value. Once you store a value in that box, you can reuse it throughout your program by simply referring to the label (the variable name).</p><p>In modern JavaScript, we create variables using the <code>let</code> keyword. When you declare a variable with <code>let</code>, you are telling the computer's memory to reserve a spot for your data.</p><h3>Rules for Naming Variables:</h3><ul><li>Names can contain letters, numbers, underscores, and dollar signs.</li><li>Names <strong>cannot</strong> start with a number.</li><li>Names are case-sensitive (<code>age</code> is different from <code>Age</code>).</li><li>Use <em>camelCase</em> convention (e.g., <code>firstName</code>, <code>totalScore</code>).</li></ul>",
+        "output": "> Alice\n> 25",
+        "code": "// 1. Declare a variable and assign a value to it.\nlet playerName = 'Alice';\nlet playerScore = 25;\n\n// 2. Use the variable by referencing its name.\nconsole.log(playerName);\nconsole.log(playerScore);"
+    },
+    {
+        "id": 6,
+        "title": "6. Updating Variables (let)",
+        "theory": "<p>The keyword <code>let</code> stands for a variable whose value is allowed to change (mutate) over time. This is incredibly useful for data that constantly updates, like a user's score in a game, or their age.</p><p>When updating a variable, you do <strong>not</strong> use the <code>let</code> keyword again. You only use <code>let</code> when creating the variable for the very first time. To update it, you simply write the variable name followed by the equals sign and the new value.</p><p>Behind the scenes, JavaScript finds the 'box' in memory labeled with your variable name, throws out the old value, and puts the new value inside.</p>",
+        "output": "> Starting Score: 0\n> Updated Score: 10\n> Final Score: 15",
+        "code": "// Create the variable (Initialization)\nlet currentScore = 0;\nconsole.log('Starting Score:', currentScore);\n\n// Update the variable (Reassignment)\ncurrentScore = 10;\nconsole.log('Updated Score:', currentScore);\n\n// Update it again\ncurrentScore = 15;\nconsole.log('Final Score:', currentScore);"
+    },
+    {
+        "id": 7,
+        "title": "7. Constant Variables (const)",
+        "theory": "<p>While <code>let</code> is great for changing data, sometimes we have data that should <strong>never</strong> change. For example, a person's birth year, or the mathematical value of Pi.</p><p>In 2015, JavaScript introduced the <code>const</code> keyword. When you declare a variable with <code>const</code>, you lock its value. Any attempt to update or reassign a <code>const</code> variable will cause your program to crash with an Error.</p><h3>Best Practice:</h3><p>Always use <code>const</code> by default! Only use <code>let</code> if you are absolutely sure that the value will need to change later in the program. This makes your code safer and prevents accidental bugs.</p>",
+        "output": "> 1995\n> Error: Assignment to constant variable.",
+        "code": "// Declare a constant variable\nconst birthYear = 1995;\nconsole.log(birthYear);\n\n// If we try to change it, the engine throws an error.\n// Uncommenting the line below will crash the program:\n// birthYear = 1996;"
+    },
+    {
+        "id": 8,
+        "title": "8. The Old Way: var",
+        "theory": "<p>Before 2015, JavaScript only had one way to declare variables: the <code>var</code> keyword. You will still see <code>var</code> in older codebases and legacy tutorials.</p><p>Why did we move away from <code>var</code>? Because it has bizarre scoping rules (which we will cover later in the 'Scope' chapter) and allows you to accidentally redeclare the exact same variable twice without throwing an error, which causes massive bugs.</p><h3>Modern Rule:</h3><p>Avoid using <code>var</code> completely in modern JavaScript. Stick exclusively to <code>let</code> and <code>const</code>.</p>",
+        "output": "> John\n> Bob",
+        "code": "// Creating a variable with var\nvar employeeName = 'John';\nconsole.log(employeeName);\n\n// var allows you to completely redeclare the variable\n// without any warnings! (let and const would throw an error here)\nvar employeeName = 'Bob'; \nconsole.log(employeeName);"
+    },
+    {
+        "id": 9,
+        "title": "9. Undefined vs Null",
+        "theory": "<p>In JavaScript, there are two special primitives that represent 'nothingness': <code>undefined</code> and <code>null</code>.</p><h3>Undefined</h3><p>When you declare a variable but do not assign a value to it, JavaScript automatically assigns it the value of <code>undefined</code>. It means 'this variable exists, but it has no value yet'.</p><h3>Null</h3><p><code>null</code> is used when you, the developer, intentionally want to say 'this variable holds absolutely nothing'. It is an intentional absence of value.</p><p>Think of it this way: <code>undefined</code> is an empty box that you forgot to pack. <code>null</code> is an empty box that you deliberately left empty.</p>",
+        "output": "> undefined\n> null",
+        "code": "// 1. Undefined (Automatic)\nlet futureData;\nconsole.log(futureData); // We didn't assign a value!\n\n// 2. Null (Manual)\nlet emptyResult = null;\nconsole.log(emptyResult); // We intentionally set it to nothing."
+    },
+    {
+        "id": 10,
+        "title": "10. Basic Math Operators",
+        "theory": "<p>JavaScript can act as a powerful calculator. It includes standard Arithmetic Operators that allow us to perform mathematical calculations on Numbers.</p><ul><li><strong>Addition (<code>+</code>):</strong> Adds two numbers.</li><li><strong>Subtraction (<code>-</code>):</strong> Subtracts the right number from the left.</li><li><strong>Multiplication (<code>*</code>):</strong> Multiplies two numbers.</li><li><strong>Division (<code>/</code>):</strong> Divides the left number by the right.</li><li><strong>Exponentiation (<code>**</code>):</strong> Raises the left number to the power of the right number.</li></ul><p>Just like in standard mathematics, JavaScript follows the order of operations (BODMAS/PEMDAS). You can use parentheses <code>()</code> to control which calculations happen first.</p>",
+        "output": "> Sum: 15\n> Product: 50\n> Power: 8\n> Complex: 14",
+        "code": "let a = 10;\nlet b = 5;\n\nconsole.log('Sum:', a + b);\nconsole.log('Product:', a * b);\nconsole.log('Power:', 2 ** 3); // 2 to the power of 3\n\n// Using parentheses to control the order of operations\nlet result = (10 - 3) * 2; \nconsole.log('Complex:', result);"
+    }
+]

@@ -1,0 +1,72 @@
+[
+    {
+        "id": 41,
+        "title": "41. The Event Object",
+        "theory": "<p>When an event occurs (like a mouse click or a key press), the browser automatically gathers detailed information about that event—such as the exact X and Y coordinates of the mouse, or which specific key was pressed. It packages all this data into an <strong>Event Object</strong>.</p><p>If you put a parameter (usually named <code>e</code> or <code>event</code>) inside your event listener function, JavaScript will automatically pass this Event Object into your function when the event triggers.</p><p>This is incredibly useful! For example, in a game, you need to know exactly <em>which</em> key the user pressed to move the character.</p>",
+        "output": "> (When user presses 'Enter')\n> Key pressed: Enter",
+        "code": "// 1. Listen for any key press on the entire webpage (the window)\nwindow.addEventListener('keydown', function(event) {\n  \n  // The 'event' object contains a property called 'key'\n  // which tells us exactly which button was pushed.\n  let pressedKey = event.key;\n  \n  console.log('Key pressed:', pressedKey);\n  \n  // Using an if statement based on the event data\n  if (pressedKey === 'Enter') {\n    console.log('Submitting form...');\n  }\n});"
+    },
+    {
+        "id": 42,
+        "title": "42. Asynchronous JavaScript Introduction",
+        "theory": "<p>JavaScript is a <strong>Single-Threaded</strong> language, meaning it can only execute one line of code at a time on a single main thread. If a piece of code takes 5 seconds to run (like downloading a large image), the entire webpage would freeze for 5 seconds!</p><h3>The Solution: Asynchronous Programming</h3><p>To prevent the browser from freezing, JavaScript offloads heavy tasks (like timers or fetching data from a server) to the browser's Web APIs. The browser handles the heavy lifting in the background, and when it finishes, it alerts JavaScript to execute a callback function.</p><p>This allows JavaScript to continue running other code smoothly while waiting for background tasks to finish.</p>",
+        "output": "> 1. Starting task...\n> 3. Other code runs immediately!\n> 2. Data downloaded! (after 2 seconds)",
+        "code": "console.log('1. Starting task...');\n\n// setTimeout is an Asynchronous Web API.\n// It tells the browser to wait 2 seconds in the background.\nsetTimeout(function() {\n  // This callback function runs AFTER the 2 seconds.\n  console.log('2. Data downloaded!');\n}, 2000);\n\n// JavaScript DOES NOT stop and wait for setTimeout.\n// It immediately moves on to the next line of code.\nconsole.log('3. Other code runs immediately!');"
+    },
+    {
+        "id": 43,
+        "title": "43. The Problem: Callback Hell",
+        "theory": "<p>When dealing with Asynchronous code, we use \"Callback\" functions to tell the program what to do once the data is ready. But what happens if you need to fetch Data A, then use Data A to fetch Data B, and then use Data B to fetch Data C?</p><p>You end up nesting callback functions inside callback functions inside callback functions. This creates a massive, horizontal, triangle-shaped block of code known in the industry as <strong>Callback Hell</strong> or the <em>Pyramid of Doom</em>.</p><p>It makes the code incredibly hard to read, scale, and debug. To solve this, JavaScript introduced <strong>Promises</strong>.</p>",
+        "output": "> User downloaded.\n> Posts downloaded.\n> Comments downloaded.\n> Finished.",
+        "code": "// A simulated example of Callback Hell\n// Notice how the code shifts further to the right.\n\ndownloadUser(function(user) {\n  console.log('User downloaded.');\n  \n  downloadPosts(user.id, function(posts) {\n    console.log('Posts downloaded.');\n    \n    downloadComments(posts[0].id, function(comments) {\n      console.log('Comments downloaded.');\n      console.log('Finished.');\n    });\n  });\n});"
+    },
+    {
+        "id": 44,
+        "title": "44. Introduction to Promises",
+        "theory": "<p>A <strong>Promise</strong> is an object representing the eventual completion (or failure) of an asynchronous operation. Think of it like a restaurant buzzer: you place your order, and they hand you a buzzer. The buzzer is a \"promise\" that you will eventually get your food.</p><h3>The 3 States of a Promise:</h3><ol><li><strong>Pending:</strong> The initial state. The background task is still running. (You are waiting for the food).</li><li><strong>Fulfilled (Resolved):</strong> The task completed successfully! (The buzzer rings, your food is ready).</li><li><strong>Rejected:</strong> The task failed due to an error. (The kitchen ran out of ingredients).</li></ol>",
+        "output": "> Promise is pending...\n> (after 2 seconds)\n> Data successfully fetched!",
+        "code": "// Creating a custom Promise\nlet myDataPromise = new Promise(function(resolve, reject) {\n  \n  // Simulating a network request that takes 2 seconds\n  setTimeout(function() {\n    let success = true;\n    \n    if (success) {\n      resolve('Data successfully fetched!'); // Fulfills the promise\n    } else {\n      reject('Network Error!'); // Rejects the promise\n    }\n  }, 2000);\n  \n});\nconsole.log('Promise is pending...');"
+    },
+    {
+        "id": 45,
+        "title": "45. Consuming Promises (.then & .catch)",
+        "theory": "<p>Once you have a Promise (like the one returned by an API call), you need to handle what happens when it resolves or rejects. We \"consume\" promises using two chained methods.</p><h3>.then()</h3><p>This block of code executes ONLY if the Promise resolves successfully. The data passed into the <code>resolve()</code> function is sent here.</p><h3>.catch()</h3><p>This block of code executes ONLY if the Promise is rejected (e.g., the Wi-Fi dropped). This allows you to handle errors gracefully without crashing the app.</p>",
+        "output": "> Waiting for data...\n> Success! Data successfully fetched!",
+        "code": "console.log('Waiting for data...');\n\n// We use the Promise we created in the previous topic.\nmyDataPromise\n  .then(function(resultData) {\n    // This runs if resolve() was called\n    console.log('Success!', resultData);\n  })\n  .catch(function(errorMessage) {\n    // This runs if reject() was called\n    console.log('Failed:', errorMessage);\n  });"
+    },
+    {
+        "id": 46,
+        "title": "46. Async and Await (Modern JS)",
+        "theory": "<p>While <code>.then()</code> and <code>.catch()</code> solved Callback Hell, chaining them could still look messy. In 2017, JavaScript introduced <strong>Async / Await</strong>, which is syntactic sugar over Promises.</p><p>It allows us to write asynchronous code that <em>looks and behaves</em> like synchronous, line-by-line code!</p><h3>How it works:</h3><ul><li>Put the <code>async</code> keyword in front of a function to declare it as asynchronous.</li><li>Inside that function, use the <code>await</code> keyword in front of any Promise.</li><li>The function will literally <strong>pause</strong> execution at the <code>await</code> line until the Promise resolves, and then store the result in a variable.</li></ul>",
+        "output": "> Logging in...\n> User profile loaded: Admin",
+        "code": "// Simulating a promise that returns user data\nfunction fetchProfile() {\n  return new Promise(res => setTimeout(() => res('Admin'), 1000));\n}\n\n// The modern Async/Await syntax\nasync function handleLogin() {\n  console.log('Logging in...');\n  \n  // The code pauses here until fetchProfile() finishes!\n  let profileData = await fetchProfile();\n  \n  // This line only runs AFTER the promise is resolved\n  console.log('User profile loaded:', profileData);\n}\n\nhandleLogin();"
+    },
+    {
+        "id": 47,
+        "title": "47. Handling Errors with try/catch",
+        "theory": "<p>When using Async/Await, we no longer use <code>.catch()</code>. Instead, we use standard <strong>try/catch</strong> blocks, which is how error handling is done in traditional languages like Java or Python.</p><p>You put the risky code (like fetching data from a server) inside the <code>try</code> block. If any Promise is rejected, JavaScript immediately stops the <code>try</code> block and jumps straight into the <code>catch</code> block, passing the error along.</p><p>This makes handling errors extremely clean and predictable.</p>",
+        "output": "> Starting data fetch...\n> An error occurred: Server is down!\n> Execution continues normally.",
+        "code": "async function getDashboardData() {\n  try {\n    console.log('Starting data fetch...');\n    \n    // Simulating a Promise that rejects (fails)\n    let response = await Promise.reject('Server is down!');\n    \n    // This line will NEVER run because the promise rejected\n    console.log('Data loaded:', response);\n    \n  } catch (error) {\n    // Execution immediately jumps here\n    console.log('An error occurred:', error);\n  }\n}\n\ngetDashboardData();\nconsole.log('Execution continues normally.');"
+    },
+    {
+        "id": 48,
+        "title": "48. The Fetch API",
+        "theory": "<p>The <strong>Fetch API</strong> is a modern, built-in browser tool used to make HTTP network requests (like pulling data from a database or a third-party server). It completely replaces the older, clunky <code>XMLHttpRequest</code>.</p><p><code>fetch()</code> requires a URL and automatically returns a Promise. When the server responds, the Promise resolves into a Response object.</p><h3>The JSON Step</h3><p>The raw response is not immediately usable in JavaScript. You must call <code>response.json()</code> to convert the incoming data packet into a native JavaScript Object. Note that <code>.json()</code> <em>also</em> returns a Promise, so you must <code>await</code> it twice!</p>",
+        "output": "> Fetching User Data...\n> User Name: Leanne Graham\n> Email: Sincere@april.biz",
+        "code": "async function getUser() {\n  try {\n    console.log('Fetching User Data...');\n    \n    // 1. Await the network request to the server\n    let response = await fetch('https://jsonplaceholder.typicode.com/users/1');\n    \n    // 2. Await the conversion of the data into a JS Object\n    let data = await response.json();\n    \n    // 3. Use the data!\n    console.log('User Name:', data.name);\n    console.log('Email:', data.email);\n    \n  } catch (error) {\n    console.log('Failed to fetch:', error);\n  }\n}\n// Uncomment to run in a real environment\n// getUser();"
+    },
+    {
+        "id": 49,
+        "title": "49. Introduction to Object-Oriented JS",
+        "theory": "<p>Object-Oriented Programming (OOP) is a programming paradigm based on the concept of \"objects\", which can contain data and code to manipulate that data.</p><p>Instead of writing 100 loose variables and functions, OOP allows you to bundle related variables and functions into a single logical entity. For example, a <code>BankAccount</code> object would hold the `balance` (data) and the `deposit()` function (behavior).</p><h3>Classes (The Blueprint)</h3><p>A <strong>Class</strong> is a blueprint or template for creating objects. You define the structure in the Class, and then you \"instantiate\" (create) multiple individual objects based on that blueprint.</p>",
+        "output": "> New account created for Alice\n> Balance: 0\n> New account created for Bob\n> Balance: 0",
+        "code": "// Defining the Blueprint (Class)\nclass BankAccount {\n  // The constructor runs automatically when a new object is made\n  constructor(ownerName) {\n    this.owner = ownerName;\n    this.balance = 0;\n    console.log('New account created for ' + this.owner);\n  }\n}\n\n// Creating new Objects (Instances) based on the Class\nlet account1 = new BankAccount('Alice');\nconsole.log('Balance:', account1.balance);\n\nlet account2 = new BankAccount('Bob');\nconsole.log('Balance:', account2.balance);"
+    },
+    {
+        "id": 50,
+        "title": "50. OOP Methods and Encapsulation",
+        "theory": "<p>Once we have a Class, we want to add behaviors to it. We do this by defining <strong>Methods</strong> inside the Class block.</p><p>In a properly designed OOP system, outside code shouldn't manually change the internal data (like <code>account.balance = 5000</code>). Instead, the outside code should call methods (like <code>account.deposit(5000)</code>), and the object updates its own internal data.</p><p>This concept of hiding internal state and requiring interaction through defined methods is called <strong>Encapsulation</strong>. It prevents bugs and makes code highly predictable.</p>",
+        "output": "> Deposited: 100\n> Current Balance: 100\n> Withdrew: 40\n> Current Balance: 60",
+        "code": "class BankAccount {\n  constructor(ownerName) {\n    this.owner = ownerName;\n    this.balance = 0;\n  }\n  \n  // Method to handle deposits\n  deposit(amount) {\n    this.balance += amount;\n    console.log('Deposited:', amount);\n  }\n  \n  // Method to handle withdrawals\n  withdraw(amount) {\n    this.balance -= amount;\n    console.log('Withdrew:', amount);\n  }\n}\n\nlet myAccount = new BankAccount('Nitesh');\n\n// Using methods instead of changing this.balance directly\nmyAccount.deposit(100);\nconsole.log('Current Balance:', myAccount.balance);\n\nmyAccount.withdraw(40);\nconsole.log('Current Balance:', myAccount.balance);"
+    }
+]

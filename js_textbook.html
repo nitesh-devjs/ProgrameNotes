@@ -1,0 +1,2433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript Mastery Textbook</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        @page {
+            margin: 0;
+            size: A4 portrait;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #fafafa; 
+            font-family: 'Inter', sans-serif;
+            color: #222;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+        .page {
+            width: 210mm;
+            height: 297mm;
+            position: relative;
+            box-sizing: border-box;
+            padding: 25mm 20mm;
+            page-break-after: always;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); /* For preview */
+            margin: 0 auto;
+        }
+        
+        /* TITLE PAGE */
+        .title-page {
+            background: linear-gradient(135deg, #f0db4f 0%, #d4b830 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #323330;
+        }
+        .title-page h1 {
+            font-size: 14mm;
+            font-weight: 800;
+            margin: 0 0 10mm 0;
+            line-height: 1.1;
+        }
+        .title-page h2 {
+            font-size: 6mm;
+            font-weight: 600;
+            opacity: 0.8;
+            margin-bottom: 30mm;
+        }
+        .badge {
+            background: #323330;
+            color: #f0db4f;
+            padding: 3mm 8mm;
+            border-radius: 10mm;
+            font-weight: 800;
+            font-size: 5mm;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* SYLLABUS PAGE */
+        .syllabus-page h1 {
+            font-size: 9mm;
+            color: #111;
+            border-bottom: 2px solid #eaeaea;
+            padding-bottom: 5mm;
+            margin-bottom: 10mm;
+        }
+        .syllabus-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            column-count: 2;
+            column-gap: 10mm;
+        }
+        .syllabus-list li {
+            font-size: 4mm;
+            margin-bottom: 4mm;
+            line-height: 1.4;
+            break-inside: avoid;
+        }
+        
+        /* THEORY PAGE */
+        .theory-page h2 {
+            font-size: 8mm;
+            color: #1a1a1a;
+            margin: 0 0 10mm 0;
+            font-weight: 800;
+            border-bottom: 3px solid #f0db4f;
+            padding-bottom: 5mm;
+        }
+        .theory-content {
+            font-size: 4.8mm;
+            line-height: 1.7;
+            color: #333;
+        }
+        .theory-content p {
+            margin-bottom: 6mm;
+        }
+        .theory-content h3 {
+            font-size: 5.5mm;
+            color: #222;
+            margin: 8mm 0 4mm 0;
+        }
+        .theory-content ul, .theory-content ol {
+            margin-bottom: 6mm;
+            padding-left: 6mm;
+        }
+        .theory-content li {
+            margin-bottom: 2mm;
+        }
+        .theory-content code {
+            background: #f4f4f4;
+            padding: 1mm 2mm;
+            border-radius: 1mm;
+            font-family: 'Fira Code', monospace;
+            font-size: 4mm;
+            color: #d11a2a;
+        }
+
+        /* PRACTICAL PAGE */
+        .practical-page {
+            background: #fdfdfd;
+        }
+        .console-window {
+            background: #1e1e1e;
+            border-radius: 3mm;
+            margin-bottom: 15mm;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+        .console-header {
+            background: #2d2d2d;
+            padding: 3mm 4mm;
+            display: flex;
+            align-items: center;
+        }
+        .console-dots {
+            display: flex;
+            gap: 2mm;
+        }
+        .dot {
+            width: 3mm;
+            height: 3mm;
+            border-radius: 50%;
+        }
+        .dot.red { background: #ff5f56; }
+        .dot.yellow { background: #ffbd2e; }
+        .dot.green { background: #27c93f; }
+        .console-title {
+            color: #888;
+            font-size: 3.5mm;
+            margin-left: 5mm;
+            font-family: 'Inter', sans-serif;
+        }
+        .console-body {
+            padding: 5mm;
+            font-family: 'Fira Code', monospace;
+            font-size: 4.2mm;
+            color: #a6accd;
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+        
+        .code-window {
+            background: #fcfcfc;
+            border: 1px solid #e0e0e0;
+            border-left: 5px solid #f0db4f;
+            border-radius: 2mm;
+            padding: 8mm;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .code-window pre {
+            margin: 0;
+            font-family: 'Fira Code', monospace;
+            font-size: 4.2mm;
+            line-height: 1.6;
+            color: #24292e;
+            white-space: pre-wrap;
+        }
+        /* Basic syntax highlight simulation for code block */
+        .code-window pre .comment { color: #6a737d; font-style: italic; }
+        .code-window pre .keyword { color: #d73a49; font-weight: 600; }
+        .code-window pre .string { color: #032f62; }
+        .code-window pre .function { color: #6f42c1; }
+        
+        .page-footer {
+            position: absolute;
+            bottom: 10mm;
+            right: 20mm;
+            font-size: 3.5mm;
+            color: #aaa;
+        }
+
+        /* AD PAGE */
+        .ad-page {
+            background: #12151c;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20mm;
+        }
+        .ad-title {
+            color: #f0db4f;
+            font-size: 11mm;
+            font-weight: 800;
+            margin-bottom: 5mm;
+            line-height: 1.2;
+        }
+        .ad-subtitle {
+            font-size: 5mm;
+            color: #a6accd;
+            margin-bottom: 15mm;
+            max-width: 150mm;
+        }
+        .ad-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6mm 10mm;
+            width: 100%;
+            max-width: 160mm;
+            text-align: left;
+        }
+        .ad-card {
+            background: #1e222d;
+            border-left: 4px solid #f0db4f;
+            padding: 4mm 6mm;
+            border-radius: 2mm;
+            font-size: 4.5mm;
+            font-weight: 600;
+            color: #e2e8f0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .ad-footer {
+            margin-top: 25mm;
+            font-size: 6mm;
+            font-weight: 800;
+            background: #f0db4f;
+            color: #12151c;
+            padding: 4mm 15mm;
+            border-radius: 10mm;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TITLE PAGE -->
+    <div class="page title-page">
+        <h1>JavaScript Mastery<br>Masterclass</h1>
+        <h2>From Zero to Advanced Concepts</h2>
+        <div class="badge">Comprehensive Textbook Edition</div>
+        <div style="margin-top: 20mm; font-size: 7mm; font-weight: 800; color: #111; letter-spacing: 1px; padding: 5mm 15mm; border: 3px solid #111; border-radius: 3mm; background: rgba(255,255,255,0.2);">
+            Powered by programenote.dev
+        </div>
+    </div>
+
+    <!-- SYLLABUS PAGE 1 -->
+    <div class="page syllabus-page">
+        <h1>Syllabus & Table of Contents</h1>
+        <ul class="syllabus-list">
+<li><strong>1. What is JavaScript?</strong></li><li><strong>2. Hello World: Your First Code</strong></li><li><strong>3. Comments in JavaScript</strong></li><li><strong>4. Values and Data Types</strong></li><li><strong>5. Introduction to Variables</strong></li><li><strong>6. Updating Variables (let)</strong></li><li><strong>7. Constant Variables (const)</strong></li><li><strong>8. The Old Way: var</strong></li><li><strong>9. Undefined vs Null</strong></li><li><strong>10. Basic Math Operators</strong></li><li><strong>11. String Concatenation</strong></li><li><strong>12. Assignment Operators</strong></li><li><strong>13. Comparison Operators</strong></li><li><strong>14. Equality: Loose (==) vs Strict (===)</strong></li><li><strong>15. Logical Operators (AND, OR, NOT)</strong></li><li><strong>16. Control Flow: The if Statement</strong></li><li><strong>17. The if...else Statement</strong></li><li><strong>18. Multiple Conditions: else if</strong></li><li><strong>19. Truthy and Falsy Values</strong></li><li><strong>20. The Switch Statement</strong></li><li><strong>21. Loops: Introduction to Iteration</strong></li><li><strong>22. The for Loop</strong></li><li><strong>23. Break and Continue</strong></li><li><strong>24. Introduction to Functions</strong></li><li><strong>25. Function Parameters and Arguments</strong></li><li><strong>26. Return Values</strong></li><li><strong>27. Variable Scope: Global vs Local</strong></li><li><strong>28. Block Scope (let & const)</strong></li><li><strong>29. Arrays: Introduction</strong></li><li><strong>30. Modifying Arrays</strong></li><li><strong>31. Array Methods: pop, shift, and unshift</strong></li><li><strong>32. Iterating Arrays with For Loops</strong></li><li><strong>33. Introduction to Objects</strong></li><li><strong>34. Modifying Objects</strong></li><li><strong>35. Object Methods</strong></li><li><strong>36. Introduction to the DOM</strong></li><li><strong>37. Selecting DOM Elements</strong></li><li><strong>38. Modifying Text and HTML</strong></li><li><strong>39. Modifying CSS Styles via JS</strong></li><li><strong>40. Introduction to Events</strong></li><li><strong>41. The Event Object</strong></li><li><strong>42. Asynchronous JavaScript Introduction</strong></li><li><strong>43. The Problem: Callback Hell</strong></li><li><strong>44. Introduction to Promises</strong></li><li><strong>45. Consuming Promises (.then & .catch)</strong></li><li><strong>46. Async and Await (Modern JS)</strong></li><li><strong>47. Handling Errors with try/catch</strong></li><li><strong>48. The Fetch API</strong></li><li><strong>49. Introduction to Object-Oriented JS</strong></li><li><strong>50. OOP Methods and Encapsulation</strong></li>
+        </ul>
+        <div class="page-footer"><strong>programenote.dev</strong> | Table of Contents</div>
+    </div>
+
+    <div class="page theory-page">
+        <h2>1. What is JavaScript?</h2>
+        <div class="theory-content">
+            <p>JavaScript is a high-level, interpreted, and dynamically typed programming language. Originally created in 1995 by Brendan Eich to add basic interactivity to web pages, it has evolved into a powerful language used on both the client side (browsers) and the server side (Node.js).</p><p>Unlike languages like C++ or Java which require you to compile your code before running it, JavaScript is interpreted. This means the browser's JavaScript Engine reads and executes the code line-by-line.</p><h3>Why Learn JavaScript?</h3><ul><li><strong>Ubiquity:</strong> It is the only programming language native to the web browser.</li><li><strong>Versatility:</strong> You can build web apps, mobile apps, desktop apps, and servers with it.</li><li><strong>Community:</strong> It has the largest ecosystem of libraries and frameworks (like React, Angular, Vue).</li></ul>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 1 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> JS Engine is ready.
+> Waiting for instructions...</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>console.log('JavaScript is running!');
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 2 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>2. Hello World: Your First Code</h2>
+        <div class="theory-content">
+            <p>In programming, it is a tradition to write a "Hello World" program as your very first piece of code. In JavaScript, we communicate with the developer console using a built-in object called <strong>console</strong>.</p><p>The <code>console.log()</code> method is used to print messages to the web console. This is the most essential tool for a developer, as it allows you to see the output of your code, inspect values, and debug errors.</p><h3>How it works:</h3><p>When the JavaScript engine encounters <code>console.log('Hello World');</code>, it takes the data inside the parentheses and outputs it directly to the digital screen (the console).</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 3 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> Hello World
+> Welcome to JavaScript!</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>console.log('Hello World');
+console.log("Welcome to JavaScript!");
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 4 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>3. Comments in JavaScript</h2>
+        <div class="theory-content">
+            <p>When writing code, you often want to leave notes for yourself or other developers explaining what a piece of code does. These notes are called <strong>Comments</strong>.</p><p>Comments are completely ignored by the JavaScript engine when the code runs. They exist purely for human readability.</p><h3>Two Types of Comments</h3><ul><li><strong>Single-line Comments (<code>//</code>)</strong>: Anything written after two forward slashes on that specific line is ignored.</li><li><strong>Multi-line Comments (<code>/* ... */</code>)</strong>: Anything enclosed between these symbols is ignored, allowing you to write paragraph-long explanations.</li></ul>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 5 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> This code runs!</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>// This is a single-line comment. The engine ignores it.
+
+console.log('This code runs!'); // You can also put comments at the end of a line.
+
+/* 
+   This is a multi-line comment.
+   It is very useful for explaining complex logic
+   or temporarily disabling large blocks of code.
+*/
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 6 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>4. Values and Data Types</h2>
+        <div class="theory-content">
+            <p>Every piece of information in JavaScript is a <strong>Value</strong>. To make sense of different types of information, JavaScript categorizes values into <strong>Data Types</strong>.</p><p>There are two main categories of data types in JavaScript: Primitives and Objects. For now, we will focus on the fundamental Primitives:</p><ul><li><strong>String:</strong> Used for text. Always enclosed in quotes.</li><li><strong>Number:</strong> Used for decimals and integers. No quotes.</li><li><strong>Boolean:</strong> A logical type that can only be <code>true</code> or <code>false</code>.</li></ul><p>By using the <code>typeof</code> operator, we can ask JavaScript to tell us the data type of any given value.</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 7 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> string
+> number
+> boolean</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>// Let's print the type of different values.
+
+console.log(typeof 'Hello');    // This is a String
+console.log(typeof 42);         // This is a Number
+console.log(typeof true);       // This is a Boolean
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 8 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>5. Introduction to Variables</h2>
+        <div class="theory-content">
+            <p>Imagine a variable as a labeled box where you can store a value. Once you store a value in that box, you can reuse it throughout your program by simply referring to the label (the variable name).</p><p>In modern JavaScript, we create variables using the <code>let</code> keyword. When you declare a variable with <code>let</code>, you are telling the computer's memory to reserve a spot for your data.</p><h3>Rules for Naming Variables:</h3><ul><li>Names can contain letters, numbers, underscores, and dollar signs.</li><li>Names <strong>cannot</strong> start with a number.</li><li>Names are case-sensitive (<code>age</code> is different from <code>Age</code>).</li><li>Use <em>camelCase</em> convention (e.g., <code>firstName</code>, <code>totalScore</code>).</li></ul>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 9 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> Alice
+> 25</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>// 1. Declare a variable and assign a value to it.
+let playerName = 'Alice';
+let playerScore = 25;
+
+// 2. Use the variable by referencing its name.
+console.log(playerName);
+console.log(playerScore);
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 10 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>6. Updating Variables (let)</h2>
+        <div class="theory-content">
+            <p>The keyword <code>let</code> stands for a variable whose value is allowed to change (mutate) over time. This is incredibly useful for data that constantly updates, like a user's score in a game, or their age.</p><p>When updating a variable, you do <strong>not</strong> use the <code>let</code> keyword again. You only use <code>let</code> when creating the variable for the very first time. To update it, you simply write the variable name followed by the equals sign and the new value.</p><p>Behind the scenes, JavaScript finds the 'box' in memory labeled with your variable name, throws out the old value, and puts the new value inside.</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 11 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> Starting Score: 0
+> Updated Score: 10
+> Final Score: 15</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>// Create the variable (Initialization)
+let currentScore = 0;
+console.log('Starting Score:', currentScore);
+
+// Update the variable (Reassignment)
+currentScore = 10;
+console.log('Updated Score:', currentScore);
+
+// Update it again
+currentScore = 15;
+console.log('Final Score:', currentScore);
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 12 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>7. Constant Variables (const)</h2>
+        <div class="theory-content">
+            <p>While <code>let</code> is great for changing data, sometimes we have data that should <strong>never</strong> change. For example, a person's birth year, or the mathematical value of Pi.</p><p>In 2015, JavaScript introduced the <code>const</code> keyword. When you declare a variable with <code>const</code>, you lock its value. Any attempt to update or reassign a <code>const</code> variable will cause your program to crash with an Error.</p><h3>Best Practice:</h3><p>Always use <code>const</code> by default! Only use <code>let</code> if you are absolutely sure that the value will need to change later in the program. This makes your code safer and prevents accidental bugs.</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 13 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> 1995
+> Error: Assignment to constant variable.</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>// Declare a constant variable
+const birthYear = 1995;
+console.log(birthYear);
+
+// If we try to change it, the engine throws an error.
+// Uncommenting the line below will crash the program:
+// birthYear = 1996;
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 14 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>8. The Old Way: var</h2>
+        <div class="theory-content">
+            <p>Before 2015, JavaScript only had one way to declare variables: the <code>var</code> keyword. You will still see <code>var</code> in older codebases and legacy tutorials.</p><p>Why did we move away from <code>var</code>? Because it has bizarre scoping rules (which we will cover later in the 'Scope' chapter) and allows you to accidentally redeclare the exact same variable twice without throwing an error, which causes massive bugs.</p><h3>Modern Rule:</h3><p>Avoid using <code>var</code> completely in modern JavaScript. Stick exclusively to <code>let</code> and <code>const</code>.</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 15 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> John
+> Bob</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>// Creating a variable with var
+var employeeName = 'John';
+console.log(employeeName);
+
+// var allows you to completely redeclare the variable
+// without any warnings! (let and const would throw an error here)
+var employeeName = 'Bob'; 
+console.log(employeeName);
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 16 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>9. Undefined vs Null</h2>
+        <div class="theory-content">
+            <p>In JavaScript, there are two special primitives that represent 'nothingness': <code>undefined</code> and <code>null</code>.</p><h3>Undefined</h3><p>When you declare a variable but do not assign a value to it, JavaScript automatically assigns it the value of <code>undefined</code>. It means 'this variable exists, but it has no value yet'.</p><h3>Null</h3><p><code>null</code> is used when you, the developer, intentionally want to say 'this variable holds absolutely nothing'. It is an intentional absence of value.</p><p>Think of it this way: <code>undefined</code> is an empty box that you forgot to pack. <code>null</code> is an empty box that you deliberately left empty.</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 17 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> undefined
+> null</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>// 1. Undefined (Automatic)
+let futureData;
+console.log(futureData); // We didn't assign a value!
+
+// 2. Null (Manual)
+let emptyResult = null;
+console.log(emptyResult); // We intentionally set it to nothing.
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 18 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>10. Basic Math Operators</h2>
+        <div class="theory-content">
+            <p>JavaScript can act as a powerful calculator. It includes standard Arithmetic Operators that allow us to perform mathematical calculations on Numbers.</p><ul><li><strong>Addition (<code>+</code>):</strong> Adds two numbers.</li><li><strong>Subtraction (<code>-</code>):</strong> Subtracts the right number from the left.</li><li><strong>Multiplication (<code>*</code>):</strong> Multiplies two numbers.</li><li><strong>Division (<code>/</code>):</strong> Divides the left number by the right.</li><li><strong>Exponentiation (<code>**</code>):</strong> Raises the left number to the power of the right number.</li></ul><p>Just like in standard mathematics, JavaScript follows the order of operations (BODMAS/PEMDAS). You can use parentheses <code>()</code> to control which calculations happen first.</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 19 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> Sum: 15
+> Product: 50
+> Power: 8
+> Complex: 14</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>let a = 10;
+let b = 5;
+
+console.log('Sum:', a + b);
+console.log('Product:', a * b);
+console.log('Power:', 2 ** 3); // 2 to the power of 3
+
+// Using parentheses to control the order of operations
+let result = (10 - 3) * 2; 
+console.log('Complex:', result);
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 20 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>11. String Concatenation</h2>
+        <div class="theory-content">
+            <p>Strings are text values. When you use the addition operator (<code>+</code>) on strings, JavaScript does not perform mathematical addition. Instead, it performs <strong>Concatenation</strong>, which means joining the strings end-to-end.</p><p>For example, <code>'Hello' + 'World'</code> becomes <code>'HelloWorld'</code>.</p><h3>The Quirk of JavaScript Coercion:</h3><p>If you try to add a String and a Number together (e.g., <code>'Score: ' + 10</code>), JavaScript will secretly convert the Number into a String behind the scenes and concatenate them. This is known as <strong>Implicit Coercion</strong>.</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 21 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> Hello John
+> Your score is 95</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>let greeting = 'Hello';
+let personName = 'John';
+
+// We add a space string ' ' in the middle so they don't stick together
+let fullMessage = greeting + ' ' + personName;
+console.log(fullMessage);
+
+let scoreText = 'Your score is ';
+let points = 95;
+
+// Number 95 is coerced into the string '95'
+console.log(scoreText + points);
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 22 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>12. Assignment Operators</h2>
+        <div class="theory-content">
+            <p>You already know the basic assignment operator (<code>=</code>), which assigns the value on the right to the variable on the left.</p><p>JavaScript also provides shorthand <strong>Compound Assignment Operators</strong> to make updating variables faster. Instead of writing <code>score = score + 5</code>, you can simply write <code>score += 5</code>.</p><ul><li><strong><code>+=</code></strong> : Adds and assigns.</li><li><strong><code>-=</code></strong> : Subtracts and assigns.</li><li><strong><code>*=</code></strong> : Multiplies and assigns.</li><li><strong><code>/=</code></strong> : Divides and assigns.</li></ul><p>These are heavily used in loops and when maintaining state (like a running total or score).</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 23 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> Initial: 10
+> After addition: 15
+> After multiplication: 30</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>let myNumber = 10;
+console.log('Initial:', myNumber);
+
+// Long way: myNumber = myNumber + 5;
+// Shorthand:
+myNumber += 5;
+console.log('After addition:', myNumber);
+
+// Multiply the current value by 2
+myNumber *= 2;
+console.log('After multiplication:', myNumber);
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 24 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>13. Comparison Operators</h2>
+        <div class="theory-content">
+            <p>Comparison operators are used to compare two values. They always evaluate to a Boolean result: either <code>true</code> or <code>false</code>.</p><ul><li><strong><code>&gt;</code></strong> : Greater than.</li><li><strong><code>&lt;</code></strong> : Less than.</li><li><strong><code>&gt;=</code></strong> : Greater than or equal to.</li><li><strong><code>&lt;=</code></strong> : Less than or equal to.</li></ul><p>These operators are the foundation of decision-making in programming. Later, we will use them inside Control Flow statements to decide which blocks of code the computer should execute.</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 25 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> Is 10 greater than 5? true
+> Is 10 less than 10? false
+> Is 10 less than or equal to 10? true</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>let a = 10;
+let b = 5;
+
+console.log('Is 10 greater than 5?', a &gt; b);
+console.log('Is 10 less than 10?', a &lt; 10);
+console.log('Is 10 less than or equal to 10?', a &lt;= 10);
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 26 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>14. Equality: Loose (==) vs Strict (===)</h2>
+        <div class="theory-content">
+            <p>Checking if two values are equal is done using equality operators, but JavaScript has two different kinds: Loose Equality and Strict Equality.</p><h3>Loose Equality (<code>==</code>)</h3><p>Checks if the values are equal, but <strong>ignores the data type</strong>. If the types are different, JavaScript attempts to convert them (coercion) before comparing. <code>5 == '5'</code> is <code>true</code>.</p><h3>Strict Equality (<code>===</code>)</h3><p>Checks if BOTH the value and the data type are identical. No conversion happens. <code>5 === '5'</code> is <code>false</code> because one is a Number and the other is a String.</p><p><strong>Golden Rule:</strong> Always use <code>===</code> (Strict) in modern JavaScript to avoid coercion bugs!</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 27 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> Loose check (5 == '5'): true
+> Strict check (5 === '5'): false
+> Strict check (5 === 5): true</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>let num = 5;       // Number
+let str = '5';     // String
+
+// Loose equality (Coercion happens)
+console.log("Loose check (5 == '5'):", num == str);
+
+// Strict equality (No coercion - Safer!)
+console.log("Strict check (5 === '5'):", num === str);
+
+// Strict equality with matching types
+console.log("Strict check (5 === 5):", num === 5);
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 28 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>15. Logical Operators (AND, OR, NOT)</h2>
+        <div class="theory-content">
+            <p>Logical Operators allow you to combine multiple boolean conditions together.</p><ul><li><strong>AND (<code>&amp;&amp;</code>)</strong>: Returns <code>true</code> ONLY if <strong>all</strong> conditions are true. If even one is false, the whole expression becomes false.</li><li><strong>OR (<code>||</code>)</strong>: Returns <code>true</code> if <strong>at least one</strong> condition is true. It only returns false if all conditions are false.</li><li><strong>NOT (<code>!</code>)</strong>: Reverses the boolean value. <code>true</code> becomes <code>false</code>, and vice versa.</li></ul><p>These are crucial when making complex decisions, like verifying if a user is both an Admin AND has an Active account.</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 29 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> Can drive? false
+> Needs ticket? true
+> Inverted true is: false</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>let hasLicense = true;
+let hasGoodVision = false;
+
+// AND: Both must be true
+let canDrive = hasLicense && hasGoodVision;
+console.log('Can drive?', canDrive);
+
+// OR: One must be true
+let isStudent = true;
+let isSenior = false;
+let needsDiscountTicket = isStudent || isSenior;
+console.log('Needs ticket?', needsDiscountTicket);
+
+// NOT: Inverts the value
+console.log('Inverted true is:', !true);
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 30 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>16. Control Flow: The if Statement</h2>
+        <div class="theory-content">
+            <p>By default, code executes line-by-line from top to bottom. <strong>Control Flow</strong> allows us to change this path based on conditions. The most fundamental tool for this is the <code>if</code> statement.</p><p>The <code>if</code> statement evaluates a condition inside parentheses <code>()</code>. If that condition results in <code>true</code>, the code inside the curly braces <code>{}</code> (the block) will be executed. If it evaluates to <code>false</code>, the block is completely skipped.</p><p>This allows your program to be dynamic and react differently to different data (like showing a 'Welcome' message only if the user is logged in).</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 31 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> You are an adult.</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>let userAge = 20;
+
+// The code inside the { } only runs because 20 &gt;= 18 is true.
+if (userAge &gt;= 18) {
+  console.log('You are an adult.');
+}
+
+let batteryLevel = 10;
+
+// This block will be skipped because 10 &lt; 5 is false.
+if (batteryLevel &lt; 5) {
+  console.log('Battery critical! Please charge.');
+}
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 32 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>17. The if...else Statement</h2>
+        <div class="theory-content">
+            <p>While the <code>if</code> statement handles what to do when a condition is true, the <code>else</code> statement acts as the fallback. It handles what to do when the condition is <strong>false</strong>.</p><p>An <code>else</code> block cannot exist on its own; it must immediately follow an <code>if</code> block. This structure guarantees that exactly <strong>one</strong> of the two blocks will execute, making it a perfect tool for binary decisions (e.g., Login Success vs Login Failed).</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 33 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> Access Denied. Please check your password.</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>let isPasswordCorrect = false;
+
+if (isPasswordCorrect === true) {
+  // Runs if the condition is true
+  console.log('Login Successful! Welcome.');
+} else {
+  // Runs if the condition is false
+  console.log('Access Denied. Please check your password.');
+}
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 34 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>18. Multiple Conditions: else if</h2>
+        <div class="theory-content">
+            <p>Sometimes a decision isn't just binary (True/False). You might have multiple distinct scenarios. This is where <code>else if</code> comes in.</p><p>You can chain as many <code>else if</code> blocks as you want between the initial <code>if</code> and the final fallback <code>else</code>. JavaScript will evaluate them from top to bottom. As soon as it finds a <strong>true</strong> condition, it executes that block and immediately <strong>exits the entire chain</strong>, skipping the rest.</p><p>This is extremely useful for grading systems, categorizing data, or handling multiple specific error codes.</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 35 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> Letter Grade: B</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>let testScore = 85;
+
+if (testScore &gt;= 90) {
+  console.log('Letter Grade: A');
+} else if (testScore &gt;= 80) {
+  // This block runs! 85 is &gt;= 80.
+  console.log('Letter Grade: B');
+} else if (testScore &gt;= 70) {
+  // This is skipped because a match was already found above.
+  console.log('Letter Grade: C');
+} else {
+  console.log('Letter Grade: F');
+}
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 36 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>19. Truthy and Falsy Values</h2>
+        <div class="theory-content">
+            <p>In JavaScript, <code>if</code> conditions don't strictly require a boolean <code>true</code> or <code>false</code>. You can put <strong>any</strong> data type inside an <code>if</code> statement, and JavaScript will automatically coerce it into a boolean.</p><h3>Falsy Values:</h3><p>There are exactly 6 values that evaluate to <code>false</code>: <code>0</code>, <code>""</code> (empty string), <code>null</code>, <code>undefined</code>, <code>NaN</code> (Not a Number), and of course, <code>false</code>.</p><h3>Truthy Values:</h3><p>Literally <strong>everything else</strong> evaluates to <code>true</code>. This includes numbers like <code>1</code> or <code>-5</code>, any non-empty string like <code>'hello'</code>, and even empty arrays <code>[]</code> or objects <code>{}</code>.</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 37 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> This string is Truthy!
+> 0 is Falsy, so the else block runs.</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>let myName = 'Nitesh';
+
+// 'Nitesh' is a non-empty string, so it is Truthy.
+if (myName) {
+  console.log('This string is Truthy!');
+}
+
+let itemsInCart = 0;
+
+// 0 is Falsy, so the if block is skipped.
+if (itemsInCart) {
+  console.log('You have items to checkout.');
+} else {
+  console.log('0 is Falsy, so the else block runs.');
+}
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 38 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>20. The Switch Statement</h2>
+        <div class="theory-content">
+            <p>When you have a long chain of <code>else if</code> statements testing the same variable against different strict values, it can look messy. The <code>switch</code> statement provides a cleaner syntax for this.</p><p>The <code>switch</code> takes a single value and evaluates it against multiple <code>case</code> blocks using strict equality (<code>===</code>). When a match is found, it executes the code.</p><h3>The Break Keyword:</h3><p>Crucially, you must use the <code>break</code> keyword at the end of each case. If you forget <code>break</code>, JavaScript will "fall through" and execute all the code in the subsequent cases as well, regardless of whether they match!</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 39 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> The traffic light is Yellow: Slow down!</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>let trafficLight = 'Yellow';
+
+switch (trafficLight) {
+  case 'Red':
+    console.log('Stop!');
+    break;
+  case 'Yellow':
+    console.log('The traffic light is Yellow: Slow down!');
+    break; // Stops execution here
+  case 'Green':
+    console.log('Go!');
+    break;
+  default:
+    // Runs if no cases match
+    console.log('Invalid color.');
+}
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 40 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>21. Loops: Introduction to Iteration</h2>
+        <div class="theory-content">
+            <p>In programming, we often need to perform the exact same task multiple times. Instead of copy-pasting the same line of code over and over (which violates the DRY principle: Don't Repeat Yourself), we use <strong>Loops</strong>.</p><p>Loops allow us to execute a block of code repeatedly as long as a certain condition remains true. The moment the condition becomes false, the loop stops, and the program continues.</p><h3>The Danger of Infinite Loops</h3><p>If you create a loop where the condition <em>never</em> becomes false, the loop will run forever. This is called an Infinite Loop, and it will crash the browser or the application by consuming all available memory and CPU power.</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 41 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> Iteration 0
+> Iteration 1
+> Iteration 2
+> Loop finished!</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>let count = 0;
+
+// A basic loop structure (using while)
+while (count &lt; 3) {
+  console.log('Iteration', count);
+  // Crucial step: we must change the variable 
+  // so the condition eventually becomes false!
+  count = count + 1;
+}
+
+console.log('Loop finished!');
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 42 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>22. The for Loop</h2>
+        <div class="theory-content">
+            <p>The <code>for</code> loop is the most commonly used loop in JavaScript. It is perfect for situations where you know exactly how many times you want the code to repeat (for example, counting from 1 to 10).</p><p>The <code>for</code> loop consolidates three crucial pieces of looping logic into a single line:</p><ol><li><strong>Initialization:</strong> Creating the counter variable (e.g., <code>let i = 0;</code>). This runs only once at the start.</li><li><strong>Condition:</strong> The rule that keeps the loop running (e.g., <code>i &lt; 5;</code>). Checked before every iteration.</li><li><strong>Increment/Decrement:</strong> Updating the counter (e.g., <code>i++</code>). Runs at the end of every iteration.</li></ol>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 43 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> 1
+> 2
+> 3
+> Blastoff!</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>// (Initialization; Condition; Increment)
+for (let i = 1; i &lt;= 3; i++) {
+  // This code runs as long as i &lt;= 3
+  console.log(i);
+}
+
+// The loop finishes when i becomes 4 (4 &lt;= 3 is false)
+console.log('Blastoff!');
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 44 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>23. Break and Continue</h2>
+        <div class="theory-content">
+            <p>Loops don't always have to run to their natural end. JavaScript provides two powerful keywords to manually control the flow inside a loop: <code>break</code> and <code>continue</code>.</p><h3>Break</h3><p>The <code>break</code> keyword immediately <strong>kills</strong> the loop entirely. It is often used when searching for a specific item. Once the item is found, there's no need to keep looping, so you <code>break</code> out to save processing power.</p><h3>Continue</h3><p>The <code>continue</code> keyword skips the <strong>current iteration</strong> and immediately jumps back to the top of the loop to evaluate the condition for the next cycle. It is used to skip over data you don't care about without killing the whole loop.</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 45 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> 1
+> 2
+> Found it! Stopping loop.
+> === Next Example ===
+> 1
+> 3
+> 5</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>for (let i = 1; i &lt;= 5; i++) {
+  if (i === 3) {
+    console.log('Found it! Stopping loop.');
+    break; // Kills the loop completely
+  }
+  console.log(i);
+}
+
+console.log('=== Next Example ===');
+
+for (let n = 1; n &lt;= 5; n++) {
+  if (n % 2 === 0) {
+    // If the number is even, skip to the next iteration
+    continue; 
+  }
+  console.log(n); // Only prints odd numbers
+}
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 46 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>24. Introduction to Functions</h2>
+        <div class="theory-content">
+            <p>A Function is a reusable block of code designed to perform a specific task. Think of it as a mini-program within your main program.</p><h3>Why use Functions?</h3><p>If you have a block of logic that you need to use in 5 different places, you shouldn't copy-paste it 5 times. Instead, you wrap it inside a Function. Then, you simply "call" or "invoke" that function whenever you need it.</p><h3>Anatomy of a Function:</h3><ul><li><strong>Declaration:</strong> Use the <code>function</code> keyword, give it a name, and add <code>()</code> and <code>{}</code>.</li><li><strong>Invocation:</strong> To actually run the code inside, you must call the function by writing its name followed by parentheses: <code>myFunction()</code>.</li></ul>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 47 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> Initializing System...
+> Welcome to the Matrix.
+> System Ready.</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>// 1. Declaring the function (This does NOT run the code yet)
+function bootSystem() {
+  console.log('Initializing System...');
+  console.log('Welcome to the Matrix.');
+  console.log('System Ready.');
+}
+
+// 2. Invoking the function (This runs the code)
+bootSystem();
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 48 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>25. Function Parameters and Arguments</h2>
+        <div class="theory-content">
+            <p>Functions become truly powerful when they can accept data from the outside, process it, and act dynamically based on that data.</p><h3>Parameters (The placeholders)</h3><p>When you declare a function, you can define variables inside the parentheses. These are called <strong>Parameters</strong>. They act as placeholders for the data the function expects to receive.</p><h3>Arguments (The actual data)</h3><p>When you invoke the function, the actual values you pass into the parentheses are called <strong>Arguments</strong>. JavaScript maps the arguments to the parameters in the exact order they are passed.</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 49 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> Hello, Alice
+> Hello, Bob</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>// 'userName' is a Parameter (a placeholder variable)
+function greetUser(userName) {
+  console.log('Hello, ' + userName);
+}
+
+// 'Alice' is the Argument (the actual data)
+greetUser('Alice');
+
+// We can reuse the function with different data!
+greetUser('Bob');
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 50 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>26. Return Values</h2>
+        <div class="theory-content">
+            <p>So far, our functions have only printed things to the console. But in real-world applications, functions usually calculate a result and send it back to the main program to be used later. We do this using the <code>return</code> keyword.</p><p>When JavaScript encounters a <code>return</code> statement, two things happen immediately:</p><ol><li>The function completely stops executing (any code below the return is ignored).</li><li>The value specified is "spit out" (returned) to wherever the function was called.</li></ol><p>You can then store this returned value in a variable to use it elsewhere.</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 51 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> Result of 5 + 10 is: 15
+> Result of 100 + 200 is: 300</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>function addNumbers(a, b) {
+  let sum = a + b;
+  // Send the result back to the caller
+  return sum;
+  
+  // This will never run!
+  // console.log('I am invisible'); 
+}
+
+// Store the returned value in a variable
+let finalResult = addNumbers(5, 10);
+console.log('Result of 5 + 10 is:', finalResult);
+
+let anotherResult = addNumbers(100, 200);
+console.log('Result of 100 + 200 is:', anotherResult);
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 52 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>27. Variable Scope: Global vs Local</h2>
+        <div class="theory-content">
+            <p>Scope defines the accessibility (visibility) of variables. Not all variables are accessible from everywhere in your code.</p><h3>Global Scope</h3><p>A variable declared outside of any function has Global Scope. It can be accessed and modified from <em>anywhere</em> in your JavaScript file. This can be dangerous if overused.</p><h3>Local (Function) Scope</h3><p>Variables declared <em>inside</em> a function are Local to that function. They are completely hidden from the outside world. They are created when the function starts and destroyed when the function ends. This provides security and memory efficiency.</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 53 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> Inside function: Global Data
+> Inside function: Secret Local Data
+> Outside function: Global Data
+> Error: secretData is not defined</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>let globalData = 'Global Data';
+
+function checkScope() {
+  // We can access global variables inside functions
+  console.log('Inside function:', globalData);
+  
+  let secretData = 'Secret Local Data';
+  console.log('Inside function:', secretData);
+}
+
+checkScope();
+
+// We can access global data outside
+console.log('Outside function:', globalData);
+
+// But we CANNOT access local data outside! 
+// Uncommenting the below line crashes the app:
+// console.log(secretData); 
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 54 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>28. Block Scope (let & const)</h2>
+        <div class="theory-content">
+            <p>Before ES6 (2015), JavaScript only had Global and Function scope. This meant that if you created a variable inside an <code>if</code> block or a <code>for</code> loop using <code>var</code>, it would "leak out" and be accessible outside the block. This was a massive source of bugs.</p><p>With the introduction of <code>let</code> and <code>const</code>, JavaScript finally got <strong>Block Scope</strong>.</p><p>A Block is any code bounded by curly braces <code>{}</code>. Any variable declared with <code>let</code> or <code>const</code> inside a block is strictly confined to that block. Once the block finishes executing, the variable is destroyed.</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 55 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> Inside block: Password123
+> Error: userPassword is not defined</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>let isLoggedIn = true;
+
+if (isLoggedIn === true) {
+  // This variable is block-scoped!
+  let userPassword = 'Password123';
+  console.log('Inside block:', userPassword);
+}
+
+// We cannot access 'userPassword' here because the block ended.
+// The variable 'leaking' is prevented by using 'let'.
+// Uncommenting below will throw a ReferenceError:
+// console.log(userPassword); 
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 56 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>29. Arrays: Introduction</h2>
+        <div class="theory-content">
+            <p>Variables are great for storing single values, but what if you need to store a list of 100 students? Creating 100 variables (student1, student2, etc.) is impossible to manage.</p><p>An <strong>Array</strong> is a special data structure that allows you to store a collection of multiple values in a single variable. Think of it as a bookshelf where each book has a specific position.</p><h3>Zero-Indexed</h3><p>The most important thing to remember about arrays in programming is that they are <strong>Zero-Indexed</strong>. The very first item in the list is at position 0, the second item is at position 1, and so on.</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 57 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> Apple
+> Banana
+> Total fruits: 3</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>// Create an Array using square brackets [ ]
+let fruits = ['Apple', 'Banana', 'Mango'];
+
+// Access items using their Index number in square brackets
+console.log(fruits[0]); // Gets the 1st item (Apple)
+console.log(fruits[1]); // Gets the 2nd item (Banana)
+
+// Arrays have a built-in property called .length
+// It tells you exactly how many items are in the list.
+console.log('Total fruits:', fruits.length);
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 58 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>30. Modifying Arrays</h2>
+        <div class="theory-content">
+            <p>Arrays are mutable, meaning you can change their contents after they are created. You can update existing elements by targeting their index, or you can add completely new elements.</p><h3>Updating</h3><p>Target the specific index (e.g., <code>arr[1]</code>) and assign a new value to it using the <code>=</code> operator. The old value is overwritten.</p><h3>Adding with Built-in Methods</h3><p>Instead of manually finding the last index to add an item, JavaScript provides built-in functions (methods) attached to every array. The most common is <code>push()</code>, which seamlessly adds a new item to the very end of the array.</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 59 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> Original: ['Red', 'Blue']
+> Updated: ['Red', 'Green']
+> After Push: ['Red', 'Green', 'Yellow']</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>let colors = ['Red', 'Blue'];
+console.log('Original:', colors);
+
+// 1. Update an existing item (replace Blue with Green)
+colors[1] = 'Green';
+console.log('Updated:', colors);
+
+// 2. Add a new item to the end using the .push() method
+colors.push('Yellow');
+console.log('After Push:', colors);
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 60 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>31. Array Methods: pop, shift, and unshift</h2>
+        <div class="theory-content">
+            <p>Beyond <code>push()</code> which adds to the end, JavaScript provides three more essential methods for manipulating the elements of an array at its boundaries.</p><h3>pop()</h3><p>Removes the <strong>last</strong> element from an array. It also returns that removed element in case you want to save it in a variable.</p><h3>shift()</h3><p>Removes the <strong>first</strong> element from an array (at index 0). All other elements are shifted down by one index.</p><h3>unshift()</h3><p>Adds one or more elements to the <strong>beginning</strong> of an array. All other elements are shifted up.</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 61 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> Original: [10, 20, 30]
+> After pop: [10, 20]
+> After unshift: [5, 10, 20]
+> After shift: [10, 20]</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>let numbers = [10, 20, 30];
+console.log('Original:', numbers);
+
+// Remove the last item (30)
+numbers.pop();
+console.log('After pop:', numbers);
+
+// Add item to the start (5)
+numbers.unshift(5);
+console.log('After unshift:', numbers);
+
+// Remove item from the start (5)
+numbers.shift();
+console.log('After shift:', numbers);
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 62 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>32. Iterating Arrays with For Loops</h2>
+        <div class="theory-content">
+            <p>Arrays and Loops are best friends in programming. An array holds a list of data, and a loop allows you to automatically execute code for every single piece of data in that list.</p><p>We can use a standard <code>for</code> loop to iterate over an array. The trick is to start the loop counter <code>i</code> at 0 (since arrays are zero-indexed), and set the condition to run as long as <code>i</code> is less than the array's <code>length</code>.</p><p>Inside the loop, we use <code>array[i]</code> to dynamically access the current element as the loop progresses.</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 63 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> Processing item: Apple
+> Processing item: Banana
+> Processing item: Cherry</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>let cart = ['Apple', 'Banana', 'Cherry'];
+
+// i starts at 0.
+// It runs as long as i &lt; 3 (the length of the array)
+// i increments by 1 each time.
+for (let i = 0; i &lt; cart.length; i++) {
+  
+  // cart[i] will be cart[0], then cart[1], then cart[2]
+  let currentItem = cart[i];
+  
+  console.log('Processing item:', currentItem);
+}
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 64 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>33. Introduction to Objects</h2>
+        <div class="theory-content">
+            <p>Arrays are great for ordered lists, but they are terrible if you want to store complex, structured data where each piece of information has a specific label. For this, we use <strong>Objects</strong>.</p><p>An Object is a collection of Key-Value pairs. It is declared using curly braces <code>{}</code>.</p><h3>Keys and Values</h3><p>The <strong>Key</strong> (also called a Property name) acts as a label. The <strong>Value</strong> is the data associated with that label. Values can be anything: Strings, Numbers, Arrays, or even other Objects!</p><p>Objects are the most important data structure in JavaScript. They allow us to group related data together logically (e.g., storing a User's name, email, and age in one place).</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 65 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> John Doe
+> admin@corp.com</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>// Creating an object using curly braces
+let userProfile = {
+  // Key: Value
+  name: 'John Doe',
+  email: 'admin@corp.com',
+  age: 30,
+  isActive: true
+};
+
+// Accessing object data using Dot Notation (.)
+console.log(userProfile.name);
+console.log(userProfile.email);
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 66 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>34. Modifying Objects</h2>
+        <div class="theory-content">
+            <p>Just like Arrays, Objects are mutable. You can easily add new properties, update existing properties, or even delete properties entirely after the object has been created.</p><h3>Dot Notation vs Bracket Notation</h3><p>You can modify objects using standard Dot Notation (e.g., <code>user.age = 31</code>). However, if your Key has a space in it, or if you are using a variable to dynamically select a Key, you must use <strong>Bracket Notation</strong> (e.g., <code>user['age'] = 31</code>).</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 67 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> Original Age: 30
+> Updated Age: 31
+> Added City: New York</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>let user = {
+  name: 'John',
+  age: 30
+};
+console.log('Original Age:', user.age);
+
+// 1. Updating an existing property
+user.age = 31;
+console.log('Updated Age:', user.age);
+
+// 2. Adding a completely new property
+user.city = 'New York';
+console.log('Added City:', user.city);
+
+// 3. Using bracket notation for dynamic keys
+let keyToUpdate = 'age';
+user[keyToUpdate] = 32;
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 68 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>35. Object Methods</h2>
+        <div class="theory-content">
+            <p>Objects don't just store static data (like strings and numbers). They can also store Functions! When a function is stored inside an object as a property, we call it a <strong>Method</strong>.</p><p>Methods allow objects to have <em>behaviors</em>. For example, a 'User' object might have a 'login' method, or a 'Car' object might have a 'drive' method.</p><h3>The 'this' Keyword</h3><p>Inside an object method, the keyword <code>this</code> acts as a reference to the object itself. It allows the method to access other properties belonging to the same object (e.g., <code>this.name</code>).</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 69 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> Engine started. Vroom!
+> The Toyota is driving.</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>let car = {
+  brand: 'Toyota',
+  color: 'Red',
+  
+  // This is a Method
+  start: function() {
+    console.log('Engine started. Vroom!');
+  },
+  
+  // Method using 'this' to access object properties
+  drive: function() {
+    console.log('The ' + this.brand + ' is driving.');
+  }
+};
+
+// Calling the methods
+car.start();
+car.drive();
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 70 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>36. Introduction to the DOM</h2>
+        <div class="theory-content">
+            <p>JavaScript was created to make web pages interactive. But how does JavaScript actually talk to the HTML? Through the <strong>DOM</strong> (Document Object Model).</p><p>When a web browser loads an HTML file, it translates all the HTML tags (like <code>&lt;h1&gt;</code>, <code>&lt;div&gt;</code>, <code>&lt;p&gt;</code>) into a massive JavaScript Object. This structured object tree is the DOM.</p><h3>The Document Object</h3><p>The entry point to the DOM is a globally available object called <code>document</code>. By using the <code>document</code> object in JavaScript, we can read the page structure, change text, change colors, or add completely new elements dynamically!</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 71 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> [Digital Console Representation]
+> Accessing the DOM...
+> document.title holds the page title.</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>// The document object gives us access to the entire HTML page.
+
+// We can read properties of the page
+let pageTitle = document.title;
+console.log('The title of this page is:', pageTitle);
+
+// We can read the URL
+let currentURL = document.URL;
+console.log('URL:', currentURL);
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 72 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>37. Selecting DOM Elements</h2>
+        <div class="theory-content">
+            <p>Before we can change a heading or a button on our webpage, we must first tell JavaScript which element we want to modify. We do this by "selecting" elements from the DOM.</p><h3>Methods for Selecting:</h3><ul><li><strong><code>getElementById()</code></strong>: Finds a single element by its unique HTML <code>id</code> attribute.</li><li><strong><code>querySelector()</code></strong>: The most modern and powerful method. It uses CSS selectors (like <code>.class</code> or <code>#id</code>) to find the first matching element.</li><li><strong><code>querySelectorAll()</code></strong>: Finds ALL elements matching a CSS selector and returns them in a list.</li></ul>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 73 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> Selected Heading Element
+> Selected Button Element</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>// Assuming our HTML has: &lt;h1 id="main-title"&gt;Hello&lt;/h1&gt;
+// and: &lt;button class="submit-btn"&gt;Submit&lt;/button&gt;
+
+// 1. Select by ID
+let titleElement = document.getElementById('main-title');
+console.log('Selected Heading Element');
+
+// 2. Select using a CSS class selector
+let buttonElement = document.querySelector('.submit-btn');
+console.log('Selected Button Element');
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 74 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>38. Modifying Text and HTML</h2>
+        <div class="theory-content">
+            <p>Once we have selected an element from the DOM and stored it in a variable, we can change its contents. JavaScript provides properties on the element object to do exactly this.</p><h3>innerText vs innerHTML</h3><p><strong><code>innerText</code></strong>: This property allows you to read or replace the raw text inside an element. It is safe and ignores HTML tags.</p><p><strong><code>innerHTML</code></strong>: This property allows you to read or inject actual HTML tags into the element. While powerful, it can be dangerous if used with user-submitted data (Cross-Site Scripting attacks), so use it carefully!</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 75 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> Old Title Text changed to: 'JavaScript is Awesome!'
+> HTML injected into the container.</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>// 1. Select the elements
+let title = document.getElementById('main-title');
+let box = document.querySelector('.content-box');
+
+// 2. Change raw text
+title.innerText = 'JavaScript is Awesome!';
+console.log("Title text changed");
+
+// 3. Inject HTML markup
+box.innerHTML = '&lt;strong&gt;Warning:&lt;/strong&gt; System Error';
+console.log("HTML injected");
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 76 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>39. Modifying CSS Styles via JS</h2>
+        <div class="theory-content">
+            <p>JavaScript can also manipulate the visual design of the page dynamically. There are two primary ways to do this:</p><h3>1. Inline Styles (<code>element.style</code>)</h3><p>You can directly apply CSS properties. Note: CSS properties with hyphens (like <code>background-color</code>) are converted to camelCase (<code>backgroundColor</code>) in JavaScript because hyphens signify subtraction in JS.</p><h3>2. Class List (<code>element.classList</code>)</h3><p>The better and cleaner approach is to have pre-defined CSS classes in your stylesheet, and use JavaScript to simply <code>add()</code>, <code>remove()</code>, or <code>toggle()</code> those classes on an element.</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 77 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> Styles updated successfully.
+> Box is now Blue and has 'active' class.</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>let box = document.querySelector('.box');
+
+// Modifying Inline Styles
+// 'background-color' becomes 'backgroundColor'
+box.style.backgroundColor = 'blue';
+box.style.fontSize = '24px';
+box.style.display = 'block';
+
+// Using the ClassList API (Best Practice)
+// Assuming '.hidden' and '.active' exist in CSS
+box.classList.remove('hidden');
+box.classList.add('active');
+
+console.log('Styles updated successfully.');
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 78 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>40. Introduction to Events</h2>
+        <div class="theory-content">
+            <p>A static webpage is boring. Interactivity requires the page to respond to the user. An <strong>Event</strong> is any action that happens in the browser—a mouse click, a key press, scrolling, or submitting a form.</p><h3>Event Listeners</h3><p>To make our JavaScript react to these events, we use a method called <code>addEventListener()</code>. We attach it to a DOM element, tell it what specific event to listen for (like 'click'), and give it a Function to execute whenever that event happens.</p><p>This is the core foundation of all interactive web applications!</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 79 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> System standing by...
+> (When user clicks the button)
+> Button was clicked! Executing code...</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>// 1. Select the button element
+let submitBtn = document.querySelector('.submit-btn');
+
+// 2. Create the function that will run when clicked
+function handleClick() {
+  console.log('Button was clicked! Executing code...');
+}
+
+// 3. Attach the Event Listener to the button
+// Format: element.addEventListener('eventName', functionToRun);
+submitBtn.addEventListener('click', handleClick);
+
+console.log('System standing by...');
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 80 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>41. The Event Object</h2>
+        <div class="theory-content">
+            <p>When an event occurs (like a mouse click or a key press), the browser automatically gathers detailed information about that event—such as the exact X and Y coordinates of the mouse, or which specific key was pressed. It packages all this data into an <strong>Event Object</strong>.</p><p>If you put a parameter (usually named <code>e</code> or <code>event</code>) inside your event listener function, JavaScript will automatically pass this Event Object into your function when the event triggers.</p><p>This is incredibly useful! For example, in a game, you need to know exactly <em>which</em> key the user pressed to move the character.</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 81 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> (When user presses 'Enter')
+> Key pressed: Enter</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>// 1. Listen for any key press on the entire webpage (the window)
+window.addEventListener('keydown', function(event) {
+  
+  // The 'event' object contains a property called 'key'
+  // which tells us exactly which button was pushed.
+  let pressedKey = event.key;
+  
+  console.log('Key pressed:', pressedKey);
+  
+  // Using an if statement based on the event data
+  if (pressedKey === 'Enter') {
+    console.log('Submitting form...');
+  }
+});
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 82 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>42. Asynchronous JavaScript Introduction</h2>
+        <div class="theory-content">
+            <p>JavaScript is a <strong>Single-Threaded</strong> language, meaning it can only execute one line of code at a time on a single main thread. If a piece of code takes 5 seconds to run (like downloading a large image), the entire webpage would freeze for 5 seconds!</p><h3>The Solution: Asynchronous Programming</h3><p>To prevent the browser from freezing, JavaScript offloads heavy tasks (like timers or fetching data from a server) to the browser's Web APIs. The browser handles the heavy lifting in the background, and when it finishes, it alerts JavaScript to execute a callback function.</p><p>This allows JavaScript to continue running other code smoothly while waiting for background tasks to finish.</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 83 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> 1. Starting task...
+> 3. Other code runs immediately!
+> 2. Data downloaded! (after 2 seconds)</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>console.log('1. Starting task...');
+
+// setTimeout is an Asynchronous Web API.
+// It tells the browser to wait 2 seconds in the background.
+setTimeout(function() {
+  // This callback function runs AFTER the 2 seconds.
+  console.log('2. Data downloaded!');
+}, 2000);
+
+// JavaScript DOES NOT stop and wait for setTimeout.
+// It immediately moves on to the next line of code.
+console.log('3. Other code runs immediately!');
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 84 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>43. The Problem: Callback Hell</h2>
+        <div class="theory-content">
+            <p>When dealing with Asynchronous code, we use "Callback" functions to tell the program what to do once the data is ready. But what happens if you need to fetch Data A, then use Data A to fetch Data B, and then use Data B to fetch Data C?</p><p>You end up nesting callback functions inside callback functions inside callback functions. This creates a massive, horizontal, triangle-shaped block of code known in the industry as <strong>Callback Hell</strong> or the <em>Pyramid of Doom</em>.</p><p>It makes the code incredibly hard to read, scale, and debug. To solve this, JavaScript introduced <strong>Promises</strong>.</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 85 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> User downloaded.
+> Posts downloaded.
+> Comments downloaded.
+> Finished.</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>// A simulated example of Callback Hell
+// Notice how the code shifts further to the right.
+
+downloadUser(function(user) {
+  console.log('User downloaded.');
+  
+  downloadPosts(user.id, function(posts) {
+    console.log('Posts downloaded.');
+    
+    downloadComments(posts[0].id, function(comments) {
+      console.log('Comments downloaded.');
+      console.log('Finished.');
+    });
+  });
+});
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 86 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>44. Introduction to Promises</h2>
+        <div class="theory-content">
+            <p>A <strong>Promise</strong> is an object representing the eventual completion (or failure) of an asynchronous operation. Think of it like a restaurant buzzer: you place your order, and they hand you a buzzer. The buzzer is a "promise" that you will eventually get your food.</p><h3>The 3 States of a Promise:</h3><ol><li><strong>Pending:</strong> The initial state. The background task is still running. (You are waiting for the food).</li><li><strong>Fulfilled (Resolved):</strong> The task completed successfully! (The buzzer rings, your food is ready).</li><li><strong>Rejected:</strong> The task failed due to an error. (The kitchen ran out of ingredients).</li></ol>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 87 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> Promise is pending...
+> (after 2 seconds)
+> Data successfully fetched!</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>// Creating a custom Promise
+let myDataPromise = new Promise(function(resolve, reject) {
+  
+  // Simulating a network request that takes 2 seconds
+  setTimeout(function() {
+    let success = true;
+    
+    if (success) {
+      resolve('Data successfully fetched!'); // Fulfills the promise
+    } else {
+      reject('Network Error!'); // Rejects the promise
+    }
+  }, 2000);
+  
+});
+console.log('Promise is pending...');
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 88 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>45. Consuming Promises (.then & .catch)</h2>
+        <div class="theory-content">
+            <p>Once you have a Promise (like the one returned by an API call), you need to handle what happens when it resolves or rejects. We "consume" promises using two chained methods.</p><h3>.then()</h3><p>This block of code executes ONLY if the Promise resolves successfully. The data passed into the <code>resolve()</code> function is sent here.</p><h3>.catch()</h3><p>This block of code executes ONLY if the Promise is rejected (e.g., the Wi-Fi dropped). This allows you to handle errors gracefully without crashing the app.</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 89 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> Waiting for data...
+> Success! Data successfully fetched!</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>console.log('Waiting for data...');
+
+// We use the Promise we created in the previous topic.
+myDataPromise
+  .then(function(resultData) {
+    // This runs if resolve() was called
+    console.log('Success!', resultData);
+  })
+  .catch(function(errorMessage) {
+    // This runs if reject() was called
+    console.log('Failed:', errorMessage);
+  });
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 90 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>46. Async and Await (Modern JS)</h2>
+        <div class="theory-content">
+            <p>While <code>.then()</code> and <code>.catch()</code> solved Callback Hell, chaining them could still look messy. In 2017, JavaScript introduced <strong>Async / Await</strong>, which is syntactic sugar over Promises.</p><p>It allows us to write asynchronous code that <em>looks and behaves</em> like synchronous, line-by-line code!</p><h3>How it works:</h3><ul><li>Put the <code>async</code> keyword in front of a function to declare it as asynchronous.</li><li>Inside that function, use the <code>await</code> keyword in front of any Promise.</li><li>The function will literally <strong>pause</strong> execution at the <code>await</code> line until the Promise resolves, and then store the result in a variable.</li></ul>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 91 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> Logging in...
+> User profile loaded: Admin</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>// Simulating a promise that returns user data
+function fetchProfile() {
+  return new Promise(res =&gt; setTimeout(() =&gt; res('Admin'), 1000));
+}
+
+// The modern Async/Await syntax
+async function handleLogin() {
+  console.log('Logging in...');
+  
+  // The code pauses here until fetchProfile() finishes!
+  let profileData = await fetchProfile();
+  
+  // This line only runs AFTER the promise is resolved
+  console.log('User profile loaded:', profileData);
+}
+
+handleLogin();
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 92 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>47. Handling Errors with try/catch</h2>
+        <div class="theory-content">
+            <p>When using Async/Await, we no longer use <code>.catch()</code>. Instead, we use standard <strong>try/catch</strong> blocks, which is how error handling is done in traditional languages like Java or Python.</p><p>You put the risky code (like fetching data from a server) inside the <code>try</code> block. If any Promise is rejected, JavaScript immediately stops the <code>try</code> block and jumps straight into the <code>catch</code> block, passing the error along.</p><p>This makes handling errors extremely clean and predictable.</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 93 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> Starting data fetch...
+> An error occurred: Server is down!
+> Execution continues normally.</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>async function getDashboardData() {
+  try {
+    console.log('Starting data fetch...');
+    
+    // Simulating a Promise that rejects (fails)
+    let response = await Promise.reject('Server is down!');
+    
+    // This line will NEVER run because the promise rejected
+    console.log('Data loaded:', response);
+    
+  } catch (error) {
+    // Execution immediately jumps here
+    console.log('An error occurred:', error);
+  }
+}
+
+getDashboardData();
+console.log('Execution continues normally.');
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 94 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>48. The Fetch API</h2>
+        <div class="theory-content">
+            <p>The <strong>Fetch API</strong> is a modern, built-in browser tool used to make HTTP network requests (like pulling data from a database or a third-party server). It completely replaces the older, clunky <code>XMLHttpRequest</code>.</p><p><code>fetch()</code> requires a URL and automatically returns a Promise. When the server responds, the Promise resolves into a Response object.</p><h3>The JSON Step</h3><p>The raw response is not immediately usable in JavaScript. You must call <code>response.json()</code> to convert the incoming data packet into a native JavaScript Object. Note that <code>.json()</code> <em>also</em> returns a Promise, so you must <code>await</code> it twice!</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 95 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> Fetching User Data...
+> User Name: Leanne Graham
+> Email: Sincere@april.biz</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>async function getUser() {
+  try {
+    console.log('Fetching User Data...');
+    
+    // 1. Await the network request to the server
+    let response = await fetch('https://jsonplaceholder.typicode.com/users/1');
+    
+    // 2. Await the conversion of the data into a JS Object
+    let data = await response.json();
+    
+    // 3. Use the data!
+    console.log('User Name:', data.name);
+    console.log('Email:', data.email);
+    
+  } catch (error) {
+    console.log('Failed to fetch:', error);
+  }
+}
+// Uncomment to run in a real environment
+// getUser();
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 96 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>49. Introduction to Object-Oriented JS</h2>
+        <div class="theory-content">
+            <p>Object-Oriented Programming (OOP) is a programming paradigm based on the concept of "objects", which can contain data and code to manipulate that data.</p><p>Instead of writing 100 loose variables and functions, OOP allows you to bundle related variables and functions into a single logical entity. For example, a <code>BankAccount</code> object would hold the `balance` (data) and the `deposit()` function (behavior).</p><h3>Classes (The Blueprint)</h3><p>A <strong>Class</strong> is a blueprint or template for creating objects. You define the structure in the Class, and then you "instantiate" (create) multiple individual objects based on that blueprint.</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 97 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> New account created for Alice
+> Balance: 0
+> New account created for Bob
+> Balance: 0</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>// Defining the Blueprint (Class)
+class BankAccount {
+  // The constructor runs automatically when a new object is made
+  constructor(ownerName) {
+    this.owner = ownerName;
+    this.balance = 0;
+    console.log('New account created for ' + this.owner);
+  }
+}
+
+// Creating new Objects (Instances) based on the Class
+let account1 = new BankAccount('Alice');
+console.log('Balance:', account1.balance);
+
+let account2 = new BankAccount('Bob');
+console.log('Balance:', account2.balance);
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 98 | Practical Implementation</div>
+    </div>
+    
+    <div class="page theory-page">
+        <h2>50. OOP Methods and Encapsulation</h2>
+        <div class="theory-content">
+            <p>Once we have a Class, we want to add behaviors to it. We do this by defining <strong>Methods</strong> inside the Class block.</p><p>In a properly designed OOP system, outside code shouldn't manually change the internal data (like <code>account.balance = 5000</code>). Instead, the outside code should call methods (like <code>account.deposit(5000)</code>), and the object updates its own internal data.</p><p>This concept of hiding internal state and requiring interaction through defined methods is called <strong>Encapsulation</strong>. It prevents bugs and makes code highly predictable.</p>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 99 | Theory</div>
+    </div>
+    
+    <div class="page practical-page">
+        <h3 style="margin-top:0; color:#555; font-size:4.5mm; margin-bottom:4mm; font-weight:600;">Live Output:</h3>
+        <div class="console-window">
+            <div class="console-header">
+                <div class="console-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="console-title">Terminal / Console</div>
+            </div>
+            <div class="console-body">> Deposited: 100
+> Current Balance: 100
+> Withdrew: 40
+> Current Balance: 60</div>
+        </div>
+
+        <h3 style="color:#555; font-size:4.5mm; margin-bottom:4mm; margin-top:10mm; font-weight:600;">Code Implementation:</h3>
+        <div class="code-window">
+            <pre>class BankAccount {
+  constructor(ownerName) {
+    this.owner = ownerName;
+    this.balance = 0;
+  }
+  
+  // Method to handle deposits
+  deposit(amount) {
+    this.balance += amount;
+    console.log('Deposited:', amount);
+  }
+  
+  // Method to handle withdrawals
+  withdraw(amount) {
+    this.balance -= amount;
+    console.log('Withdrew:', amount);
+  }
+}
+
+let myAccount = new BankAccount('Nitesh');
+
+// Using methods instead of changing this.balance directly
+myAccount.deposit(100);
+console.log('Current Balance:', myAccount.balance);
+
+myAccount.withdraw(40);
+console.log('Current Balance:', myAccount.balance);
+</pre>
+        </div>
+        <div class="page-footer"><strong>programenote.dev</strong> | Page 100 | Practical Implementation</div>
+    </div>
+    
+    <div class="page ad-page">
+        <div class="ad-title">Want More Premium Notes?</div>
+        <div class="ad-subtitle">Browse our premium collection of notes and project files tailored for students of all fields. Available exclusively at <strong>programenote.dev</strong>!</div>
+        
+        <div class="ad-grid">
+            <div class="ad-card">Programming Notes (Btech/Bsc)</div>
+            <div class="ad-card">B-Tech Notes</div>
+            <div class="ad-card">Bsc Notes</div>
+            <div class="ad-card">BBA Notes</div>
+            <div class="ad-card">MBA Notes</div>
+            <div class="ad-card">D Pharma Notes</div>
+            <div class="ad-card">B Pharma Notes</div>
+            <div class="ad-card">LLB Notes</div>
+            <div class="ad-card">Science Notes (10th to 12th)</div>
+            <div class="ad-card">Commerce Notes</div>
+            <div class="ad-card">Arts Notes (12th to Graduation)</div>
+        </div>
+
+        <div class="ad-footer">Visit: www.programenote.dev</div>
+    </div>
+</body></html>

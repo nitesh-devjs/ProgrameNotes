@@ -1,0 +1,152 @@
+[
+    {
+        "title": "1. What is JavaScript?",
+        "output": "> Console\n> JS engine running...\n> Ready!",
+        "theory": "JavaScript (JS) is a lightweight, interpreted, object-oriented language with first-class functions. Originally built for web browsers (Netscape, 1995), it is now used everywhere (Node.js, Mobile, Desktop).\n\nKey characteristics:\n1. Dynamically typed\n2. Single-threaded (but supports asynchronous operations via Event Loop)\n3. Prototype-based object orientation.",
+        "code": "// Simply log to console\nconsole.log('Hello World');\n\n// Inline HTML\ndocument.write('<h1>JS is awesome</h1>');"
+    },
+    {
+        "title": "2. JS Engine & V8",
+        "output": "[V8 Architecture]\nSource Code -> Parser -> AST -> Ignition Interpreter -> Bytecode -> TurboFan -> Machine Code",
+        "theory": "JS cannot run directly on the CPU. It needs an Engine. Chrome uses 'V8', Firefox uses 'SpiderMonkey'.\nV8 compiles JS directly into native machine code before executing it, using JIT (Just-In-Time) compilation. This makes modern JS incredibly fast.",
+        "code": "/* No direct JS code for V8, \nbut understand that every time \nyou write console.log(), \nV8 parses and executes it instantly! */"
+    },
+    {
+        "title": "3. Execution Context",
+        "output": "Memory Creation Phase...\nCode Execution Phase...",
+        "theory": "Everything in JS happens inside an Execution Context. It has two components:\n1. Memory Component (Variable Environment): Where variables & functions are stored as key-value pairs.\n2. Code Component (Thread of Execution): Where code is executed one line at a time.",
+        "code": "var n = 2;\nfunction square(num) {\n  var ans = num * num;\n  return ans;\n}\nvar square2 = square(n);"
+    },
+    {
+        "title": "4. Variables: var vs let vs const",
+        "output": "> 25\n> TypeError: Assignment to constant variable",
+        "theory": "'var' is function-scoped and can be redeclared. 'let' and 'const' are block-scoped (ES6). 'let' can be reassigned, but 'const' cannot be reassigned once initialized.",
+        "code": "var oldSchool = 'Hello';\nlet age = 25;\nage = 26; // Valid\n\nconst PI = 3.14159;\n// PI = 3.14; // Error!\n\nif(true) {\n  let blockScoped = 'Hidden';\n}\n// console.log(blockScoped); // ReferenceError"
+    },
+    {
+        "title": "5. Hoisting",
+        "output": "> undefined\n> Hello!",
+        "theory": "Hoisting is JS's default behavior of moving declarations to the top of the current scope. Variables declared with 'var' are hoisted and initialized with 'undefined'. 'let' and 'const' are also hoisted but remain in a 'Temporal Dead Zone' (TDZ).",
+        "code": "console.log(x); // undefined\nvar x = 7;\n\ngreet(); // Works!\nfunction greet() {\n  console.log('Hello!');\n}\n\n// console.log(y); // ReferenceError (TDZ)\n// let y = 10;"
+    },
+    {
+        "title": "6. Data Types (Primitives)",
+        "output": "> string\n> number\n> boolean\n> undefined",
+        "theory": "Primitive types store a single value and are immutable. The memory is stored on the Stack.\nTypes: String, Number, BigInt, Boolean, Undefined, Null, Symbol.",
+        "code": "let name = 'Alice'; // String\nlet age = 21; // Number\nlet isStudent = true; // Boolean\nlet marks; // Undefined\nlet missing = null; // Null (Object bug)\n\nconsole.log(typeof age); // 'number'"
+    },
+    {
+        "title": "7. Data Types (Non-Primitives)",
+        "output": "> object\n> Alice\n> [1, 2, 3]",
+        "theory": "Non-primitives (Reference Types) are mutable and stored in the Heap memory. Variables on the stack store a reference (memory address) to the heap location.\nTypes: Object, Array, Function.",
+        "code": "let user = {\n  name: 'Alice',\n  role: 'Admin'\n};\nlet nums = [1, 2, 3];\n\n// Modifying via reference\nlet user2 = user;\nuser2.name = 'Bob';\n// user.name is now 'Bob'!"
+    },
+    {
+        "title": "8. Stack vs Heap Memory",
+        "output": "[Stack]\nPrimitives: a=10, b=10\n[Heap]\nObjects: user -> {id: 1}",
+        "theory": "Stack memory is fast and holds primitive values and references. Heap memory is slower, large, and holds objects/arrays.\nWhen you assign a primitive, it copies the value. When you assign an object, it copies the reference.",
+        "code": "let a = 10;\nlet b = a;\nb = 20; // 'a' is still 10\n\nlet obj1 = { id: 1 };\nlet obj2 = obj1;\nobj2.id = 2; // obj1.id is also 2!"
+    },
+    {
+        "title": "9. Type Conversion & Coercion",
+        "output": "> 55 (String)\n> 0 (Number)\n> true (Boolean)",
+        "theory": "Conversion is explicit (manual). Coercion is implicit (automatic by JS).\nJS automatically converts types during loose equality (==) or arithmetic, which can lead to weird results.",
+        "code": "// Explicit Conversion\nlet strNum = String(55);\nlet realNum = Number('100');\nlet boolVal = Boolean(1);\n\n// Implicit Coercion\nconsole.log('5' + 5); // '55' (String)\nconsole.log('5' - 2); // 3 (Number)\nconsole.log(5 == '5'); // true"
+    },
+    {
+        "title": "10. Arithmetic Operators",
+        "output": "> sum: 15\n> rem: 1\n> power: 8",
+        "theory": "Operators manipulate values. Arithmetic operators include +, -, *, /, % (modulo), ** (exponentiation), ++ (increment), -- (decrement).",
+        "code": "let a = 10, b = 5;\nconsole.log(a + b); // 15\nconsole.log(10 % 3); // 1 (Remainder)\nconsole.log(2 ** 3); // 8 (2^3)\n\nlet count = 0;\ncount++; // count is 1\n--count; // count is 0"
+    },
+    {
+        "title": "11. Comparison & Logical",
+        "output": "> false\n> true\n> true",
+        "theory": "Comparison: == (loose equality), === (strict equality - checks type too), !=, !==, >, <, >=, <=.\nLogical: && (AND), || (OR), ! (NOT).",
+        "code": "console.log(5 === '5'); // false (diff type)\nconsole.log(5 !== 8); // true\n\nlet isAdult = true;\nlet hasID = false;\n// AND: both must be true\nconsole.log(isAdult && hasID); // false\n// OR: one must be true\nconsole.log(isAdult || hasID); // true"
+    },
+    {
+        "title": "12. Control Flow: if/else",
+        "output": "> Grade: B",
+        "theory": "Conditional statements control execution flow based on boolean expressions. JS evaluates the expression in the parenthesis to true or false (truthy or falsy).",
+        "code": "let score = 85;\n\nif (score >= 90) {\n  console.log('Grade: A');\n} else if (score >= 80) {\n  console.log('Grade: B');\n} else {\n  console.log('Grade: C');\n}"
+    },
+    {
+        "title": "13. Truthy and Falsy Values",
+        "output": "> Is Truthy",
+        "theory": "In JS, every value has an inherent boolean value. \nFalsy values: false, 0, '', null, undefined, NaN.\nEverything else is Truthy (e.g., 'hello', 42, [], {}).",
+        "code": "let name = '';\nif (name) {\n  console.log('Has name');\n} else {\n  console.log('Name is empty'); // Runs\n}\n\nif ([]) {\n  console.log('Empty array is truthy!');\n}"
+    },
+    {
+        "title": "14. Ternary Operator",
+        "output": "> Welcome Adult",
+        "theory": "A shorthand for if/else. Syntax: \ncondition ? expressionIfTrue : expressionIfFalse.\nGreat for assigning variables based on a condition in a single line.",
+        "code": "let age = 20;\n\n// Traditional if/else\nlet status;\nif (age >= 18) status = 'Adult';\nelse status = 'Minor';\n\n// Ternary way\nlet status2 = (age >= 18) ? 'Adult' : 'Minor';\nconsole.log('Welcome ' + status2);"
+    },
+    {
+        "title": "15. Switch Statement",
+        "output": "> It's a weekday.",
+        "theory": "Used to perform different actions based on different strict equality (===) checks. Use 'break' to prevent fall-through (executing the next cases accidentally).",
+        "code": "let day = 2;\nswitch(day) {\n  case 1:\n    console.log('Monday'); break;\n  case 2:\n    console.log('Tuesday'); break;\n  case 6:\n  case 7:\n    console.log('Weekend!'); break;\n  default:\n    console.log('Invalid day');\n}"
+    },
+    {
+        "title": "16. Loops: For Loop",
+        "output": "> Iteration 0\n> Iteration 1\n> Iteration 2",
+        "theory": "Loops execute a block of code repeatedly. The 'for' loop is used when you know exactly how many times you want to loop. \nSyntax: for (initialization; condition; increment)",
+        "code": "for (let i = 0; i < 3; i++) {\n  console.log('Iteration ' + i);\n}\n\n// Iterating an array\nlet arr = ['A', 'B', 'C'];\nfor (let i = 0; i < arr.length; i++) {\n  console.log(arr[i]);\n}"
+    },
+    {
+        "title": "17. While and Do-While",
+        "output": "> Count: 0\n> Count: 1\n> Will run at least once!",
+        "theory": "While: Evaluates condition before executing. May never run.\nDo-While: Evaluates condition after executing block. GUARANTEED to run at least once.",
+        "code": "let i = 0;\nwhile (i < 2) {\n  console.log('Count: ' + i);\n  i++;\n}\n\nlet j = 10;\ndo {\n  console.log('Will run at least once!');\n  j++;\n} while (j < 5);"
+    },
+    {
+        "title": "18. Break and Continue",
+        "output": "> 1\n> 2\n> 4\n> 5\n> Stop at 5",
+        "theory": "Break: Exits the loop entirely immediately.\nContinue: Skips the current iteration and jumps to the next iteration of the loop.",
+        "code": "for (let i = 1; i <= 10; i++) {\n  if (i === 3) {\n    continue; // Skip 3\n  }\n  if (i === 6) {\n    break; // Stop at 6\n  }\n  console.log(i);\n}"
+    },
+    {
+        "title": "19. Functions: Declarations",
+        "output": "> Hello Nitesh",
+        "theory": "A function is a block of code designed to perform a particular task. Function declarations are hoisted, meaning they can be called before they are defined in the code.",
+        "code": "// Hoisted!\ngreet('Nitesh'); \n\nfunction greet(name) {\n  console.log('Hello ' + name);\n}\n\nfunction add(a, b) {\n  return a + b;\n}\nlet sum = add(5, 7); // 12"
+    },
+    {
+        "title": "20. Function Expressions",
+        "output": "> Product: 50",
+        "theory": "A function expression is when you store a function inside a variable. These are NOT hoisted. You must define them before calling them.",
+        "code": "// multiply(5, 10); // ReferenceError!\n\nconst multiply = function(a, b) {\n  return a * b;\n};\n\nconsole.log(multiply(5, 10)); // 50\n\n// Often used as anonymous callbacks"
+    },
+    {
+        "title": "21. Arrow Functions (ES6)",
+        "output": "> 64\n> Hi John",
+        "theory": "Introduced in ES6, they provide a shorter syntax. If the function has one statement, you can omit the {} and 'return' keyword. Arrow functions also do not bind their own 'this'.",
+        "code": "// Standard\nconst square = (n) => {\n  return n * n;\n};\n\n// Shorthand (implicit return)\nconst cube = n => n * n * n;\nconsole.log(cube(4)); // 64\n\nconst sayHi = name => console.log('Hi ' + name);"
+    },
+    {
+        "title": "22. Scope Chain & Lexical Environment",
+        "output": "> 10, 20",
+        "theory": "Lexical Environment = Local Memory + Lexical Env of its Parent. When a variable isn't found locally, JS engines look up the Scope Chain to the parent, then grandparent, up to Global scope.",
+        "code": "let a = 10; // Global\n\nfunction outer() {\n  let b = 20;\n  \n  function inner() {\n    // Can access a and b due to Lexical Scope\n    console.log(a, b);\n  }\n  inner();\n}\nouter();"
+    },
+    {
+        "title": "23. Closures (Very Important!)",
+        "output": "> I remember: 7",
+        "theory": "A closure is a function bundled together with its lexical environment. A function 'remembers' the variables of its outer scope even after the outer function has finished executing!",
+        "code": "function makeCounter(count) {\n  return function() {\n    count++;\n    return count;\n  }\n}\n\nconst counter = makeCounter(6);\n// The inner function remembers 'count'!\nconsole.log(counter()); // 7\nconsole.log(counter()); // 8"
+    },
+    {
+        "title": "24. IIFE",
+        "output": "> Data initialized privately",
+        "theory": "Immediately Invoked Function Expression. It runs as soon as it is defined. Great for data privacy and avoiding polluting the global namespace.",
+        "code": "(function() {\n  var privateVar = 'Secret';\n  console.log('Data initialized privately');\n})();\n\n// console.log(privateVar); // Error\n\n// Arrow IIFE\n(() => {\n  console.log('Arrow IIFE executed');\n})();"
+    },
+    {
+        "title": "25. Arrays & Accessing",
+        "output": "> Apple\n> Array length: 3",
+        "theory": "Arrays are special objects used to store ordered collections. They can hold mixed data types. Indexed from 0.",
+        "code": "const fruits = ['Apple', 'Banana', 'Mango'];\n\n// Accessing\nconsole.log(fruits[0]); // Apple\n\n// Modifying\nfruits[1] = 'Orange';\n\n// Length\nconsole.log(fruits.length); // 3\n\n// Mixed types\nconst mix = [1, 'Two', {id: 3}];"
+    }
+]

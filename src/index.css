@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600&display=swap');
+
+/* ═══════════════════════════════════════════════
+   DESIGN TOKENS — DARK MODE (default)
+═══════════════════════════════════════════════ */
+:root {
+  /* Backgrounds */
+  --bg:           #070B18;
+  --bg-elevated:  #0D1224;
+  --bg-card:      #111827;
+  --bg-glass:     rgba(255,255,255,0.03);
+  --bg-glass-hover: rgba(255,255,255,0.06);
+
+  /* Borders */
+  --border:       rgba(255,255,255,0.07);
+  --border-hover: rgba(124,58,237,0.5);
+  --border-subtle: rgba(255,255,255,0.04);
+
+  /* Text */
+  --text:         #F0F4FF;
+  --text-muted:   #6B7280;
+  --text-faint:   #374151;
+
+  /* Accent — Electric Violet */
+  --accent:       #7C3AED;
+  --accent-light: #9F67FF;
+  --accent-dim:   rgba(124,58,237,0.15);
+  --accent-glow:  rgba(124,58,237,0.3);
+  --accent-gradient: linear-gradient(135deg, #7C3AED 0%, #9F67FF 100%);
+
+  /* Supporting colors */
+  --cyan:         #06B6D4;
+  --cyan-dim:     rgba(6,182,212,0.12);
+  --amber:        #F59E0B;
+  --amber-dim:    rgba(245,158,11,0.12);
+  --green:        #10B981;
+  --green-dim:    rgba(16,185,129,0.12);
+  --rose:         #F43F5E;
+  --rose-dim:     rgba(244,63,94,0.12);
+
+  /* Radius */
+  --r-sm:   6px;
+  --r-md:   12px;
+  --r-lg:   18px;
+  --r-xl:   24px;
+  --r-2xl:  32px;
+  --r-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm:  0 1px 3px rgba(0,0,0,0.4);
+  --shadow-md:  0 4px 20px rgba(0,0,0,0.5);
+  --shadow-lg:  0 10px 40px rgba(0,0,0,0.6);
+  --shadow-glow: 0 0 40px rgba(124,58,237,0.2);
+
+  /* Typography */
+  --font:      'Geist', 'Inter', system-ui, sans-serif;
+  --font-mono: 'Geist Mono', 'Fira Code', monospace;
+
+  /* Transition */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition: all 0.25s var(--ease);
+  --transition-slow: all 0.45s var(--ease);
+
+  /* Layout */
+  --nav-h: 68px;
+  --max-w: 1600px;
+}
+
+/* ═══════════════════════════════════════════════
+   LIGHT MODE OVERRIDES
+═══════════════════════════════════════════════ */
+[data-theme="light"] {
+  --bg:           #F8FAFC;
+  --bg-elevated:  #F1F5F9;
+  --bg-card:      #FFFFFF;
+  --bg-glass:     rgba(0,0,0,0.02);
+  --bg-glass-hover: rgba(0,0,0,0.04);
+
+  --border:       rgba(0,0,0,0.08);
+  --border-hover: rgba(124,58,237,0.4);
+  --border-subtle: rgba(0,0,0,0.04);
+
+  --text:         #0F172A;
+  --text-muted:   #64748B;
+  --text-faint:   #CBD5E1;
+
+  --accent:       #6D28D9;
+  --accent-light: #7C3AED;
+  --accent-dim:   rgba(109,40,217,0.1);
+  --accent-glow:  rgba(109,40,217,0.2);
+
+  --shadow-sm:  0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md:  0 4px 20px rgba(0,0,0,0.1);
+  --shadow-lg:  0 10px 40px rgba(0,0,0,0.12);
+  --shadow-glow: 0 0 40px rgba(109,40,217,0.12);
+}
+
+/* ═══════════════════════════════════════════════
+   RESET & BASE
+═══════════════════════════════════════════════ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background 0.3s var(--ease), color 0.3s var(--ease);
+  overflow-x: hidden;
+}
+
+img, video { display: block; max-width: 100%; }
+button { cursor: pointer; font-family: var(--font); border: none; background: none; }
+a { text-decoration: none; color: inherit; }
+input, textarea { font-family: var(--font); }
+
+/* ═══════════════════════════════════════════════
+   LAYOUT UTILITIES
+═══════════════════════════════════════════════ */
+.container {
+  width: 100%;
+  max-width: var(--max-w);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+/* ═══════════════════════════════════════════════
+   SCROLLBAR
+═══════════════════════════════════════════════ */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: rgba(124,58,237,0.3); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* ═══════════════════════════════════════════════
+   SELECTION
+═══════════════════════════════════════════════ */
+::selection { background: var(--accent-dim); color: var(--accent-light); }
+
+/* ═══════════════════════════════════════════════
+   FOCUS
+═══════════════════════════════════════════════ */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: var(--r-sm);
+}

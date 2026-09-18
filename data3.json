@@ -1,0 +1,152 @@
+[
+    {
+        "title": "51. LocalStorage & SessionStorage",
+        "output": "> Saved locally",
+        "theory": "Both allow saving key/value pairs in the browser.\nLocalStorage: Survives browser restarts. No expiration.\nSessionStorage: Cleared when the page session ends (tab closed).\nData is saved as strings only. Use JSON.stringify and JSON.parse.",
+        "code": "const user = { name: 'John', age: 20 };\n\n// Save to LocalStorage (must be string)\nlocalStorage.setItem('user', JSON.stringify(user));\n\n// Retrieve and parse\nconst data = localStorage.getItem('user');\nconst parsed = JSON.parse(data);\nconsole.log(parsed.name); // John\n\n// Clear data\n// localStorage.removeItem('user');\n// localStorage.clear();"
+    },
+    {
+        "title": "52. Object-Oriented JS (OOP)",
+        "output": "> Driving at 100km/h",
+        "theory": "OOP in JS is prototype-based. An object acts as a template for other objects to inherit properties and methods. Before ES6, constructor functions were used to implement OOP.",
+        "code": "// Old Constructor Function\nfunction Car(brand, speed) {\n  this.brand = brand;\n  this.speed = speed;\n}\n// Adding method to Prototype\nCar.prototype.drive = function() {\n  console.log('Driving ' + this.brand);\n}\n\nconst myCar = new Car('Toyota', 100);\nmyCar.drive();"
+    },
+    {
+        "title": "53. Prototypes & Prototypal Inheritance",
+        "output": "> Inherits from Object.prototype",
+        "theory": "Every JS object has a hidden property [[Prototype]] (accessed via __proto__). When you access a property, JS looks at the object, then its prototype, then prototype's prototype (Prototype Chain) until it finds it or reaches null.",
+        "code": "const animal = {\n  eats: true\n};\n\nconst dog = {\n  barks: true\n};\n\n// Make animal the prototype of dog\ndog.__proto__ = animal;\n\nconsole.log(dog.barks); // true\nconsole.log(dog.eats);  // true (inherited!)"
+    },
+    {
+        "title": "54. ES6 Classes",
+        "output": "> Bob is coding",
+        "theory": "ES6 introduced 'class' syntax. It is mostly syntactic sugar over Constructor Functions and Prototypes, but makes OOP look cleaner, similar to Java or C++.",
+        "code": "class Person {\n  constructor(name) {\n    this.name = name;\n  }\n  \n  // Method automatically added to prototype\n  work() {\n    console.log(this.name + ' is coding');\n  }\n}\n\nconst dev = new Person('Bob');\ndev.work();"
+    },
+    {
+        "title": "55. Class Inheritance",
+        "output": "> Dog barks: Woof!",
+        "theory": "Use the 'extends' keyword to inherit from another class. The 'super()' method must be called inside the constructor to execute the parent constructor.",
+        "code": "class Animal {\n  constructor(name) { this.name = name; }\n  makeSound() { console.log('Some sound'); }\n}\n\nclass Dog extends Animal {\n  constructor(name, breed) {\n    super(name); // Call parent\n    this.breed = breed;\n  }\n  makeSound() { console.log('Woof!'); }\n}\n\nconst myDog = new Dog('Rex', 'Pug');\nmyDog.makeSound(); // Woof!"
+    },
+    {
+        "title": "56. Call, Apply, Bind",
+        "output": "> Hello Alice from NY",
+        "theory": "Methods to manually set the value of 'this' when calling a function.\ncall(obj, arg1, arg2)\napply(obj, [argsArray])\nbind(obj, arg1) -> Returns a NEW function, does not execute immediately.",
+        "code": "const obj = { name: 'Alice' };\n\nfunction greet(city) {\n  console.log('Hello ' + this.name + ' from ' + city);\n}\n\n// Call\ngreet.call(obj, 'NY');\n\n// Apply (takes array)\ngreet.apply(obj, ['LA']);\n\n// Bind (returns function)\nconst boundGreet = greet.bind(obj);\nboundGreet('TX');"
+    },
+    {
+        "title": "57. Default Parameters",
+        "output": "> Hello Guest",
+        "theory": "Introduced in ES6, default parameters allow named parameters to be initialized with default values if no value or 'undefined' is passed.",
+        "code": "function greet(name = 'Guest') {\n  console.log('Hello ' + name);\n}\n\ngreet('Nitesh'); // Hello Nitesh\ngreet(); // Hello Guest\n\nfunction multiply(a, b = 1) {\n  return a * b;\n}\nconsole.log(multiply(5)); // 5"
+    },
+    {
+        "title": "58. Template Literals",
+        "output": "> My name is John. I am 20.",
+        "theory": "Enclosed by backticks (`), template literals allow multi-line strings and string interpolation (embedding variables inside strings) using ${variable}. No more messy string concatenation!",
+        "code": "const name = 'John';\nconst age = 20;\n\n// Old way\n// const msg = 'My name is ' + name + '\\nAge: ' + age;\n\n// ES6 Template Literal\nconst msg = `My name is ${name}.\nI am ${age} years old. \nNext year: ${age + 1}`;\n\nconsole.log(msg);"
+    },
+    {
+        "title": "59. Modules (Import / Export)",
+        "output": "> Imported successfully!",
+        "theory": "Modules allow you to split your JS into multiple files. You 'export' variables/functions from one file and 'import' them into another.\nNote: Requires <script type=\"module\"> in HTML.",
+        "code": "// math.js\nexport const PI = 3.14;\nexport function add(a, b) { return a + b; }\n// Default export\nexport default class User {}\n\n// main.js\nimport User, { PI, add } from './math.js';\nconsole.log(PI);\nconsole.log(add(2, 3));"
+    },
+    {
+        "title": "60. Optional Chaining (?.)",
+        "output": "> undefined",
+        "theory": "Provides a safe way to access deeply nested object properties without throwing a \"Cannot read property of undefined\" error if an intermediate property is null/undefined.",
+        "code": "const user = {\n  name: 'John',\n  // address is missing!\n};\n\n// Unsafe (Throws Error)\n// console.log(user.address.street);\n\n// Safe (Returns undefined instead of crashing)\nconsole.log(user?.address?.street);\n\n// Also works on functions\n// user.sayHi?.();"
+    },
+    {
+        "title": "61. Nullish Coalescing (??)",
+        "output": "> Default Name",
+        "theory": "Returns its right-hand side operand when its left-hand side operand is null or undefined. Better than the || operator because || triggers on falsy values like 0 or \"\", whereas ?? only triggers on null/undefined.",
+        "code": "let score = 0;\n\n// Using OR (||) - BUGGY!\nlet finalScore = score || 100; \nconsole.log(finalScore); // 100 (0 is falsy)\n\n// Using Nullish Coalescing (??)\nlet realScore = score ?? 100;\nconsole.log(realScore); // 0 (Correct!)"
+    },
+    {
+        "title": "62. Set and Map",
+        "output": "> Map size: 1\n> Set size: 3",
+        "theory": "Set: A collection of UNIQUE values. Adding a duplicate has no effect.\nMap: A collection of Key-Value pairs where keys can be ANY type (objects, functions), unlike normal Objects where keys must be strings.",
+        "code": "// Set\nconst mySet = new Set([1, 1, 2, 3, 3]);\nconsole.log(mySet); // {1, 2, 3}\n\n// Map\nconst myMap = new Map();\nconst keyObj = { id: 1 };\nmyMap.set(keyObj, 'Secret Data');\nconsole.log(myMap.get(keyObj)); // 'Secret Data'"
+    },
+    {
+        "title": "63. Shallow vs Deep Copy",
+        "output": "> Deep copy avoids bugs",
+        "theory": "Shallow Copy (using Spread or Object.assign) only copies the first level. Nested objects are still referenced! Deep Copy clones everything recursively.",
+        "code": "const original = { a: 1, nested: { b: 2 } };\n\n// Shallow Copy\nconst shallow = { ...original };\nshallow.nested.b = 99;\nconsole.log(original.nested.b); // 99 (Affected!)\n\n// Deep Copy (Old way: JSON parse/stringify)\nconst deep = JSON.parse(JSON.stringify(original));\n// New way: structuredClone(original)"
+    },
+    {
+        "title": "64. Generators (function*)",
+        "output": "> 1\n> 2",
+        "theory": "Generators are functions that can be paused and exited, and later re-entered. Their context (variable bindings) is saved across re-entrances. You use 'yield' to pause.",
+        "code": "function* countGenerator() {\n  yield 1;\n  yield 2;\n  return 3;\n}\n\nconst counter = countGenerator();\nconsole.log(counter.next().value); // 1\nconsole.log(counter.next().value); // 2\nconsole.log(counter.next().done);  // true"
+    },
+    {
+        "title": "65. Strict Mode",
+        "output": "> Uncaught ReferenceError",
+        "theory": "Adding 'use strict'; at the top of a file or function enables strict mode. It catches common coding bloopers, throwing exceptions (e.g., using undeclared variables).",
+        "code": "'use strict';\n\n// x = 10; // Error! 'x' is not declared.\nlet x = 10;\n\n// delete Object.prototype; // Error in strict mode\n\n// ES6 Modules and Classes are strictly mode by default."
+    },
+    {
+        "title": "66. Web Storage vs Cookies",
+        "output": "> Cookies sent to server",
+        "theory": "LocalStorage: 5MB limit, no expiration, never sent to server.\nCookies: 4KB limit, expires, sent with EVERY HTTP request.\nSessionStorage: Cleared when tab closes.",
+        "code": "// Cookies can be accessed via document.cookie\ndocument.cookie = \"username=Nitesh; expires=Thu, 18 Dec 2026 12:00:00 UTC; path=/\";\n\n// But they are annoying to parse.\n// Always use LocalStorage for pure client-side state!"
+    },
+    {
+        "title": "67. Garbage Collection",
+        "output": "> Memory freed automatically",
+        "theory": "JS uses 'Mark and Sweep' garbage collection. It periodically checks the memory for objects that are no longer 'reachable' from the global root. If an object is unreachable, its memory is freed.",
+        "code": "let user = { name: 'John' };\n// Memory allocated in heap\n\nuser = null; \n// The {name: 'John'} object is now unreachable.\n// The Garbage Collector will destroy it \n// and free the memory automatically."
+    },
+    {
+        "title": "68. Typeof and Instanceof",
+        "output": "> object\n> true",
+        "theory": "'typeof' is used for primitives. However, typeof null is 'object' (a famous JS bug). 'instanceof' is used to check if an object is an instance of a specific class or constructor.",
+        "code": "console.log(typeof 'hi'); // 'string'\nconsole.log(typeof null); // 'object'\n\nconst arr = [1, 2, 3];\nconsole.log(typeof arr); // 'object'\n\n// Better check for arrays\nconsole.log(arr instanceof Array); // true\nconsole.log(Array.isArray(arr)); // true"
+    },
+    {
+        "title": "69. Date Object",
+        "output": "> 2026",
+        "theory": "The Date object is used for working with dates and times. Under the hood, it stores dates as the number of milliseconds since Jan 1, 1970 (Unix Epoch).",
+        "code": "const now = new Date();\nconsole.log(now.getFullYear()); \nconsole.log(now.getMonth()); // 0-indexed! (0 = Jan)\nconsole.log(now.getDate());\n\n// Custom date\nconst bday = new Date('2000-05-10');\n\n// Formatting\nconsole.log(now.toISOString());"
+    },
+    {
+        "title": "70. Math Object",
+        "output": "> 3.1415\n> Random: 0.82...",
+        "theory": "Math is a built-in object that has properties and methods for mathematical constants and functions. It's not a constructor.",
+        "code": "console.log(Math.PI);\nconsole.log(Math.round(4.6)); // 5\nconsole.log(Math.floor(4.9)); // 4\nconsole.log(Math.ceil(4.1)); // 5\n\n// Random number between 0 (inclusive) and 1 (exclusive)\nconst rand = Math.random(); \n\n// Random between 1 and 10\nconst r10 = Math.floor(Math.random() * 10) + 1;"
+    },
+    {
+        "title": "71. Symbols (ES6)",
+        "output": "> Symbol(id)",
+        "theory": "Symbols are unique and immutable primitives. They are often used to add unique property keys to an object that won't collide with keys any other code might add to the object.",
+        "code": "const sym1 = Symbol('id');\nconst sym2 = Symbol('id');\n\nconsole.log(sym1 === sym2); // false! Every symbol is unique\n\nconst user = {\n  name: 'John',\n  [sym1]: 1234\n};\n\n// Symbols are hidden from Object.keys()\nconsole.log(Object.keys(user)); // ['name']"
+    },
+    {
+        "title": "72. Iterables & Iterators",
+        "output": "> a\n> b",
+        "theory": "An iterable is a data structure that wants to make its elements accessible to the public (Arrays, Strings, Maps, Sets). It implements the Symbol.iterator method.",
+        "code": "const str = 'Hi';\n\n// The for...of loop consumes iterables automatically\nfor (let char of str) {\n  console.log(char);\n}\n\n// Under the hood, it uses iterators:\nconst iterator = str[Symbol.iterator]();\nconsole.log(iterator.next()); // {value: 'H', done: false}"
+    },
+    {
+        "title": "73. Fetching APIs (Advanced)",
+        "output": "> POST Request sent",
+        "theory": "Fetch isn't just for GET requests. You can pass an options object to make POST, PUT, or DELETE requests and send JSON payloads in the body.",
+        "code": "async function createUser() {\n  const res = await fetch('https://api.com/users', {\n    method: 'POST',\n    headers: { \n      'Content-Type': 'application/json' \n    },\n    body: JSON.stringify({ name: 'Nitesh' })\n  });\n  const data = await res.json();\n  console.log('Created User ID:', data.id);\n}"
+    },
+    {
+        "title": "74. Cross-Origin Resource Sharing (CORS)",
+        "output": "> Blocked by CORS policy",
+        "theory": "A security mechanism built into browsers. If your frontend on 'domain-a.com' tries to fetch data from 'api.com', the browser blocks it unless 'api.com' explicitly sends CORS headers allowing 'domain-a.com'.",
+        "code": "// You can't fix CORS in frontend JS!\n// The backend server must add headers like:\n// Access-Control-Allow-Origin: *\n\n// For development, use a proxy or CORS extension.\n\nfetch('https://google.com')\n  // Will throw a CORS error if called from your app"
+    },
+    {
+        "title": "75. End of Masterclass",
+        "output": "> Graduation 🎓",
+        "theory": "Congratulations! You have covered JavaScript from basic syntax to the depths of the Event Loop and advanced OOP.\nRemember: Reading is only 20%. The other 80% is writing code. Go build projects!",
+        "code": "const mastery = new Promise(resolve => {\n  const projectsBuilt = 10;\n  if (projectsBuilt >= 10) {\n    resolve('Master JavaScript Developer');\n  }\n});\n\nmastery.then(console.log);\n\n// Keep learning, keep building!\n// - Generated for University Level Prep"
+    }
+]

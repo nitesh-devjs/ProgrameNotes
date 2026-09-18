@@ -1,0 +1,72 @@
+[
+    {
+        "id": 31,
+        "title": "31. Array Methods: pop, shift, and unshift",
+        "theory": "<p>Beyond <code>push()</code> which adds to the end, JavaScript provides three more essential methods for manipulating the elements of an array at its boundaries.</p><h3>pop()</h3><p>Removes the <strong>last</strong> element from an array. It also returns that removed element in case you want to save it in a variable.</p><h3>shift()</h3><p>Removes the <strong>first</strong> element from an array (at index 0). All other elements are shifted down by one index.</p><h3>unshift()</h3><p>Adds one or more elements to the <strong>beginning</strong> of an array. All other elements are shifted up.</p>",
+        "output": "> Original: [10, 20, 30]\n> After pop: [10, 20]\n> After unshift: [5, 10, 20]\n> After shift: [10, 20]",
+        "code": "let numbers = [10, 20, 30];\nconsole.log('Original:', numbers);\n\n// Remove the last item (30)\nnumbers.pop();\nconsole.log('After pop:', numbers);\n\n// Add item to the start (5)\nnumbers.unshift(5);\nconsole.log('After unshift:', numbers);\n\n// Remove item from the start (5)\nnumbers.shift();\nconsole.log('After shift:', numbers);"
+    },
+    {
+        "id": 32,
+        "title": "32. Iterating Arrays with For Loops",
+        "theory": "<p>Arrays and Loops are best friends in programming. An array holds a list of data, and a loop allows you to automatically execute code for every single piece of data in that list.</p><p>We can use a standard <code>for</code> loop to iterate over an array. The trick is to start the loop counter <code>i</code> at 0 (since arrays are zero-indexed), and set the condition to run as long as <code>i</code> is less than the array's <code>length</code>.</p><p>Inside the loop, we use <code>array[i]</code> to dynamically access the current element as the loop progresses.</p>",
+        "output": "> Processing item: Apple\n> Processing item: Banana\n> Processing item: Cherry",
+        "code": "let cart = ['Apple', 'Banana', 'Cherry'];\n\n// i starts at 0.\n// It runs as long as i < 3 (the length of the array)\n// i increments by 1 each time.\nfor (let i = 0; i < cart.length; i++) {\n  \n  // cart[i] will be cart[0], then cart[1], then cart[2]\n  let currentItem = cart[i];\n  \n  console.log('Processing item:', currentItem);\n}"
+    },
+    {
+        "id": 33,
+        "title": "33. Introduction to Objects",
+        "theory": "<p>Arrays are great for ordered lists, but they are terrible if you want to store complex, structured data where each piece of information has a specific label. For this, we use <strong>Objects</strong>.</p><p>An Object is a collection of Key-Value pairs. It is declared using curly braces <code>{}</code>.</p><h3>Keys and Values</h3><p>The <strong>Key</strong> (also called a Property name) acts as a label. The <strong>Value</strong> is the data associated with that label. Values can be anything: Strings, Numbers, Arrays, or even other Objects!</p><p>Objects are the most important data structure in JavaScript. They allow us to group related data together logically (e.g., storing a User's name, email, and age in one place).</p>",
+        "output": "> John Doe\n> admin@corp.com",
+        "code": "// Creating an object using curly braces\nlet userProfile = {\n  // Key: Value\n  name: 'John Doe',\n  email: 'admin@corp.com',\n  age: 30,\n  isActive: true\n};\n\n// Accessing object data using Dot Notation (.)\nconsole.log(userProfile.name);\nconsole.log(userProfile.email);"
+    },
+    {
+        "id": 34,
+        "title": "34. Modifying Objects",
+        "theory": "<p>Just like Arrays, Objects are mutable. You can easily add new properties, update existing properties, or even delete properties entirely after the object has been created.</p><h3>Dot Notation vs Bracket Notation</h3><p>You can modify objects using standard Dot Notation (e.g., <code>user.age = 31</code>). However, if your Key has a space in it, or if you are using a variable to dynamically select a Key, you must use <strong>Bracket Notation</strong> (e.g., <code>user['age'] = 31</code>).</p>",
+        "output": "> Original Age: 30\n> Updated Age: 31\n> Added City: New York",
+        "code": "let user = {\n  name: 'John',\n  age: 30\n};\nconsole.log('Original Age:', user.age);\n\n// 1. Updating an existing property\nuser.age = 31;\nconsole.log('Updated Age:', user.age);\n\n// 2. Adding a completely new property\nuser.city = 'New York';\nconsole.log('Added City:', user.city);\n\n// 3. Using bracket notation for dynamic keys\nlet keyToUpdate = 'age';\nuser[keyToUpdate] = 32;"
+    },
+    {
+        "id": 35,
+        "title": "35. Object Methods",
+        "theory": "<p>Objects don't just store static data (like strings and numbers). They can also store Functions! When a function is stored inside an object as a property, we call it a <strong>Method</strong>.</p><p>Methods allow objects to have <em>behaviors</em>. For example, a 'User' object might have a 'login' method, or a 'Car' object might have a 'drive' method.</p><h3>The 'this' Keyword</h3><p>Inside an object method, the keyword <code>this</code> acts as a reference to the object itself. It allows the method to access other properties belonging to the same object (e.g., <code>this.name</code>).</p>",
+        "output": "> Engine started. Vroom!\n> The Toyota is driving.",
+        "code": "let car = {\n  brand: 'Toyota',\n  color: 'Red',\n  \n  // This is a Method\n  start: function() {\n    console.log('Engine started. Vroom!');\n  },\n  \n  // Method using 'this' to access object properties\n  drive: function() {\n    console.log('The ' + this.brand + ' is driving.');\n  }\n};\n\n// Calling the methods\ncar.start();\ncar.drive();"
+    },
+    {
+        "id": 36,
+        "title": "36. Introduction to the DOM",
+        "theory": "<p>JavaScript was created to make web pages interactive. But how does JavaScript actually talk to the HTML? Through the <strong>DOM</strong> (Document Object Model).</p><p>When a web browser loads an HTML file, it translates all the HTML tags (like <code>&lt;h1&gt;</code>, <code>&lt;div&gt;</code>, <code>&lt;p&gt;</code>) into a massive JavaScript Object. This structured object tree is the DOM.</p><h3>The Document Object</h3><p>The entry point to the DOM is a globally available object called <code>document</code>. By using the <code>document</code> object in JavaScript, we can read the page structure, change text, change colors, or add completely new elements dynamically!</p>",
+        "output": "> [Digital Console Representation]\n> Accessing the DOM...\n> document.title holds the page title.",
+        "code": "// The document object gives us access to the entire HTML page.\n\n// We can read properties of the page\nlet pageTitle = document.title;\nconsole.log('The title of this page is:', pageTitle);\n\n// We can read the URL\nlet currentURL = document.URL;\nconsole.log('URL:', currentURL);"
+    },
+    {
+        "id": 37,
+        "title": "37. Selecting DOM Elements",
+        "theory": "<p>Before we can change a heading or a button on our webpage, we must first tell JavaScript which element we want to modify. We do this by \"selecting\" elements from the DOM.</p><h3>Methods for Selecting:</h3><ul><li><strong><code>getElementById()</code></strong>: Finds a single element by its unique HTML <code>id</code> attribute.</li><li><strong><code>querySelector()</code></strong>: The most modern and powerful method. It uses CSS selectors (like <code>.class</code> or <code>#id</code>) to find the first matching element.</li><li><strong><code>querySelectorAll()</code></strong>: Finds ALL elements matching a CSS selector and returns them in a list.</li></ul>",
+        "output": "> Selected Heading Element\n> Selected Button Element",
+        "code": "// Assuming our HTML has: <h1 id=\"main-title\">Hello</h1>\n// and: <button class=\"submit-btn\">Submit</button>\n\n// 1. Select by ID\nlet titleElement = document.getElementById('main-title');\nconsole.log('Selected Heading Element');\n\n// 2. Select using a CSS class selector\nlet buttonElement = document.querySelector('.submit-btn');\nconsole.log('Selected Button Element');"
+    },
+    {
+        "id": 38,
+        "title": "38. Modifying Text and HTML",
+        "theory": "<p>Once we have selected an element from the DOM and stored it in a variable, we can change its contents. JavaScript provides properties on the element object to do exactly this.</p><h3>innerText vs innerHTML</h3><p><strong><code>innerText</code></strong>: This property allows you to read or replace the raw text inside an element. It is safe and ignores HTML tags.</p><p><strong><code>innerHTML</code></strong>: This property allows you to read or inject actual HTML tags into the element. While powerful, it can be dangerous if used with user-submitted data (Cross-Site Scripting attacks), so use it carefully!</p>",
+        "output": "> Old Title Text changed to: 'JavaScript is Awesome!'\n> HTML injected into the container.",
+        "code": "// 1. Select the elements\nlet title = document.getElementById('main-title');\nlet box = document.querySelector('.content-box');\n\n// 2. Change raw text\ntitle.innerText = 'JavaScript is Awesome!';\nconsole.log(\"Title text changed\");\n\n// 3. Inject HTML markup\nbox.innerHTML = '<strong>Warning:</strong> System Error';\nconsole.log(\"HTML injected\");"
+    },
+    {
+        "id": 39,
+        "title": "39. Modifying CSS Styles via JS",
+        "theory": "<p>JavaScript can also manipulate the visual design of the page dynamically. There are two primary ways to do this:</p><h3>1. Inline Styles (<code>element.style</code>)</h3><p>You can directly apply CSS properties. Note: CSS properties with hyphens (like <code>background-color</code>) are converted to camelCase (<code>backgroundColor</code>) in JavaScript because hyphens signify subtraction in JS.</p><h3>2. Class List (<code>element.classList</code>)</h3><p>The better and cleaner approach is to have pre-defined CSS classes in your stylesheet, and use JavaScript to simply <code>add()</code>, <code>remove()</code>, or <code>toggle()</code> those classes on an element.</p>",
+        "output": "> Styles updated successfully.\n> Box is now Blue and has 'active' class.",
+        "code": "let box = document.querySelector('.box');\n\n// Modifying Inline Styles\n// 'background-color' becomes 'backgroundColor'\nbox.style.backgroundColor = 'blue';\nbox.style.fontSize = '24px';\nbox.style.display = 'block';\n\n// Using the ClassList API (Best Practice)\n// Assuming '.hidden' and '.active' exist in CSS\nbox.classList.remove('hidden');\nbox.classList.add('active');\n\nconsole.log('Styles updated successfully.');"
+    },
+    {
+        "id": 40,
+        "title": "40. Introduction to Events",
+        "theory": "<p>A static webpage is boring. Interactivity requires the page to respond to the user. An <strong>Event</strong> is any action that happens in the browser—a mouse click, a key press, scrolling, or submitting a form.</p><h3>Event Listeners</h3><p>To make our JavaScript react to these events, we use a method called <code>addEventListener()</code>. We attach it to a DOM element, tell it what specific event to listen for (like 'click'), and give it a Function to execute whenever that event happens.</p><p>This is the core foundation of all interactive web applications!</p>",
+        "output": "> System standing by...\n> (When user clicks the button)\n> Button was clicked! Executing code...",
+        "code": "// 1. Select the button element\nlet submitBtn = document.querySelector('.submit-btn');\n\n// 2. Create the function that will run when clicked\nfunction handleClick() {\n  console.log('Button was clicked! Executing code...');\n}\n\n// 3. Attach the Event Listener to the button\n// Format: element.addEventListener('eventName', functionToRun);\nsubmitBtn.addEventListener('click', handleClick);\n\nconsole.log('System standing by...');"
+    }
+]

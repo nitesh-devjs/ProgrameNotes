@@ -1,0 +1,72 @@
+[
+    {
+        "id": 11,
+        "title": "11. String Concatenation",
+        "theory": "<p>Strings are text values. When you use the addition operator (<code>+</code>) on strings, JavaScript does not perform mathematical addition. Instead, it performs <strong>Concatenation</strong>, which means joining the strings end-to-end.</p><p>For example, <code>'Hello' + 'World'</code> becomes <code>'HelloWorld'</code>.</p><h3>The Quirk of JavaScript Coercion:</h3><p>If you try to add a String and a Number together (e.g., <code>'Score: ' + 10</code>), JavaScript will secretly convert the Number into a String behind the scenes and concatenate them. This is known as <strong>Implicit Coercion</strong>.</p>",
+        "output": "> Hello John\n> Your score is 95",
+        "code": "let greeting = 'Hello';\nlet personName = 'John';\n\n// We add a space string ' ' in the middle so they don't stick together\nlet fullMessage = greeting + ' ' + personName;\nconsole.log(fullMessage);\n\nlet scoreText = 'Your score is ';\nlet points = 95;\n\n// Number 95 is coerced into the string '95'\nconsole.log(scoreText + points);"
+    },
+    {
+        "id": 12,
+        "title": "12. Assignment Operators",
+        "theory": "<p>You already know the basic assignment operator (<code>=</code>), which assigns the value on the right to the variable on the left.</p><p>JavaScript also provides shorthand <strong>Compound Assignment Operators</strong> to make updating variables faster. Instead of writing <code>score = score + 5</code>, you can simply write <code>score += 5</code>.</p><ul><li><strong><code>+=</code></strong> : Adds and assigns.</li><li><strong><code>-=</code></strong> : Subtracts and assigns.</li><li><strong><code>*=</code></strong> : Multiplies and assigns.</li><li><strong><code>/=</code></strong> : Divides and assigns.</li></ul><p>These are heavily used in loops and when maintaining state (like a running total or score).</p>",
+        "output": "> Initial: 10\n> After addition: 15\n> After multiplication: 30",
+        "code": "let myNumber = 10;\nconsole.log('Initial:', myNumber);\n\n// Long way: myNumber = myNumber + 5;\n// Shorthand:\nmyNumber += 5;\nconsole.log('After addition:', myNumber);\n\n// Multiply the current value by 2\nmyNumber *= 2;\nconsole.log('After multiplication:', myNumber);"
+    },
+    {
+        "id": 13,
+        "title": "13. Comparison Operators",
+        "theory": "<p>Comparison operators are used to compare two values. They always evaluate to a Boolean result: either <code>true</code> or <code>false</code>.</p><ul><li><strong><code>&gt;</code></strong> : Greater than.</li><li><strong><code>&lt;</code></strong> : Less than.</li><li><strong><code>&gt;=</code></strong> : Greater than or equal to.</li><li><strong><code>&lt;=</code></strong> : Less than or equal to.</li></ul><p>These operators are the foundation of decision-making in programming. Later, we will use them inside Control Flow statements to decide which blocks of code the computer should execute.</p>",
+        "output": "> Is 10 greater than 5? true\n> Is 10 less than 10? false\n> Is 10 less than or equal to 10? true",
+        "code": "let a = 10;\nlet b = 5;\n\nconsole.log('Is 10 greater than 5?', a > b);\nconsole.log('Is 10 less than 10?', a < 10);\nconsole.log('Is 10 less than or equal to 10?', a <= 10);"
+    },
+    {
+        "id": 14,
+        "title": "14. Equality: Loose (==) vs Strict (===)",
+        "theory": "<p>Checking if two values are equal is done using equality operators, but JavaScript has two different kinds: Loose Equality and Strict Equality.</p><h3>Loose Equality (<code>==</code>)</h3><p>Checks if the values are equal, but <strong>ignores the data type</strong>. If the types are different, JavaScript attempts to convert them (coercion) before comparing. <code>5 == '5'</code> is <code>true</code>.</p><h3>Strict Equality (<code>===</code>)</h3><p>Checks if BOTH the value and the data type are identical. No conversion happens. <code>5 === '5'</code> is <code>false</code> because one is a Number and the other is a String.</p><p><strong>Golden Rule:</strong> Always use <code>===</code> (Strict) in modern JavaScript to avoid coercion bugs!</p>",
+        "output": "> Loose check (5 == '5'): true\n> Strict check (5 === '5'): false\n> Strict check (5 === 5): true",
+        "code": "let num = 5;       // Number\nlet str = '5';     // String\n\n// Loose equality (Coercion happens)\nconsole.log(\"Loose check (5 == '5'):\", num == str);\n\n// Strict equality (No coercion - Safer!)\nconsole.log(\"Strict check (5 === '5'):\", num === str);\n\n// Strict equality with matching types\nconsole.log(\"Strict check (5 === 5):\", num === 5);"
+    },
+    {
+        "id": 15,
+        "title": "15. Logical Operators (AND, OR, NOT)",
+        "theory": "<p>Logical Operators allow you to combine multiple boolean conditions together.</p><ul><li><strong>AND (<code>&amp;&amp;</code>)</strong>: Returns <code>true</code> ONLY if <strong>all</strong> conditions are true. If even one is false, the whole expression becomes false.</li><li><strong>OR (<code>||</code>)</strong>: Returns <code>true</code> if <strong>at least one</strong> condition is true. It only returns false if all conditions are false.</li><li><strong>NOT (<code>!</code>)</strong>: Reverses the boolean value. <code>true</code> becomes <code>false</code>, and vice versa.</li></ul><p>These are crucial when making complex decisions, like verifying if a user is both an Admin AND has an Active account.</p>",
+        "output": "> Can drive? false\n> Needs ticket? true\n> Inverted true is: false",
+        "code": "let hasLicense = true;\nlet hasGoodVision = false;\n\n// AND: Both must be true\nlet canDrive = hasLicense && hasGoodVision;\nconsole.log('Can drive?', canDrive);\n\n// OR: One must be true\nlet isStudent = true;\nlet isSenior = false;\nlet needsDiscountTicket = isStudent || isSenior;\nconsole.log('Needs ticket?', needsDiscountTicket);\n\n// NOT: Inverts the value\nconsole.log('Inverted true is:', !true);"
+    },
+    {
+        "id": 16,
+        "title": "16. Control Flow: The if Statement",
+        "theory": "<p>By default, code executes line-by-line from top to bottom. <strong>Control Flow</strong> allows us to change this path based on conditions. The most fundamental tool for this is the <code>if</code> statement.</p><p>The <code>if</code> statement evaluates a condition inside parentheses <code>()</code>. If that condition results in <code>true</code>, the code inside the curly braces <code>{}</code> (the block) will be executed. If it evaluates to <code>false</code>, the block is completely skipped.</p><p>This allows your program to be dynamic and react differently to different data (like showing a 'Welcome' message only if the user is logged in).</p>",
+        "output": "> You are an adult.",
+        "code": "let userAge = 20;\n\n// The code inside the { } only runs because 20 >= 18 is true.\nif (userAge >= 18) {\n  console.log('You are an adult.');\n}\n\nlet batteryLevel = 10;\n\n// This block will be skipped because 10 < 5 is false.\nif (batteryLevel < 5) {\n  console.log('Battery critical! Please charge.');\n}"
+    },
+    {
+        "id": 17,
+        "title": "17. The if...else Statement",
+        "theory": "<p>While the <code>if</code> statement handles what to do when a condition is true, the <code>else</code> statement acts as the fallback. It handles what to do when the condition is <strong>false</strong>.</p><p>An <code>else</code> block cannot exist on its own; it must immediately follow an <code>if</code> block. This structure guarantees that exactly <strong>one</strong> of the two blocks will execute, making it a perfect tool for binary decisions (e.g., Login Success vs Login Failed).</p>",
+        "output": "> Access Denied. Please check your password.",
+        "code": "let isPasswordCorrect = false;\n\nif (isPasswordCorrect === true) {\n  // Runs if the condition is true\n  console.log('Login Successful! Welcome.');\n} else {\n  // Runs if the condition is false\n  console.log('Access Denied. Please check your password.');\n}"
+    },
+    {
+        "id": 18,
+        "title": "18. Multiple Conditions: else if",
+        "theory": "<p>Sometimes a decision isn't just binary (True/False). You might have multiple distinct scenarios. This is where <code>else if</code> comes in.</p><p>You can chain as many <code>else if</code> blocks as you want between the initial <code>if</code> and the final fallback <code>else</code>. JavaScript will evaluate them from top to bottom. As soon as it finds a <strong>true</strong> condition, it executes that block and immediately <strong>exits the entire chain</strong>, skipping the rest.</p><p>This is extremely useful for grading systems, categorizing data, or handling multiple specific error codes.</p>",
+        "output": "> Letter Grade: B",
+        "code": "let testScore = 85;\n\nif (testScore >= 90) {\n  console.log('Letter Grade: A');\n} else if (testScore >= 80) {\n  // This block runs! 85 is >= 80.\n  console.log('Letter Grade: B');\n} else if (testScore >= 70) {\n  // This is skipped because a match was already found above.\n  console.log('Letter Grade: C');\n} else {\n  console.log('Letter Grade: F');\n}"
+    },
+    {
+        "id": 19,
+        "title": "19. Truthy and Falsy Values",
+        "theory": "<p>In JavaScript, <code>if</code> conditions don't strictly require a boolean <code>true</code> or <code>false</code>. You can put <strong>any</strong> data type inside an <code>if</code> statement, and JavaScript will automatically coerce it into a boolean.</p><h3>Falsy Values:</h3><p>There are exactly 6 values that evaluate to <code>false</code>: <code>0</code>, <code>\"\"</code> (empty string), <code>null</code>, <code>undefined</code>, <code>NaN</code> (Not a Number), and of course, <code>false</code>.</p><h3>Truthy Values:</h3><p>Literally <strong>everything else</strong> evaluates to <code>true</code>. This includes numbers like <code>1</code> or <code>-5</code>, any non-empty string like <code>'hello'</code>, and even empty arrays <code>[]</code> or objects <code>{}</code>.</p>",
+        "output": "> This string is Truthy!\n> 0 is Falsy, so the else block runs.",
+        "code": "let myName = 'Nitesh';\n\n// 'Nitesh' is a non-empty string, so it is Truthy.\nif (myName) {\n  console.log('This string is Truthy!');\n}\n\nlet itemsInCart = 0;\n\n// 0 is Falsy, so the if block is skipped.\nif (itemsInCart) {\n  console.log('You have items to checkout.');\n} else {\n  console.log('0 is Falsy, so the else block runs.');\n}"
+    },
+    {
+        "id": 20,
+        "title": "20. The Switch Statement",
+        "theory": "<p>When you have a long chain of <code>else if</code> statements testing the same variable against different strict values, it can look messy. The <code>switch</code> statement provides a cleaner syntax for this.</p><p>The <code>switch</code> takes a single value and evaluates it against multiple <code>case</code> blocks using strict equality (<code>===</code>). When a match is found, it executes the code.</p><h3>The Break Keyword:</h3><p>Crucially, you must use the <code>break</code> keyword at the end of each case. If you forget <code>break</code>, JavaScript will \"fall through\" and execute all the code in the subsequent cases as well, regardless of whether they match!</p>",
+        "output": "> The traffic light is Yellow: Slow down!",
+        "code": "let trafficLight = 'Yellow';\n\nswitch (trafficLight) {\n  case 'Red':\n    console.log('Stop!');\n    break;\n  case 'Yellow':\n    console.log('The traffic light is Yellow: Slow down!');\n    break; // Stops execution here\n  case 'Green':\n    console.log('Go!');\n    break;\n  default:\n    // Runs if no cases match\n    console.log('Invalid color.');\n}"
+    }
+]

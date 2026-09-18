@@ -1,0 +1,72 @@
+[
+    {
+        "id": 21,
+        "title": "21. Loops: Introduction to Iteration",
+        "theory": "<p>In programming, we often need to perform the exact same task multiple times. Instead of copy-pasting the same line of code over and over (which violates the DRY principle: Don't Repeat Yourself), we use <strong>Loops</strong>.</p><p>Loops allow us to execute a block of code repeatedly as long as a certain condition remains true. The moment the condition becomes false, the loop stops, and the program continues.</p><h3>The Danger of Infinite Loops</h3><p>If you create a loop where the condition <em>never</em> becomes false, the loop will run forever. This is called an Infinite Loop, and it will crash the browser or the application by consuming all available memory and CPU power.</p>",
+        "output": "> Iteration 0\n> Iteration 1\n> Iteration 2\n> Loop finished!",
+        "code": "let count = 0;\n\n// A basic loop structure (using while)\nwhile (count < 3) {\n  console.log('Iteration', count);\n  // Crucial step: we must change the variable \n  // so the condition eventually becomes false!\n  count = count + 1;\n}\n\nconsole.log('Loop finished!');"
+    },
+    {
+        "id": 22,
+        "title": "22. The for Loop",
+        "theory": "<p>The <code>for</code> loop is the most commonly used loop in JavaScript. It is perfect for situations where you know exactly how many times you want the code to repeat (for example, counting from 1 to 10).</p><p>The <code>for</code> loop consolidates three crucial pieces of looping logic into a single line:</p><ol><li><strong>Initialization:</strong> Creating the counter variable (e.g., <code>let i = 0;</code>). This runs only once at the start.</li><li><strong>Condition:</strong> The rule that keeps the loop running (e.g., <code>i &lt; 5;</code>). Checked before every iteration.</li><li><strong>Increment/Decrement:</strong> Updating the counter (e.g., <code>i++</code>). Runs at the end of every iteration.</li></ol>",
+        "output": "> 1\n> 2\n> 3\n> Blastoff!",
+        "code": "// (Initialization; Condition; Increment)\nfor (let i = 1; i <= 3; i++) {\n  // This code runs as long as i <= 3\n  console.log(i);\n}\n\n// The loop finishes when i becomes 4 (4 <= 3 is false)\nconsole.log('Blastoff!');"
+    },
+    {
+        "id": 23,
+        "title": "23. Break and Continue",
+        "theory": "<p>Loops don't always have to run to their natural end. JavaScript provides two powerful keywords to manually control the flow inside a loop: <code>break</code> and <code>continue</code>.</p><h3>Break</h3><p>The <code>break</code> keyword immediately <strong>kills</strong> the loop entirely. It is often used when searching for a specific item. Once the item is found, there's no need to keep looping, so you <code>break</code> out to save processing power.</p><h3>Continue</h3><p>The <code>continue</code> keyword skips the <strong>current iteration</strong> and immediately jumps back to the top of the loop to evaluate the condition for the next cycle. It is used to skip over data you don't care about without killing the whole loop.</p>",
+        "output": "> 1\n> 2\n> Found it! Stopping loop.\n> === Next Example ===\n> 1\n> 3\n> 5",
+        "code": "for (let i = 1; i <= 5; i++) {\n  if (i === 3) {\n    console.log('Found it! Stopping loop.');\n    break; // Kills the loop completely\n  }\n  console.log(i);\n}\n\nconsole.log('=== Next Example ===');\n\nfor (let n = 1; n <= 5; n++) {\n  if (n % 2 === 0) {\n    // If the number is even, skip to the next iteration\n    continue; \n  }\n  console.log(n); // Only prints odd numbers\n}"
+    },
+    {
+        "id": 24,
+        "title": "24. Introduction to Functions",
+        "theory": "<p>A Function is a reusable block of code designed to perform a specific task. Think of it as a mini-program within your main program.</p><h3>Why use Functions?</h3><p>If you have a block of logic that you need to use in 5 different places, you shouldn't copy-paste it 5 times. Instead, you wrap it inside a Function. Then, you simply \"call\" or \"invoke\" that function whenever you need it.</p><h3>Anatomy of a Function:</h3><ul><li><strong>Declaration:</strong> Use the <code>function</code> keyword, give it a name, and add <code>()</code> and <code>{}</code>.</li><li><strong>Invocation:</strong> To actually run the code inside, you must call the function by writing its name followed by parentheses: <code>myFunction()</code>.</li></ul>",
+        "output": "> Initializing System...\n> Welcome to the Matrix.\n> System Ready.",
+        "code": "// 1. Declaring the function (This does NOT run the code yet)\nfunction bootSystem() {\n  console.log('Initializing System...');\n  console.log('Welcome to the Matrix.');\n  console.log('System Ready.');\n}\n\n// 2. Invoking the function (This runs the code)\nbootSystem();"
+    },
+    {
+        "id": 25,
+        "title": "25. Function Parameters and Arguments",
+        "theory": "<p>Functions become truly powerful when they can accept data from the outside, process it, and act dynamically based on that data.</p><h3>Parameters (The placeholders)</h3><p>When you declare a function, you can define variables inside the parentheses. These are called <strong>Parameters</strong>. They act as placeholders for the data the function expects to receive.</p><h3>Arguments (The actual data)</h3><p>When you invoke the function, the actual values you pass into the parentheses are called <strong>Arguments</strong>. JavaScript maps the arguments to the parameters in the exact order they are passed.</p>",
+        "output": "> Hello, Alice\n> Hello, Bob",
+        "code": "// 'userName' is a Parameter (a placeholder variable)\nfunction greetUser(userName) {\n  console.log('Hello, ' + userName);\n}\n\n// 'Alice' is the Argument (the actual data)\ngreetUser('Alice');\n\n// We can reuse the function with different data!\ngreetUser('Bob');"
+    },
+    {
+        "id": 26,
+        "title": "26. Return Values",
+        "theory": "<p>So far, our functions have only printed things to the console. But in real-world applications, functions usually calculate a result and send it back to the main program to be used later. We do this using the <code>return</code> keyword.</p><p>When JavaScript encounters a <code>return</code> statement, two things happen immediately:</p><ol><li>The function completely stops executing (any code below the return is ignored).</li><li>The value specified is \"spit out\" (returned) to wherever the function was called.</li></ol><p>You can then store this returned value in a variable to use it elsewhere.</p>",
+        "output": "> Result of 5 + 10 is: 15\n> Result of 100 + 200 is: 300",
+        "code": "function addNumbers(a, b) {\n  let sum = a + b;\n  // Send the result back to the caller\n  return sum;\n  \n  // This will never run!\n  // console.log('I am invisible'); \n}\n\n// Store the returned value in a variable\nlet finalResult = addNumbers(5, 10);\nconsole.log('Result of 5 + 10 is:', finalResult);\n\nlet anotherResult = addNumbers(100, 200);\nconsole.log('Result of 100 + 200 is:', anotherResult);"
+    },
+    {
+        "id": 27,
+        "title": "27. Variable Scope: Global vs Local",
+        "theory": "<p>Scope defines the accessibility (visibility) of variables. Not all variables are accessible from everywhere in your code.</p><h3>Global Scope</h3><p>A variable declared outside of any function has Global Scope. It can be accessed and modified from <em>anywhere</em> in your JavaScript file. This can be dangerous if overused.</p><h3>Local (Function) Scope</h3><p>Variables declared <em>inside</em> a function are Local to that function. They are completely hidden from the outside world. They are created when the function starts and destroyed when the function ends. This provides security and memory efficiency.</p>",
+        "output": "> Inside function: Global Data\n> Inside function: Secret Local Data\n> Outside function: Global Data\n> Error: secretData is not defined",
+        "code": "let globalData = 'Global Data';\n\nfunction checkScope() {\n  // We can access global variables inside functions\n  console.log('Inside function:', globalData);\n  \n  let secretData = 'Secret Local Data';\n  console.log('Inside function:', secretData);\n}\n\ncheckScope();\n\n// We can access global data outside\nconsole.log('Outside function:', globalData);\n\n// But we CANNOT access local data outside! \n// Uncommenting the below line crashes the app:\n// console.log(secretData); "
+    },
+    {
+        "id": 28,
+        "title": "28. Block Scope (let & const)",
+        "theory": "<p>Before ES6 (2015), JavaScript only had Global and Function scope. This meant that if you created a variable inside an <code>if</code> block or a <code>for</code> loop using <code>var</code>, it would \"leak out\" and be accessible outside the block. This was a massive source of bugs.</p><p>With the introduction of <code>let</code> and <code>const</code>, JavaScript finally got <strong>Block Scope</strong>.</p><p>A Block is any code bounded by curly braces <code>{}</code>. Any variable declared with <code>let</code> or <code>const</code> inside a block is strictly confined to that block. Once the block finishes executing, the variable is destroyed.</p>",
+        "output": "> Inside block: Password123\n> Error: userPassword is not defined",
+        "code": "let isLoggedIn = true;\n\nif (isLoggedIn === true) {\n  // This variable is block-scoped!\n  let userPassword = 'Password123';\n  console.log('Inside block:', userPassword);\n}\n\n// We cannot access 'userPassword' here because the block ended.\n// The variable 'leaking' is prevented by using 'let'.\n// Uncommenting below will throw a ReferenceError:\n// console.log(userPassword); "
+    },
+    {
+        "id": 29,
+        "title": "29. Arrays: Introduction",
+        "theory": "<p>Variables are great for storing single values, but what if you need to store a list of 100 students? Creating 100 variables (student1, student2, etc.) is impossible to manage.</p><p>An <strong>Array</strong> is a special data structure that allows you to store a collection of multiple values in a single variable. Think of it as a bookshelf where each book has a specific position.</p><h3>Zero-Indexed</h3><p>The most important thing to remember about arrays in programming is that they are <strong>Zero-Indexed</strong>. The very first item in the list is at position 0, the second item is at position 1, and so on.</p>",
+        "output": "> Apple\n> Banana\n> Total fruits: 3",
+        "code": "// Create an Array using square brackets [ ]\nlet fruits = ['Apple', 'Banana', 'Mango'];\n\n// Access items using their Index number in square brackets\nconsole.log(fruits[0]); // Gets the 1st item (Apple)\nconsole.log(fruits[1]); // Gets the 2nd item (Banana)\n\n// Arrays have a built-in property called .length\n// It tells you exactly how many items are in the list.\nconsole.log('Total fruits:', fruits.length);"
+    },
+    {
+        "id": 30,
+        "title": "30. Modifying Arrays",
+        "theory": "<p>Arrays are mutable, meaning you can change their contents after they are created. You can update existing elements by targeting their index, or you can add completely new elements.</p><h3>Updating</h3><p>Target the specific index (e.g., <code>arr[1]</code>) and assign a new value to it using the <code>=</code> operator. The old value is overwritten.</p><h3>Adding with Built-in Methods</h3><p>Instead of manually finding the last index to add an item, JavaScript provides built-in functions (methods) attached to every array. The most common is <code>push()</code>, which seamlessly adds a new item to the very end of the array.</p>",
+        "output": "> Original: ['Red', 'Blue']\n> Updated: ['Red', 'Green']\n> After Push: ['Red', 'Green', 'Yellow']",
+        "code": "let colors = ['Red', 'Blue'];\nconsole.log('Original:', colors);\n\n// 1. Update an existing item (replace Blue with Green)\ncolors[1] = 'Green';\nconsole.log('Updated:', colors);\n\n// 2. Add a new item to the end using the .push() method\ncolors.push('Yellow');\nconsole.log('After Push:', colors);"
+    }
+]

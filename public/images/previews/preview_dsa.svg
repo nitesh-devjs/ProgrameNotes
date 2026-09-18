@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 768 1376" width="768" height="1376">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&amp;family=Fira+Code:wght@500;700&amp;family=Outfit:wght@600;700&amp;display=swap');
+
+      .desk-title { font-family: 'Caveat', cursive, sans-serif; font-size: 25px; font-weight: 700; fill: #0B2447; letter-spacing: -0.3px; }
+      .desk-text  { font-family: 'Caveat', cursive, sans-serif; font-size: 19.5px; font-weight: 600; fill: #1E3E62; }
+      .desk-code  { font-family: 'Fira Code', monospace; font-size: 13px; font-weight: 500; fill: #990000; }
+      .desk-keyword { fill: #0033CC; font-weight: 700; }
+      .desk-fn      { fill: #D97706; font-weight: 700; }
+      .desk-string  { fill: #059669; font-weight: 600; }
+      .desk-comment { fill: #6B7280; font-style: italic; }
+      
+      .term-title { font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 700; fill: #94A3B8; }
+      .term-text  { font-family: 'Fira Code', monospace; font-size: 14px; font-weight: 700; fill: #38BDF8; }
+      .term-out   { font-family: 'Fira Code', monospace; font-size: 17px; font-weight: 700; fill: #4ADE80; }
+    </style>
+
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Photorealistic Desk Background Image -->
+  <image href="/images/previews/blank_template.jpg" width="768" height="1376"/>
+
+  <!-- TABLET SCREEN TERMINAL INTERFACE -->
+  <g transform="translate(224, 164)" filter="url(#shadow)">
+    <!-- Terminal Dark Frame -->
+    <rect width="320" height="464" rx="14" fill="#0F172A"/>
+    
+    <!-- Titlebar -->
+    <rect width="320" height="38" rx="14" fill="#1E293B"/>
+    <rect y="24" width="320" height="14" fill="#1E293B"/>
+    
+    <!-- Window Control Dots -->
+    <circle cx="20" cy="19" r="5" fill="#EF4444"/>
+    <circle cx="36" cy="19" r="5" fill="#F59E0B"/>
+    <circle cx="52" cy="19" r="5" fill="#10B981"/>
+    
+    <!-- Tab Title -->
+    <text x="160" y="23" text-anchor="middle" class="term-title">🌳 DSA Visualizer Console</text>
+    
+    <!-- Console Content Area -->
+    <g transform="translate(18, 68)">
+      <!-- Command Prompt -->
+      <text x="0" y="0" class="term-text">$ ./dsa_tree_traversal</text>
+      
+      <!-- Execution status badge -->
+      <rect x="0" y="22" width="220" height="24" rx="5" fill="#1E293B" stroke="#334155" stroke-width="1"/>
+      <text x="10" y="38" font-family="'Fira Code', monospace" font-size="11.5" fill="#94A3B8">Status: Exit Code 0 (Success)</text>
+      
+      <!-- Output Label -->
+      <text x="0" y="82" font-family="'Fira Code', monospace" font-size="12.5" font-weight="700" fill="#E2E8F0">&gt; Program Output:</text>
+      
+      <!-- Glowing Output Box -->
+      <rect x="0" y="96" width="284" height="88" rx="10" fill="#022C22" stroke="#059669" stroke-width="1.5"/>
+      
+      <!-- Output Text -->
+      <text x="16" y="134" class="term-out">Welcome to Programnotes</text>
+      <text x="16" y="164" font-family="'Fira Code', monospace" font-size="11.5" fill="#A7F3D0">✔ Program executed successfully</text>
+      
+      <!-- Stats Footer -->
+      <line x1="0" y1="215" x2="284" y2="215" stroke="#334155" stroke-width="1"/>
+      <text x="0" y="240" font-family="'Fira Code', monospace" font-size="11" fill="#64748B">Topic: DSA Core Syntax</text>
+      <text x="0" y="260" font-family="'Fira Code', monospace" font-size="11" fill="#64748B">Source: Programnotes Library</text>
+    </g>
+  </g>
+
+  <!-- NOTEBOOK HANDWRITTEN CONTENT -->
+  <g transform="translate(248, 0)">
+    <!-- Title -->
+    <text x="0" y="743" class="desk-title"># DATA STRUCTURES & ALGO</text>
+    
+    <!-- Intro Theory -->
+    <text x="0" y="768" class="desk-text">• Organizes data efficiently for storage & search.</text>
+    <text x="0" y="794" class="desk-text">• Analyzed using Big-O time/space complexity.</text>
+    
+    <!-- Code Section Header -->
+    <text x="0" y="845" font-family="'Caveat', cursive, sans-serif" font-size="21" font-weight="700" fill="#990000">// 1. Tree Node Visitor:</text>
+    
+    <!-- Code Lines -->
+    <text x="10" y="871" class="desk-code"><tspan class="desk-keyword">void</tspan> visitNode(Node* root) {</text>
+    <text x="10" y="896.5" class="desk-code">    <tspan class="desk-keyword">if</tspan> (!root) <tspan class="desk-keyword">return</tspan>;</text>
+    <text x="10" y="922" class="desk-code">    string msg = <tspan class="desk-string">"Welcome to Programnotes"</tspan>;</text>
+    <text x="10" y="947.5" class="desk-code">    cout &lt;&lt; msg &lt;&lt; endl;</text>
+    <text x="10" y="973" class="desk-code">    visitNode(root-&gt;left);</text>
+    <text x="10" y="998.5" class="desk-code">}</text>
+
+    <!-- Key Takeaways Section -->
+    <text x="0" y="1050" class="desk-title" font-size="21.5">★ Key Exam Points:</text>
+    <text x="0" y="1075" class="desk-text">1. Trees are hierarchical non-linear structures.</text>
+    <text x="0" y="1100.5" class="desk-text">2. Inorder: Left -> Root -> Right traversal.</text>
+    <text x="0" y="1126" class="desk-text">3. Recursion uses implicit call stack.</text>
+  </g>
+</svg>
